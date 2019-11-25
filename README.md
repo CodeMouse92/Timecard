@@ -1,4 +1,4 @@
-# Iimecard
+# Timecard
 
 Track time spent.
 
@@ -6,3 +6,4 @@ Track time spent.
 
 * Start, pause, and stop time tracking.
 * Add activity notes.
+* System tray
