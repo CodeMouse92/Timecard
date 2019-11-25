@@ -29,7 +29,7 @@ class App:
 
     @classmethod
     def _build_window(cls):
-        cls.window.resize(320, 240)
+        cls.window.resize(320, 400)
         cls.window.setWindowTitle(
             QApplication.translate("program_name", "Timecard")
         )
