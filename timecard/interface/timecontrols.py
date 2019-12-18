@@ -36,12 +36,32 @@ class TimeControls:
         cls.stop_callback = stop
 
     @classmethod
-    def _set_mode_stopped(cls):
-        """Set buttons to stopped-clock state.
+    def _disconnect_buttons(cls):
         """
+        Disconnect signals from the control buttons.
+        This must be done before new signals can be added properly.
+        """
+        try:
+            cls.btn_startpause.clicked.disconnect()
+        except RuntimeError:
+            pass
+
+        try:
+            cls.btn_stop.clicked.disconnect()
+        except RuntimeError:
+            pass
+
+    @classmethod
+    def _set_mode_stopped(cls):
+        """
+        Set buttons to stopped-clock state.
+        """
+        cls._disconnect_buttons()
+
         cls.btn_startpause.setText("Start")
         cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-start'))
         cls.btn_startpause.clicked.connect(cls.start)
+
         cls.btn_stop.setIcon(QIcon.fromTheme(None))
         cls.btn_stop.setText("Stopped")
         cls.btn_stop.setEnabled(False)
@@ -51,11 +71,15 @@ class TimeControls:
 
     @classmethod
     def _set_mode_prompt_stop(cls):
-        """Set buttons to stopped-clock state.
         """
+        Set buttons to stopped-clock state.
+        """
+        cls._disconnect_buttons()
+
         cls.btn_startpause.setText("Resume")
         cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-start'))
         cls.btn_startpause.clicked.connect(cls.resume)
+
         cls.btn_stop.setText("Confirm Stop")
         cls.btn_stop.setIcon(QIcon.fromTheme('media-playback-stop'))
         cls.btn_stop.clicked.connect(cls.stop)
@@ -63,11 +87,15 @@ class TimeControls:
 
     @classmethod
     def _set_mode_running(cls):
-        """Set buttons to running-clock state.
         """
+        Set buttons to running-clock state.
+        """
+        cls._disconnect_buttons()
+
         cls.btn_startpause.setText("Pause")
         cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-pause'))
         cls.btn_startpause.clicked.connect(cls.pause)
+
         cls.btn_stop.setText("Stop")
         cls.btn_stop.setIcon(QIcon.fromTheme('media-playback-stop'))
         cls.btn_stop.clicked.connect(cls.prompt_stop)
@@ -77,12 +105,16 @@ class TimeControls:
 
     @classmethod
     def _set_mode_paused(cls):
-        """Set buttons to paused-time state.
         """
+        Set buttons to paused-time state.
+        """
+        cls._disconnect_buttons()
+
         cls.btn_startpause.setText("Resume")
         cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-start'))
         cls.btn_startpause.clicked.connect(cls.resume)
         cls.btn_stop.setText("Stop")
+
         cls.btn_stop.setIcon(QIcon.fromTheme('media-playback-stop'))
         cls.btn_stop.clicked.connect(cls.prompt_stop)
         cls.btn_stop.setEnabled(True)

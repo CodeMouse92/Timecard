@@ -6,4 +6,9 @@ Track time spent.
 
 * Start, pause, and stop time tracking.
 * Add activity notes.
-* System tray
+* System tray.
+
+## Future Features
+
+* Pomodoro reminders.
+* Alarms.
