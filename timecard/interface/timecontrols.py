@@ -1,7 +1,8 @@
 from PySide2.QtWidgets import QPushButton, QHBoxLayout, QWidget
 from PySide2.QtGui import QIcon
 
-from . import Notes
+from timecard.interface.notes import Notes
+from timecard.interface.timedisplay import TimeDisplay
 
 
 class TimeControls:
@@ -45,6 +46,9 @@ class TimeControls:
         cls.btn_stop.setText("Stopped")
         cls.btn_stop.setEnabled(False)
 
+        TimeDisplay.stop_time()
+        TimeDisplay.reset_time()
+
     @classmethod
     def _set_mode_prompt_stop(cls):
         """Set buttons to stopped-clock state.
@@ -69,6 +73,8 @@ class TimeControls:
         cls.btn_stop.clicked.connect(cls.prompt_stop)
         cls.btn_stop.setEnabled(True)
 
+        TimeDisplay.start_time()
+
     @classmethod
     def _set_mode_paused(cls):
         """Set buttons to paused-time state.
@@ -80,6 +86,8 @@ class TimeControls:
         cls.btn_stop.setIcon(QIcon.fromTheme('media-playback-stop'))
         cls.btn_stop.clicked.connect(cls.prompt_stop)
         cls.btn_stop.setEnabled(True)
+
+        TimeDisplay.stop_time()
 
     @classmethod
     def start(cls):
