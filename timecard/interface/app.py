@@ -5,9 +5,15 @@ from PySide2.QtWidgets import (
 )
 
 
+class MainWindow(QWidget):
+    def closeEvent(self, event):
+        # TODO: Custom close handling here
+        event.accept()
+
+
 class App:
     app = QApplication()
-    window = QWidget()
+    window = MainWindow()
     layout = QVBoxLayout()
     systray = QSystemTrayIcon()
 

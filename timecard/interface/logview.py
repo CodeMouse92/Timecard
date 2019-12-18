@@ -18,11 +18,14 @@ class LogView:
         # TODO: Lock data types
         cls.view.setModel(cls.model)
         #cls.view.setEditTriggers(QTreeView.EditTrigger.DoubleClicked)
-        cls.load_data()
+        cls.refresh()
         return cls.view
 
     @classmethod
-    def load_data(cls):
+    def refresh(cls):
+        cls.model.clear()
+        # TODO: Implement user settings to format datestamp
+        # TODO: Implement user settings to format duration (HMS or decimal)
         for entry in TimeLog.log:
             cls.model.appendRow((
                 QStandardItem(entry[0]),

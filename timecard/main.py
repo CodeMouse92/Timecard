@@ -21,10 +21,6 @@ def startUI():
 
     interface.build()
 
-    TimeLog.write_to_file()
-
-    TimeLog.write_to_file()
-    
     Settings.save_to_file()
 
     return App.run()

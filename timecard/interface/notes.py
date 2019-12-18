@@ -12,3 +12,7 @@ class Notes:
     @classmethod
     def get_text(cls):
         return cls.txt_notes.text()
+
+    @classmethod
+    def clear(cls):
+        cls.txt_notes.clear()

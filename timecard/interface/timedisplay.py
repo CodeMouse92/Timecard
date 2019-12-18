@@ -37,16 +37,7 @@ class TimeDisplay:
         """
         Show the current elapsed time on the GUI.
         """
-        elapsed = cls.time.elapsed() + cls.freeze
-        seconds = elapsed // 1000
-
-        minutes = seconds // 60
-        seconds -= minutes * 60
-
-        hours = minutes // 60
-        minutes -= hours * 60
-
-        cls.show_time(hours, minutes, seconds)
+        cls.show_time(*cls.get_time())
 
     @classmethod
     def start_time(cls):
@@ -59,6 +50,7 @@ class TimeDisplay:
         if cls.time is None:
             cls.time = QTime()
             cls.time.start()
+            cls.freeze = 0
         else:
             cls.time.restart()
         cls.timer.start()
@@ -73,7 +65,27 @@ class TimeDisplay:
 
     @classmethod
     def reset_time(cls):
-        cls.freeze = 0
-        cls.show_time()
+        """
+        Prepare timer for reset, without erasing the last session's time.
+        """
         cls.timer = None
         cls.time = None
+
+    @classmethod
+    def get_time_ms(cls):
+        if cls.time:
+            return cls.time.elapsed() + cls.freeze
+        return cls.freeze
+
+    @classmethod
+    def get_time(cls):
+        elapsed = cls.get_time_ms()
+        seconds = elapsed // 1000
+
+        minutes = seconds // 60
+        seconds -= minutes * 60
+
+        hours = minutes // 60
+        minutes -= hours * 60
+
+        return (hours, minutes, seconds)
