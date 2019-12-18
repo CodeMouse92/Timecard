@@ -1,4 +1,5 @@
-"""App [Timecard]
+"""
+[Timecard]
 Version: 2.0
 Author(s): Jason C. McDonald
 """
@@ -15,8 +16,7 @@ logging.basicConfig(level=logging.DEBUG)
 def startUI():
     App.build()
 
-    Settings.load_from_default()
-    Settings.save_to_file()
+    Settings.load()
     TimeLog.load_from_file()
 
     interface.build()
@@ -24,5 +24,7 @@ def startUI():
     TimeLog.write_to_file()
 
     TimeLog.write_to_file()
+    
+    Settings.save_to_file()
 
     return App.run()
