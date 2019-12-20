@@ -11,39 +11,34 @@ class TimeDisplay:
 
     @classmethod
     def build(cls):
-        """
-        Build the time display GUI
-        """
+        """Build the time display GUI."""
         cls.show_default()
         cls.lcd.setMinimumSize(0, 100)
         return cls.lcd
 
     @classmethod
     def show_default(cls):
-        """
-        Reset the time display to 00:00:00
-        """
+        """Reset the time display to 00:00:00"""
         cls.show_time()
 
     @classmethod
     def show_time(cls, hours=0, minutes=0, seconds=0):
-        """
-        Show the indicated time on the GUI.
+        """Show the indicated time on the GUI.
+
+        hours -- the number of hours
+        minutes -- the number of minutes
+        seconds -- the number of seconds
         """
         cls.lcd.display(f"{hours:02}:{minutes:02}:{seconds:02}")
 
     @classmethod
     def update_time(cls):
-        """
-        Show the current elapsed time on the GUI.
-        """
+        """Show the current elapsed time on the GUI."""
         cls.show_time(*cls.get_time())
 
     @classmethod
     def start_time(cls):
-        """
-        Start or resume the timer.
-        """
+        """Start or resume the timer."""
         if cls.timer is None:
             cls.timer = QTimer(cls.lcd)
             cls.timer.timeout.connect(cls.update_time)
@@ -57,6 +52,7 @@ class TimeDisplay:
 
     @classmethod
     def stop_time(cls):
+        """Stop (paused) the timer."""
         if cls.time is not None:
             cls.freeze += cls.time.elapsed()
 
@@ -65,20 +61,23 @@ class TimeDisplay:
 
     @classmethod
     def reset_time(cls):
-        """
-        Prepare timer for reset, without erasing the last session's time.
-        """
+        """Prepare timer for reset, without erasing the last session's time."""
         cls.timer = None
         cls.time = None
 
     @classmethod
     def get_time_ms(cls):
+        """Returns the current elapsed time in milliseconds."""
         if cls.time:
             return cls.time.elapsed() + cls.freeze
         return cls.freeze
 
     @classmethod
     def get_time(cls):
+        """Returns the current elapsed time as a tuple
+        (hours, minutes, seconds)
+        """
+
         elapsed = cls.get_time_ms()
         seconds = elapsed // 1000
 

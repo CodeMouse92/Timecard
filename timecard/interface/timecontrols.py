@@ -22,6 +22,7 @@ class TimeControls:
 
     @classmethod
     def build(cls):
+        """Construct the interface."""
         cls.widget.setLayout(cls.layout)
         cls.layout.addWidget(cls.btn_startpause)
         cls.layout.addWidget(cls.btn_stopsave)
@@ -33,7 +34,17 @@ class TimeControls:
     @classmethod
     def connect(cls, /, start=None, resume=None, pause=None,
                 stop=None, save=None, reset=None):
-        """Connect functions to the time control events.
+        """Connect callbacks to the time control events.
+        Any callbacks not specified will not be overridden.
+        (See disconnect() for removing callbacks.)
+
+        Keyword arguments:
+        start -- called when a new timer is started
+        resume -- called when a timer is un-paused
+        pause -- called when a timer is paused or tentatively-stopped
+        stop -- called when a timer is stopped
+        save -- called when a stopped timer is saved to log
+        reset -- called when a stopped timer is cleared
         """
         if start:
             cls.start_callback = start
@@ -56,6 +67,18 @@ class TimeControls:
     @classmethod
     def disconnect(cls, /, start=False, resume=False, pause=False,
                    stop=False, save=False, reset=False):
+        """Disconnect functions from the time control events.
+        Pass True to any of the keyword arguments to clear the associated
+        callback.
+
+        Keyword arguments:
+        start -- called when a new timer is started
+        resume -- called when a timer is un-paused
+        pause -- called when a timer is paused or tentatively-stopped
+        stop -- called when a timer is stopped
+        save -- called when a stopped timer is saved to log
+        reset -- called when a stopped timer is cleared
+        """
         if start:
             cls.start_callback = None
 
@@ -76,8 +99,7 @@ class TimeControls:
 
     @classmethod
     def _disconnect_buttons(cls):
-        """
-        Disconnect signals from the control buttons.
+        """Disconnect signals from the control buttons.
         This must be done before new signals can be added properly.
         """
         try:
@@ -92,9 +114,7 @@ class TimeControls:
 
     @classmethod
     def _set_mode_stopped(cls):
-        """
-        Set buttons to stopped-clock state.
-        """
+        """Set buttons to stopped-clock state."""
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Start")
@@ -107,9 +127,8 @@ class TimeControls:
 
     @classmethod
     def _set_mode_save(cls):
-        """
-        Set buttons to save-or-reset state.
-        """
+        """Set buttons to save-or-reset state."""
+
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Reset")
@@ -123,9 +142,8 @@ class TimeControls:
 
     @classmethod
     def _set_mode_prompt_reset(cls):
-        """
-        Set buttons to reset-prompt state.
-        """
+        """Set buttons to reset-prompt state."""
+
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Confirm Reset")
@@ -139,9 +157,8 @@ class TimeControls:
 
     @classmethod
     def _set_mode_prompt_stop(cls):
-        """
-        Set buttons to stopped-clock state.
-        """
+        """Set buttons to stopped-clock state."""
+
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Resume")
@@ -155,9 +172,8 @@ class TimeControls:
 
     @classmethod
     def _set_mode_running(cls):
-        """
-        Set buttons to running-clock state.
-        """
+        """Set buttons to running-clock state."""
+
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Pause")
@@ -171,9 +187,8 @@ class TimeControls:
 
     @classmethod
     def _set_mode_paused(cls):
-        """
-        Set buttons to paused-time state.
-        """
+        """Set buttons to paused-time state."""
+
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Resume")
@@ -187,6 +202,8 @@ class TimeControls:
 
     @classmethod
     def start(cls):
+        """Start a new timer."""
+
         cls._set_mode_running()
         TimeDisplay.start_time()
         if cls.start_callback:
@@ -194,6 +211,8 @@ class TimeControls:
 
     @classmethod
     def resume(cls):
+        """Resume a paused timer."""
+
         cls._set_mode_running()
         TimeDisplay.start_time()
         if cls.resume_callback:
@@ -201,6 +220,8 @@ class TimeControls:
 
     @classmethod
     def pause(cls):
+        """Pause a running timer."""
+
         cls._set_mode_paused()
         TimeDisplay.stop_time()
         if cls.pause_callback:
@@ -208,6 +229,8 @@ class TimeControls:
 
     @classmethod
     def prompt_stop(cls):
+        """Pause timer and confirm stop."""
+
         cls._set_mode_prompt_stop()
         TimeDisplay.stop_time()
         if cls.pause_callback:
@@ -215,10 +238,13 @@ class TimeControls:
 
     @classmethod
     def cancel_stop(cls):
+        """Resume timer after cancelling a stop request."""
         cls._set_mode_running()
 
     @classmethod
     def stop(cls):
+        """Stop a timer."""
+
         cls._set_mode_save()
         TimeDisplay.stop_time()
         TimeDisplay.reset_time()
@@ -227,6 +253,8 @@ class TimeControls:
 
     @classmethod
     def save(cls):
+        """Save a stopped timer's time to the log."""
+
         cls._set_mode_stopped()
         notes = Notes.get_text()
         TimeLog.add_to_log(*TimeDisplay.get_time(), notes)
@@ -239,6 +267,8 @@ class TimeControls:
 
     @classmethod
     def reset(cls):
+        """Discard a stopped timer's time instead of saving it."""
+
         cls._set_mode_stopped()
         TimeDisplay.show_default()
         Notes.clear()
@@ -247,8 +277,6 @@ class TimeControls:
 
     @classmethod
     def prompt_reset(cls):
-        cls._set_mode_prompt_reset()
+        """Confirm reset."""
 
-    @classmethod
-    def cancel_reset(cls):
-        cls._set_mode_save()
+        cls._set_mode_prompt_reset()
