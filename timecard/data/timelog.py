@@ -1,7 +1,8 @@
 import functools
 import logging
 import os
-from . import Settings
+
+from timecard.data.settings import Settings
 
 
 def timelog_getter(func):

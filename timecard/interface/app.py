@@ -18,6 +18,8 @@ class App:
     layout = QVBoxLayout()
     systray = QSystemTrayIcon()
 
+    work_widget = None
+
     @classmethod
     def run(cls):
         """Run the application."""

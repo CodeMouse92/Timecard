@@ -3,7 +3,7 @@ from PySide2.QtGui import QIcon
 
 from timecard.interface.notes import Notes
 from timecard.interface.timedisplay import TimeDisplay
-from timecard.data import TimeLog
+from timecard.data.timelog import TimeLog
 from timecard.interface.logview import LogView
 
 

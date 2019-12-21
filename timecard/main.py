@@ -6,7 +6,7 @@ Author(s): Jason C. McDonald
 
 import logging
 
-from timecard import interface
+from timecard.interface import interface
 
 logging.basicConfig(level=logging.DEBUG)
 

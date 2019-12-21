@@ -1,7 +1,7 @@
 from PySide2.QtWidgets import QTreeView
 from PySide2.QtGui import QStandardItem, QStandardItemModel
 
-from timecard.data import TimeLog
+from timecard.data.timelog import TimeLog
 
 # Datestamp | Duration | Description
 
