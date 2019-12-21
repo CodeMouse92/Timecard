@@ -1,7 +1,9 @@
 {
     "python.pythonPath": "venv/bin/python3.8",
     "cSpell.words": [
+        "chk",
         "number",
+        "pomodoro",
         "qlcd",
         "timecardrc"
     ]

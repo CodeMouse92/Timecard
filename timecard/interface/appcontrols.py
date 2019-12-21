@@ -75,7 +75,24 @@ class AppControls:
 
     @classmethod
     def _set_mode_settings(cls):
-        pass
+        """Set buttons to those for Settings mode."""
+        cls._disconnect_buttons()
+
+        cls.btn_settings.setText("")
+        cls.btn_settings.setIcon(QIcon.fromTheme('go-home'))
+        cls.btn_settings.clicked.connect(cls.default)
+
+        cls.btn_about.setText("")
+        cls.btn_about.setIcon(QIcon.fromTheme('help-about'))
+        cls.btn_about.clicked.connect(cls.about)
+
+        cls.btn_help.setText("")
+        cls.btn_help.setIcon(QIcon.fromTheme('help-contents'))
+        cls.btn_help.clicked.connect(cls.help)
+
+        cls.btn_quit.setText("")
+        cls.btn_quit.setIcon(QIcon.fromTheme('application-exit'))
+        cls.btn_quit.clicked.connect(cls.quit)
 
     @classmethod
     def _set_mode_about(cls):
@@ -135,7 +152,8 @@ class AppControls:
 
     @classmethod
     def settings(cls):
-        pass
+        cls._set_mode_settings()
+        Workspace.set_mode_settings()
 
     @classmethod
     def help(cls):

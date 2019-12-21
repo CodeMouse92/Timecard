@@ -96,6 +96,12 @@ class Settings:
         return Path(*(logdir.split(os.pathsep)))
 
     @classmethod
+    @settings_setter
+    def set_logdir(cls, logdir):
+        """Set the log path."""
+        cls._settings['logdir'] = logdir
+
+    @classmethod
     @settings_getter
     def get_logname(cls):
         """Get the log filename."""
@@ -106,13 +112,13 @@ class Settings:
             return "time.log"
 
     @classmethod
+    @settings_setter
+    def set_logname(cls, logname):
+        """Set the log path."""
+        cls._settings['logname'] = logname
+
+    @classmethod
     @settings_getter
     def get_logpath(cls):
         """Get the full log path."""
         return cls.get_logdir().joinpath(cls.get_logname())
-
-    @classmethod
-    @settings_setter
-    def set_logpath(cls, path):
-        """Set the log path."""
-        cls._settings['logpath']
