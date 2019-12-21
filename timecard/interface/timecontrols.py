@@ -119,10 +119,12 @@ class TimeControls:
 
         cls.btn_startpause.setText("Start")
         cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-start'))
+        cls.btn_startpause.setWhatsThis("Start a new timer.")
         cls.btn_startpause.clicked.connect(cls.start)
 
         cls.btn_stopsave.setIcon(QIcon.fromTheme(None))
         cls.btn_stopsave.setText("Stopped")
+        cls.btn_stopsave.setWhatsThis("Timer is already stopped.")
         cls.btn_stopsave.setEnabled(False)
 
     @classmethod
@@ -133,9 +135,11 @@ class TimeControls:
 
         cls.btn_startpause.setText("Reset")
         cls.btn_startpause.setIcon(QIcon.fromTheme('edit-undo'))
+        cls.btn_startpause.setWhatsThis("Discard time and reset timer.")
         cls.btn_startpause.clicked.connect(cls.prompt_reset)
 
         cls.btn_stopsave.setIcon(QIcon.fromTheme('document-save'))
+        cls.btn_stopsave.setWhatsThis("Save time and notes to log.")
         cls.btn_stopsave.setText("Save")
         cls.btn_stopsave.setEnabled(True)
         cls.btn_stopsave.clicked.connect(cls.save)
@@ -148,9 +152,11 @@ class TimeControls:
 
         cls.btn_startpause.setText("Confirm Reset")
         cls.btn_startpause.setIcon(QIcon.fromTheme('edit-undo'))
+        cls.btn_startpause.setWhatsThis("Discard time and reset timer.")
         cls.btn_startpause.clicked.connect(cls.reset)
 
         cls.btn_stopsave.setIcon(QIcon.fromTheme('document-save'))
+        cls.btn_stopsave.setWhatsThis("Save time and notes to log.")
         cls.btn_stopsave.setText("Save")
         cls.btn_stopsave.setEnabled(True)
         cls.btn_stopsave.clicked.connect(cls.save)
@@ -163,10 +169,13 @@ class TimeControls:
 
         cls.btn_startpause.setText("Resume")
         cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-start'))
+        cls.btn_startpause.setWhatsThis("Resume timer from current time.")
         cls.btn_startpause.clicked.connect(cls.resume)
 
         cls.btn_stopsave.setText("Confirm Stop")
         cls.btn_stopsave.setIcon(QIcon.fromTheme('media-playback-stop'))
+        cls.btn_stopsave.setWhatsThis("Stop timer. Timer must be stopped "
+                                      "before you can save.")
         cls.btn_stopsave.clicked.connect(cls.stop)
         cls.btn_stopsave.setEnabled(True)
 
@@ -178,10 +187,13 @@ class TimeControls:
 
         cls.btn_startpause.setText("Pause")
         cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-pause'))
+        cls.btn_startpause.setWhatsThis("Pause timer.")
         cls.btn_startpause.clicked.connect(cls.pause)
 
         cls.btn_stopsave.setText("Stop")
         cls.btn_stopsave.setIcon(QIcon.fromTheme('media-playback-stop'))
+        cls.btn_stopsave.setWhatsThis("Stop timer. Timer must be stopped "
+                                      "before you can save.")
         cls.btn_stopsave.clicked.connect(cls.prompt_stop)
         cls.btn_stopsave.setEnabled(True)
 
@@ -193,10 +205,13 @@ class TimeControls:
 
         cls.btn_startpause.setText("Resume")
         cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-start'))
+        cls.btn_startpause.setWhatsThis("Resume timer from current time.")
         cls.btn_startpause.clicked.connect(cls.resume)
         cls.btn_stopsave.setText("Stop")
 
         cls.btn_stopsave.setIcon(QIcon.fromTheme('media-playback-stop'))
+        cls.btn_stopsave.setWhatsThis("Stop timer. Timer must be stopped "
+                                      "before you can save.")
         cls.btn_stopsave.clicked.connect(cls.prompt_stop)
         cls.btn_stopsave.setEnabled(True)
 

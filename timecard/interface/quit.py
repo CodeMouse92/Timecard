@@ -26,10 +26,12 @@ class QuitPrompt:
 
         cls.btn_no.setIcon(QIcon.fromTheme('go-previous'))
         cls.btn_no.setText("Keep Going")
+        cls.btn_no.setWhatsThis("Return to time log view.")
         cls.btn_no.clicked.connect(cls.no)
 
         cls.btn_yes.setIcon(QIcon.fromTheme('application-exit'))
         cls.btn_yes.setText("Quit")
+        cls.btn_yes.setWhatsThis("Quit Timecard.")
         cls.btn_yes.clicked.connect(cls.yes)
 
         cls.widget.setLayout(cls.layout)

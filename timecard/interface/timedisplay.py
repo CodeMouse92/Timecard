@@ -13,6 +13,8 @@ class TimeDisplay:
     @classmethod
     def build(cls):
         """Build the time display GUI."""
+        cls.lcd.setWhatsThis("The time elapsed on the current timer. "
+                             "(Hours:Minutes:Seconds)")
         cls.show_default()
         cls.lcd.setMinimumSize(0, 100)
         return cls.lcd

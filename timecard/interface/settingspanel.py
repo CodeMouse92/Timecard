@@ -26,8 +26,13 @@ class SettingsPanel:
     def build(cls):
         """Build the interface."""
         cls.txt_logdir.textEdited.connect(cls.edited)
+        cls.lbl_logdir.setWhatsThis("The directory where the logs are saved.")
+        cls.txt_logdir.setWhatsThis("The directory where the logs are saved.")
         cls.txt_logname.textEdited.connect(cls.edited)
+        cls.lbl_logname.setWhatsThis("The filename for the log.")
+        cls.txt_logname.setWhatsThis("The filename for the log.")
         cls.chk_pomodoro.stateChanged.connect(cls.edited)
+        cls.chk_pomodoro.setWhatsThis("Display reminders every 20 minutes.")
 
         cls.grid_layout.addWidget(cls.lbl_logdir, 0, 0)
         cls.grid_layout.addWidget(cls.txt_logdir, 0, 1)
@@ -39,7 +44,9 @@ class SettingsPanel:
         cls.buttons_layout.addWidget(cls.btn_revert)
         cls.buttons_layout.addWidget(cls.btn_save)
         cls.btn_save.clicked.connect(cls.save)
+        cls.btn_save.setWhatsThis("Save the settings.")
         cls.btn_revert.clicked.connect(cls.refresh)
+        cls.btn_revert.setWhatsThis("Discard changes to settings.")
 
         cls.buttons_widget.setLayout(cls.buttons_layout)
         cls.layout.addWidget(cls.grid_widget)

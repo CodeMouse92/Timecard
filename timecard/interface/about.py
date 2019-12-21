@@ -22,7 +22,7 @@ class About:
             cls.lbl_info.setPlainText("TIMECARD\n"
                                       "Created by Jason C. McDonald\n\n"
                                       "ERROR: `resources/about.txt` missing")
-
+        cls.lbl_info.setWhatsThis("Credits and license for Timecard.")
         cls.lbl_info.setReadOnly(True)
         cls.lbl_info.setAlignment(Qt.AlignCenter)
 

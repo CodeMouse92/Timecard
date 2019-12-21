@@ -1,8 +1,10 @@
 from PySide2.QtWidgets import QPushButton, QHBoxLayout, QWidget
+from PySide2.QtWidgets import QWhatsThis
 from PySide2.QtGui import QIcon
 
 from timecard.interface.workspace import Workspace
 from timecard.interface.quit import QuitPrompt
+
 
 class AppControls:
     widget = QWidget()
@@ -59,18 +61,22 @@ class AppControls:
 
         cls.btn_settings.setText("")
         cls.btn_settings.setIcon(QIcon.fromTheme('preferences-system'))
+        cls.btn_settings.setWhatsThis("View and edit settings.")
         cls.btn_settings.clicked.connect(cls.settings)
 
         cls.btn_about.setText("")
         cls.btn_about.setIcon(QIcon.fromTheme('help-about'))
+        cls.btn_about.setWhatsThis("View Timecard credits and license.")
         cls.btn_about.clicked.connect(cls.about)
 
         cls.btn_help.setText("")
         cls.btn_help.setIcon(QIcon.fromTheme('help-contents'))
-        cls.btn_help.clicked.connect(cls.settings)
+        cls.btn_help.setWhatsThis("Switch to help mode.")
+        cls.btn_help.clicked.connect(cls.help)
 
         cls.btn_quit.setText("")
         cls.btn_quit.setIcon(QIcon.fromTheme('application-exit'))
+        cls.btn_quit.setWhatsThis("Quit Timecard.")
         cls.btn_quit.clicked.connect(cls.quit)
 
     @classmethod
@@ -80,18 +86,22 @@ class AppControls:
 
         cls.btn_settings.setText("")
         cls.btn_settings.setIcon(QIcon.fromTheme('go-home'))
+        cls.btn_settings.setWhatsThis("Return to time log.")
         cls.btn_settings.clicked.connect(cls.default)
 
         cls.btn_about.setText("")
         cls.btn_about.setIcon(QIcon.fromTheme('help-about'))
+        cls.btn_about.setWhatsThis("View Timecard credits and license.")
         cls.btn_about.clicked.connect(cls.about)
 
         cls.btn_help.setText("")
         cls.btn_help.setIcon(QIcon.fromTheme('help-contents'))
+        cls.btn_help.setWhatsThis("Switch to help mode.")
         cls.btn_help.clicked.connect(cls.help)
 
         cls.btn_quit.setText("")
         cls.btn_quit.setIcon(QIcon.fromTheme('application-exit'))
+        cls.btn_quit.setWhatsThis("Quit Timecard.")
         cls.btn_quit.clicked.connect(cls.quit)
 
     @classmethod
@@ -101,23 +111,23 @@ class AppControls:
 
         cls.btn_settings.setText("")
         cls.btn_settings.setIcon(QIcon.fromTheme('preferences-system'))
+        cls.btn_settings.setWhatsThis("View and edit settings.")
         cls.btn_settings.clicked.connect(cls.settings)
 
         cls.btn_about.setText("")
         cls.btn_about.setIcon(QIcon.fromTheme('go-home'))
+        cls.btn_about.setWhatsThis("Return to time log.")
         cls.btn_about.clicked.connect(cls.default)
 
         cls.btn_help.setText("")
         cls.btn_help.setIcon(QIcon.fromTheme('help-contents'))
+        cls.btn_help.setWhatsThis("Switch to help mode.")
         cls.btn_help.clicked.connect(cls.help)
 
         cls.btn_quit.setText("")
         cls.btn_quit.setIcon(QIcon.fromTheme('application-exit'))
+        cls.btn_quit.setWhatsThis("Quit Timecard.")
         cls.btn_quit.clicked.connect(cls.quit)
-
-    @classmethod
-    def _set_mode_help(cls):
-        pass
 
     @classmethod
     def _set_mode_quit(cls):
@@ -126,18 +136,22 @@ class AppControls:
 
         cls.btn_settings.setText("")
         cls.btn_settings.setIcon(QIcon.fromTheme('preferences-system'))
+        cls.btn_settings.setWhatsThis("View and edit settings.")
         cls.btn_settings.clicked.connect(cls.settings)
 
         cls.btn_about.setText("")
         cls.btn_about.setIcon(QIcon.fromTheme('help-about'))
+        cls.btn_about.setWhatsThis("View Timecard credits and license.")
         cls.btn_about.clicked.connect(cls.about)
 
         cls.btn_help.setText("")
         cls.btn_help.setIcon(QIcon.fromTheme('help-contents'))
+        cls.btn_help.setWhatsThis("Switch to help mode.")
         cls.btn_help.clicked.connect(cls.help)
 
         cls.btn_quit.setText("")
         cls.btn_quit.setIcon(QIcon.fromTheme('go-home'))
+        cls.btn_quit.setWhatsThis("Return to time log.")
         cls.btn_quit.clicked.connect(cls.default)
 
     @classmethod
@@ -157,9 +171,8 @@ class AppControls:
 
     @classmethod
     def help(cls):
-        # Use "What's This" mode
         # https://doc.qt.io/qtforpython/PySide2/QtWidgets/QWhatsThis.html
-        pass
+        QWhatsThis.enterWhatsThisMode()
 
     @classmethod
     def quit(cls):

@@ -8,6 +8,8 @@ class Notes:
     def build(cls):
         """Build the notes interface."""
         cls.txt_notes.setPlaceholderText("What are you doing?")
+        cls.txt_notes.setWhatsThis("A description for your current activity. "
+                                   "This will be saved with the log entry.")
         return cls.txt_notes
 
     @classmethod

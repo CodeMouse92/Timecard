@@ -13,12 +13,10 @@ class LogView:
     @classmethod
     def build(cls):
         """Build the interface"""
-        cls.model.setHorizontalHeaderLabels(
-            ("Date", "Duration", "Activity")
-        )
         # TODO: Lock data types
         cls.view.setModel(cls.model)
         cls.view.setEditTriggers(QTreeView.EditTrigger.DoubleClicked)
+        cls.view.setWhatsThis("The time log.")
         cls.refresh()
         return cls.view
 
@@ -26,6 +24,9 @@ class LogView:
     def refresh(cls):
         """Reload the data from the log."""
         cls.model.clear()
+        cls.model.setHorizontalHeaderLabels(
+            ["Date", "Duration", "Activity"]
+        )
         # TODO: Implement user settings to format datestamp
         # TODO: Implement user settings to format duration (HMS or decimal)
         for entry in TimeLog.retrieve_log():
