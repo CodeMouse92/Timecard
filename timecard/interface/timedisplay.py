@@ -1,4 +1,4 @@
-from PySide2.QtCore import QTime, QTimer
+from PySide2.QtCore import Qt, QDateTime, QTime, QTimer
 from PySide2.QtWidgets import QLCDNumber
 
 
@@ -7,6 +7,7 @@ class TimeDisplay:
     lcd = QLCDNumber(8)
     timer = None
     time = None
+    timestamp = None
     freeze = 0
 
     @classmethod
@@ -45,6 +46,7 @@ class TimeDisplay:
         if cls.time is None:
             cls.time = QTime()
             cls.time.start()
+            cls.timestamp = QDateTime.currentDateTime()
             cls.freeze = 0
         else:
             cls.time.restart()
@@ -88,3 +90,9 @@ class TimeDisplay:
         minutes -= hours * 60
 
         return (hours, minutes, seconds)
+
+    @classmethod
+    def get_timestamp(cls):
+        """Returns the timestamp of the last timer start as a string."""
+        # TODO: Format based on user settings
+        return cls.timestamp.toString(Qt.SystemLocaleShortDate)

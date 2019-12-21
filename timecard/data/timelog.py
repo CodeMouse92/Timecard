@@ -89,9 +89,10 @@ class TimeLog:
 
     @classmethod
     @timelog_setter
-    def add_to_log(cls, hours, minutes, seconds, notes):
+    def add_to_log(cls, timestamp, hours, minutes, seconds, notes):
         """Add an entry to the log.
 
+        timestamp -- the timestamp as a string
         hours -- the number of elapsed hours
         minutes -- the number of elapsed minutes
         seconds -- the number of elapsed seconds
@@ -99,7 +100,7 @@ class TimeLog:
         """
         # Add the entry directly to the log.
         cls._log.append((
-            f"DATE",
+            f"{timestamp}",
             f"{hours:02}:{minutes:02}:{seconds:02}",
             f"{notes}"
         ))

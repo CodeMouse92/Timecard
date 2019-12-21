@@ -257,7 +257,8 @@ class TimeControls:
 
         cls._set_mode_stopped()
         notes = Notes.get_text()
-        TimeLog.add_to_log(*TimeDisplay.get_time(), notes)
+        TimeLog.add_to_log(TimeDisplay.get_timestamp(),
+                           *TimeDisplay.get_time(), notes)
         LogView.refresh()
         Notes.clear()
         TimeDisplay.stop_time()
