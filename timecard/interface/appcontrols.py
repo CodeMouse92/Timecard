@@ -2,7 +2,7 @@ from PySide2.QtWidgets import QPushButton, QHBoxLayout, QWidget
 from PySide2.QtGui import QIcon
 
 from timecard.interface.workspace import Workspace
-
+from timecard.interface.quit import QuitPrompt
 
 class AppControls:
     widget = QWidget()
@@ -20,6 +20,8 @@ class AppControls:
         cls.layout.addWidget(cls.btn_about)
         cls.layout.addWidget(cls.btn_help)
         cls.layout.addWidget(cls.btn_quit)
+
+        QuitPrompt.connect(cls.default)
 
         cls._set_mode_default()
 
@@ -102,7 +104,24 @@ class AppControls:
 
     @classmethod
     def _set_mode_quit(cls):
-        pass
+        """Set buttons to those for Quit Prompt mode."""
+        cls._disconnect_buttons()
+
+        cls.btn_settings.setText("")
+        cls.btn_settings.setIcon(QIcon.fromTheme('preferences-system'))
+        cls.btn_settings.clicked.connect(cls.settings)
+
+        cls.btn_about.setText("")
+        cls.btn_about.setIcon(QIcon.fromTheme('help-about'))
+        cls.btn_about.clicked.connect(cls.about)
+
+        cls.btn_help.setText("")
+        cls.btn_help.setIcon(QIcon.fromTheme('help-contents'))
+        cls.btn_help.clicked.connect(cls.help)
+
+        cls.btn_quit.setText("")
+        cls.btn_quit.setIcon(QIcon.fromTheme('go-home'))
+        cls.btn_quit.clicked.connect(cls.default)
 
     @classmethod
     def default(cls):
@@ -126,4 +145,5 @@ class AppControls:
 
     @classmethod
     def quit(cls):
-        pass
+        cls._set_mode_quit()
+        Workspace.set_mode_quit()
