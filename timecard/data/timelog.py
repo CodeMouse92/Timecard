@@ -105,3 +105,13 @@ class TimeLog:
             f"{hours:02}:{minutes:02}:{seconds:02}",
             f"{notes}"
         ))
+
+    @classmethod
+    @timelog_setter
+    def remove_from_log(cls, index):
+        """Remove an entry from the log.
+        This relies on the indices in LogView and TimeLog being the same.
+
+        index -- the index of the item to remove
+        """
+        del cls._log[index]
