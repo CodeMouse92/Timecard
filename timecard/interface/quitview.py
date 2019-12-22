@@ -5,7 +5,7 @@ from PySide2.QtGui import QIcon
 from timecard.interface.app import App
 
 
-class QuitPrompt:
+class QuitView:
     widget = QWidget()
     layout = QGridLayout()
     lbl_prompt = QLabel()
@@ -50,4 +50,4 @@ class QuitPrompt:
     @classmethod
     def yes(cls):
         """Quit the program."""
-        App.app.quit()
+        App.quit()

@@ -3,7 +3,7 @@ from PySide2.QtWidgets import QWhatsThis
 from PySide2.QtGui import QIcon
 
 from timecard.interface.workspace import Workspace
-from timecard.interface.quit import QuitPrompt
+from timecard.interface.quitview import QuitView
 
 
 class AppControls:
@@ -23,7 +23,7 @@ class AppControls:
         cls.layout.addWidget(cls.btn_help)
         cls.layout.addWidget(cls.btn_quit)
 
-        QuitPrompt.connect(cls.default)
+        QuitView.connect(cls.default)
 
         cls._set_mode_default()
 
