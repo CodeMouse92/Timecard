@@ -171,7 +171,6 @@ class AppControls:
 
     @classmethod
     def help(cls):
-        # https://doc.qt.io/qtforpython/PySide2/QtWidgets/QWhatsThis.html
         QWhatsThis.enterWhatsThisMode()
 
     @classmethod

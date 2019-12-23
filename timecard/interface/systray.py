@@ -52,8 +52,13 @@ class SysTray:
             save=cls.set_mode_stopped,
             reset=cls.set_mode_stopped
         )
+        App.connect(notify=cls.popup)
 
         return cls.systray
+
+    @classmethod
+    def popup(cls, message):
+        cls.systray.showMessage("Timecard", message, App.icon)
 
     @classmethod
     def update_time(cls, /, hours=0, minutes=0, seconds=0):

@@ -20,7 +20,7 @@ class App:
     layout = QVBoxLayout()
     icon = QIcon(str(Path('timecard', 'resources', 'timecard.svg')))
 
-    work_widget = None
+    notify_callback = None
 
     @classmethod
     def run(cls):
@@ -59,11 +59,22 @@ class App:
     def hide_window(cls):
         """Hide the main window."""
         cls.window.hide()
+        cls.notify("Timecard is still available in the notification area.")
 
     @classmethod
     def add_widget(cls, widget):
         """Add a widget to the main window."""
         cls.layout.addWidget(widget)
+
+    @classmethod
+    def notify(cls, message):
+        if cls.notify_callback:
+            cls.notify_callback(message)
+
+    @classmethod
+    def connect(cls, /, notify=None):
+        if notify:
+            cls.notify_callback = notify
 
     @classmethod
     def quit(cls):
