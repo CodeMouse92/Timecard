@@ -10,7 +10,6 @@ class MainWindow(QWidget):
         """Hide the window on close."""
         App.hide_window()
         event.ignore()
-        # TODO: Show popup to notify about the tray
         # TODO: Use a setting to determine this behavior?
 
 
@@ -59,7 +58,7 @@ class App:
     def hide_window(cls):
         """Hide the main window."""
         cls.window.hide()
-        cls.notify("Timecard is still available in the notification area.")
+        cls.notify("Timecard is still running in the notification area.")
 
     @classmethod
     def add_widget(cls, widget):

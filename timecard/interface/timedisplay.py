@@ -101,7 +101,13 @@ class TimeDisplay:
     def get_timestamp(cls):
         """Returns the timestamp of the last timer start as a string."""
         # TODO: Format based on user settings
-        return cls.timestamp.toString(Qt.SystemLocaleShortDate)
+        timestamp = ((f"{cls.timestamp.date().year()}-"
+                      f"{cls.timestamp.date().month()}-"
+                      f"{cls.timestamp.date().day()}-"
+                      f"{cls.timestamp.time().hour()}-"
+                      f"{cls.timestamp.time().minute()}-"
+                      f"{cls.timestamp.time().second()}"))
+        return timestamp
 
     @classmethod
     def subscribe(cls, callback=None):

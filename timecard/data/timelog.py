@@ -1,3 +1,4 @@
+from datetime import datetime
 import functools
 import logging
 import os
@@ -28,6 +29,52 @@ def timelog_setter(func):
     return wrapper
 
 
+class LogEntry:
+
+    def __init__(self, timestamp=None, duration=(0, 0, 0), notes=""):
+        self.timestamp = timestamp
+        self.duration = duration
+        self.notes = notes
+
+    def set_timestamp(self, year, month, day, hour, minute, second):
+        self.timestamp = datetime(year, month, day, hour, minute, second)
+
+    def set_timestamp_from_string(self, timestamp_str):
+        try:
+            ts = [int(n) for n in timestamp_str.split('-')]
+            self.set_timestamp(*ts)
+        except (TypeError, ValueError):
+            return False
+        return True
+
+    def set_duration(self, hours, minutes, seconds):
+        self.duration = (hours, minutes, seconds)
+
+    def set_duration_from_string(self, duration_str):
+        try:
+            duration = [int(n) for n in duration_str.split(':')]
+            self.set_duration(*duration)
+        except (TypeError, ValueError):
+            return False
+        return True
+
+    def timestamp_as_string(self):
+        return (f"{self.timestamp.year}-{self.timestamp.month}-"
+                f"{self.timestamp.day}-{self.timestamp.hour}-"
+                f"{self.timestamp.minute}-{self.timestamp.second}")
+
+    def timestamp_as_format(self, format):
+        return self.timestamp.strftime(format)
+
+    def duration_as_string(self):
+        return (f"{self.duration[0]:02}:"
+                f"{self.duration[1]:02}:"
+                f"{self.duration[2]:02}")
+
+    def set_notes(self, notes):
+        self.notes = notes
+
+
 class TimeLog:
     _log = None
 
@@ -50,16 +97,21 @@ class TimeLog:
                 # Process each line in the log file
                 for lineno, line in enumerate(file, start=1):
                     # Each entry consists of three fields, separated by pipes
-                    entry = line.strip().split('|', 3)
+                    entry_raw = line.strip().split('|', 3)
 
                     # If we don't get three fields,
                     # log a warning and skip the entry.
-                    if len(entry) != 3:
+                    if len(entry_raw) != 3:
                         logging.warning(f"Invalid entry in {path}:{lineno}\n"
                                         f"  {line}")
                         continue
 
                     # Add the entry to the log.
+                    entry = LogEntry()
+                    entry.set_timestamp_from_string(entry_raw[0])
+                    entry.set_duration_from_string(entry_raw[1])
+                    entry.set_notes(entry_raw[2])
+
                     cls._log.append(entry)
         # If no log file exists, move forward with the empty log (default).
         except FileNotFoundError:
@@ -80,13 +132,25 @@ class TimeLog:
         # Write the log out to the file.
         with logpath.open('w') as file:
             for entry in cls._log:
-                file.write(f'{entry[0]}|{entry[1]}|{entry[2]}\n')
+                file.write((f"{entry.timestamp_as_string()}|"
+                            f"{entry.duration_as_string()}|"
+                            f"{entry.notes}\n"))
 
     @classmethod
     @timelog_getter
     def retrieve_log(cls):
         """Returns the log, loading it from file if necessary."""
         return cls._log
+
+    @classmethod
+    @timelog_getter
+    def retrieve_from_log(cls, index):
+        """Returns an entry in the log, loading from file if necessary."""
+        try:
+            return cls._log[index]
+        except IndexError:
+            logging.warning("Cannot access entry at invalid log index.")
+            return None
 
     @classmethod
     @timelog_setter
@@ -100,18 +164,41 @@ class TimeLog:
         notes -- the activity description string for the entry
         """
         # Add the entry directly to the log.
-        cls._log.append((
-            f"{timestamp}",
-            f"{hours:02}:{minutes:02}:{seconds:02}",
-            f"{notes}"
-        ))
+        entry = LogEntry()
+        entry.set_timestamp_from_string(timestamp)
+        entry.set_duration(hours, minutes, seconds)
+        entry.set_notes(notes)
+
+        cls._log.append(entry)
+
+    @classmethod
+    @timelog_setter
+    def edit_in_log(cls, index, timestamp, hours, minutes, seconds, notes):
+        """Edit an entry in the log.
+        This relies on the indices in LogView and TimeLog being the same.
+        FIXME: This assumption fails when log is sorted!
+
+        index -- the index of the item to edit
+        """
+        entry = LogEntry()
+        entry.set_timestamp_from_string(timestamp)
+        entry.set_duration(hours, minutes, seconds)
+        entry.set_notes(notes)
+        try:
+            cls._log[index] = entry
+        except IndexError:
+            logging.warning("Cannot edit entry at invalid log index.")
 
     @classmethod
     @timelog_setter
     def remove_from_log(cls, index):
         """Remove an entry from the log.
         This relies on the indices in LogView and TimeLog being the same.
+        FIXME: This assumption fails when log is sorted!
 
         index -- the index of the item to remove
         """
-        del cls._log[index]
+        try:
+            del cls._log[index]
+        except IndexError:
+            logging.warning("Cannot delete entry at invalid log index.")

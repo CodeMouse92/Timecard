@@ -1,4 +1,5 @@
-from PySide2.QtWidgets import QWidget, QTreeWidget, QGridLayout, QPushButton, QTreeWidgetItem
+from PySide2.QtWidgets import QWidget, QTreeWidget, QGridLayout, QPushButton
+from PySide2.QtWidgets import QTreeWidgetItem
 from PySide2.QtGui import QStandardItem, QStandardItemModel
 from PySide2.QtGui import QIcon
 
@@ -10,11 +11,12 @@ from timecard.data.timelog import TimeLog
 class LogView:
     widget = QWidget()
     layout = QGridLayout()
-    #model = QStandardItemModel(0, 3)
     tree_log = QTreeWidget()
 
     btn_edit = QPushButton()
     btn_delete = QPushButton()
+
+    edit_callback = None
 
     @classmethod
     def build(cls):
@@ -46,13 +48,18 @@ class LogView:
         # TODO: Implement user settings to format duration (HMS or decimal)
         for entry in TimeLog.retrieve_log():
             item = QTreeWidgetItem()
-            item.setText(0, entry[0])
-            item.setText(1, entry[1])
-            item.setText(2, entry[2])
-            item.setToolTip(0, entry[0])
-            item.setToolTip(1, entry[1])
-            item.setToolTip(2, entry[2])
+            item.setText(0, entry.timestamp_as_format("%m/%d/%y %H:%M:%S"))
+            item.setText(1, entry.duration_as_string())
+            item.setText(2, entry.notes)
+            item.setToolTip(0, item.text(0))
+            item.setToolTip(1, item.text(1))
+            item.setToolTip(2, item.text(2))
             cls.tree_log.addTopLevelItem(item)
+
+    @classmethod
+    def connect(cls, /, edit=None):
+        if edit:
+            cls.edit_callback = edit
 
     @classmethod
     def _disconnect_buttons(cls):
@@ -89,11 +96,15 @@ class LogView:
         cls.btn_delete.clicked.connect(cls.delete)
 
     @classmethod
+    def _selected_index(cls):
+        item = cls.tree_log.selectedItems()[0]
+        return cls.tree_log.indexFromItem(item).row()
+
+    @classmethod
     def delete(cls):
-        for item in cls.tree_log.selectedItems():
-            index = cls.tree_log.indexFromItem(item).row()
-            cls.tree_log.takeTopLevelItem(index)
-            TimeLog.remove_from_log(index)
+        index = cls._selected_index()
+        cls.tree_log.takeTopLevelItem(index)
+        TimeLog.remove_from_log(index)
 
         cls.unselected()
         cls._set_mode_default()
@@ -120,6 +131,6 @@ class LogView:
 
     @classmethod
     def edit(cls):
-        # TODO: Add EditView (switch on Workspace).
-        # EditView will allows editing item correctly, respecting data types.
-        pass
+        index = cls._selected_index()
+        if cls.edit_callback:
+            cls.edit_callback(index)
