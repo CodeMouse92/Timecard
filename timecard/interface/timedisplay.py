@@ -10,6 +10,8 @@ class TimeDisplay:
     timestamp = None
     freeze = 0
 
+    callback = None
+
     @classmethod
     def build(cls):
         """Build the time display GUI."""
@@ -33,6 +35,8 @@ class TimeDisplay:
         seconds -- the number of seconds
         """
         cls.lcd.display(f"{hours:02}:{minutes:02}:{seconds:02}")
+        if cls.callback:
+            cls.callback(hours, minutes, seconds)
 
     @classmethod
     def update_time(cls):
@@ -98,3 +102,8 @@ class TimeDisplay:
         """Returns the timestamp of the last timer start as a string."""
         # TODO: Format based on user settings
         return cls.timestamp.toString(Qt.SystemLocaleShortDate)
+
+    @classmethod
+    def subscribe(cls, callback=None):
+        if callback:
+            cls.callback = callback
