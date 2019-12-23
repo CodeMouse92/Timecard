@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 from PySide2.QtWidgets import QApplication, QVBoxLayout, QWidget
 from PySide2.QtGui import QIcon
@@ -17,7 +18,7 @@ class App:
     app = QApplication()
     window = MainWindow()
     layout = QVBoxLayout()
-    icon = QIcon('resources/timecard.svg')  # TODO: This isn't working
+    icon = QIcon(str(Path('timecard', 'resources', 'timecard.svg')))
 
     work_widget = None
 
@@ -39,7 +40,7 @@ class App:
         cls.window.setWindowTitle(
             QApplication.translate("program_name", "Timecard")
         )
-        # TODO: Set window icon
+        cls.window.setWindowIcon(cls.icon)
         cls.window.setLayout(cls.layout)
 
     @classmethod
