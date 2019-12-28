@@ -42,14 +42,27 @@ class EditView:
     def build(cls):
         """Build the interface."""
 
-        cls.cal_timestamp.dateTimeChanged.connect(cls.edited)
-        cls.spn_hour.valueChanged.connect(cls.edited)
-        cls.spn_min.valueChanged.connect(cls.edited)
-        cls.spn_sec.valueChanged.connect(cls.edited)
-        cls.txt_activity.textChanged.connect(cls.edited)
-
+        cls.lbl_timestamp.setWhatsThis("The timestamp for the entry.")
+        cls.cal_timestamp.setWhatsThis("The timestamp for the entry.")
         # TODO: Implement user settings to format datestamp
         cls.cal_timestamp.setDisplayFormat("MM/d/yy hh:mm:ss")
+        cls.cal_timestamp.dateTimeChanged.connect(cls.edited)
+
+        cls.lbl_hour.setWhatsThis("The hour part of the entry duration.")
+        cls.spn_hour.setWhatsThis("The hour part of the entry duration.")
+        cls.spn_hour.valueChanged.connect(cls.edited)
+
+        cls.lbl_min.setWhatsThis("The minute part of the entry duration.")
+        cls.spn_min.setWhatsThis("The minute part of the entry duration.")
+        cls.spn_min.valueChanged.connect(cls.edited)
+
+        cls.lbl_sec.setWhatsThis("The second part of the entry duration.")
+        cls.spn_sec.setWhatsThis("The second part of the entry duration.")
+        cls.spn_sec.valueChanged.connect(cls.edited)
+
+        cls.lbl_activity.setWhatsThis("The activity notes for the entry.")
+        cls.txt_activity.setWhatsThis("The activity notes for the entry.")
+        cls.txt_activity.textChanged.connect(cls.edited)
 
         cls.grid_layout.addWidget(cls.lbl_timestamp, 0, 0, 1, 1)
         cls.grid_layout.addWidget(cls.cal_timestamp, 0, 1, 1, 1)
