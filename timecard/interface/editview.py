@@ -44,8 +44,7 @@ class EditView:
 
         cls.lbl_timestamp.setWhatsThis("The timestamp for the entry.")
         cls.cal_timestamp.setWhatsThis("The timestamp for the entry.")
-        # TODO: Implement user settings to format datestamp
-        cls.cal_timestamp.setDisplayFormat("MM/d/yy hh:mm:ss")
+        cls.cal_timestamp.setDisplayFormat("yyyy MMM dd hh:mm:ss")
         cls.cal_timestamp.dateTimeChanged.connect(cls.edited)
 
         cls.lbl_hour.setWhatsThis("The hour part of the entry duration.")

@@ -65,6 +65,8 @@ class Settings:
         """
         cls._settings = dict()
 
+        cls._settings['datefmt'] = cls.get_datefmt()
+        cls._settings['decdur'] = str(cls.get_decdur())
         cls._settings['logdir'] = cls.get_logdir_str()
         cls._settings['logname'] = cls.get_logname()
         cls._settings['persist'] = str(cls.get_persist())
@@ -125,7 +127,7 @@ class Settings:
     def get_persist(cls):
         """Returns whether closing the window should hide it or quit."""
         try:
-            return cls._settings['persist'] != "False"
+            return cls._settings['persist'] != 'False'
         except KeyError:
             return True
 
@@ -134,3 +136,34 @@ class Settings:
     def set_persist(cls, persist):
         """Sets persistence."""
         cls._settings['persist'] = str(persist)
+
+    @classmethod
+    @settings_getter
+    def get_datefmt(cls):
+        """Returns timestamp format (should be in 1989 C standard)."""
+        try:
+            return cls._settings['datefmt']
+        except KeyError:
+            return "%Y-%m-%d %H:%M:%S"
+
+    @classmethod
+    @settings_setter
+    def set_datefmt(cls, datefmt):
+        cls._settings['datefmt'] = datefmt
+
+    @classmethod
+    @settings_getter
+    def get_decdur(cls):
+        """Returns whether duration should be displayed as decimal
+        or HH:MM;SS.
+        """
+        try:
+            return cls._settings['decdur'] != 'False'
+        except KeyError:
+            return False
+
+    @classmethod
+    @settings_setter
+    def set_decdur(cls, decdur):
+        """Sets whether duration should be displayed as decimal."""
+        cls._settings['decdur'] = str(decdur)

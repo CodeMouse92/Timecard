@@ -94,11 +94,15 @@ class LogEntry:
         """Retrieve timestamp according to given format string."""
         return self.timestamp.strftime(format)
 
-    def duration_as_string(self):
+    def duration_as_string(self, as_decimal=False):
         """Retrieve duration in format HH:MM:SS"""
-        return (f"{self.duration[0]:02}:"
-                f"{self.duration[1]:02}:"
-                f"{self.duration[2]:02}")
+        if as_decimal:
+            decdur = self.duration[0] + (self.duration[1]/60)
+            return f"{decdur:.2f}"
+        else:
+            return (f"{self.duration[0]:02}:"
+                    f"{self.duration[1]:02}:"
+                    f"{self.duration[2]:02}")
 
     def set_notes(self, notes):
         """Retrive note string."""

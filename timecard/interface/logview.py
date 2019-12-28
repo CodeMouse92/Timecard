@@ -3,6 +3,7 @@ from PySide2.QtWidgets import QTreeWidgetItem
 from PySide2.QtGui import QIcon
 
 from timecard.data.timelog import TimeLog
+from timecard.data.settings import Settings
 
 # Datestamp | Duration | Description
 
@@ -13,10 +14,8 @@ class LogViewEntry(QTreeWidgetItem):
         self.entry = entry
         super().__init__(*args, **kwargs)
 
-        # TODO: Implement user settings to format datestamp
-        # TODO: Implement user settings to format duration (HMS or decimal)
-        self.setText(0, self.entry.timestamp_as_format("%m/%d/%y %H:%M:%S"))
-        self.setText(1, self.entry.duration_as_string())
+        self.setText(0, self.entry.timestamp_as_format(Settings.get_datefmt()))
+        self.setText(1, self.entry.duration_as_string(Settings.get_decdur()))
         self.setText(2, self.entry.notes)
         self.setToolTip(0, self.text(0))
         self.setToolTip(1, self.text(1))
