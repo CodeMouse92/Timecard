@@ -10,7 +10,7 @@ from shutil import rmtree
 from setuptools import find_packages, setup, Command
 
 # Package meta-data
-NAME = 'Timecard'
+NAME = 'Timecard-App'
 VERSION = '2.0.0'
 DESCRIPTION = 'Application for tracking time spent.'
 AUTHOR = 'Jason C. McDonald'
@@ -39,6 +39,7 @@ if not VERSION:
         exec(f.read(), about)
 else:
     about['__version__'] = VERSION
+
 
 class UploadCommand(Command):
     """Support setup.py upload."""
