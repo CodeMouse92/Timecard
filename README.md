@@ -40,7 +40,7 @@ save, you can also click "Quit" from the system tray icon menu.
 
 Timecard 1.0 was the first application ever released by developer and author
 Jason C. McDonald, built in Visual Basic .NET 2010, and released through
-the newly founded MousePaw Games.
+the then newly founded MousePaw Games.
 
 This is a resurrection of that project. It offers the same core functionality
 as the original, but in an improved interface. Unlike its predecessor,

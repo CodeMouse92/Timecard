@@ -130,7 +130,7 @@ class TimeLog:
                         )
 
     @classmethod
-    def load(cls, /, force=False):
+    def load(cls, force=False):
         """Load the time log from file."""
 
         # If we've already loaded, don't reload unless forced to.

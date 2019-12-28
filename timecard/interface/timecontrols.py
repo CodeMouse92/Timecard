@@ -38,7 +38,7 @@ class TimeControls:
         return cls.widget
 
     @classmethod
-    def connect(cls, /, start=None, resume=None, pause=None,
+    def connect(cls, start=None, resume=None, pause=None,
                 stop=None, save=None, reset=None):
         """Connect callbacks to the time control events.
         Any callbacks not specified will not be overridden.
@@ -71,7 +71,7 @@ class TimeControls:
             cls.reset_callback = reset
 
     @classmethod
-    def disconnect(cls, /, start=False, resume=False, pause=False,
+    def disconnect(cls, start=False, resume=False, pause=False,
                    stop=False, save=False, reset=False):
         """Disconnect functions from the time control events.
         Pass True to any of the keyword arguments to clear the associated

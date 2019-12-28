@@ -72,7 +72,7 @@ class LogView:
             cls.tree_log.addTopLevelItem(item)
 
     @classmethod
-    def connect(cls, /, edit=None):
+    def connect(cls, edit=None):
         if edit:
             cls.edit_callback = edit
 

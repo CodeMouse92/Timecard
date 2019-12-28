@@ -35,7 +35,7 @@ class Settings:
     _settings_path = Path(Path.home(), ".timecardrc")
 
     @classmethod
-    def load(cls, /, force=False):
+    def load(cls, force=False):
         """Load the settings from either file (if it exists) or default."""
 
         # If we've already loaded, don't reload unless forced to.

@@ -11,13 +11,13 @@ from setuptools import find_packages, setup, Command
 
 # Package meta-data
 NAME = 'Timecard-App'
-VERSION = '2.0.0'
+VERSION = '2.0.1'
 DESCRIPTION = 'Application for tracking time spent.'
 AUTHOR = 'Jason C. McDonald'
 EMAIL = 'codemouse92@outlook.com'
-URL = 'https://github.com/codeouse92/timecard'
+URL = 'https://github.com/codemouse92/timecard'
 
-REQUIRES_PYTHON = '>=3.8.0'
+REQUIRES_PYTHON = '>=3.7.0'
 
 REQUIRED = ['PySide2 >= 5.14.0']
 

@@ -67,7 +67,7 @@ class SysTray:
         cls.systray.showMessage("Timecard", message, App.icon)
 
     @classmethod
-    def update_time(cls, /, hours=0, minutes=0, seconds=0):
+    def update_time(cls, hours=0, minutes=0, seconds=0):
         cls.act_status.setText(f"{hours:02}:{minutes:02}:{seconds:02}")
 
     @classmethod
@@ -121,6 +121,6 @@ class SysTray:
         App.quit()
 
     @classmethod
-    def connect(cls, /, toggle=None, quit=None):
+    def connect(cls, toggle=None, quit=None):
         cls.toggle_callback = toggle
         cls.quit_callback = quit

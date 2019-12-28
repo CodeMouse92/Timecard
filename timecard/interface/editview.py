@@ -104,7 +104,7 @@ class EditView:
         return cls.widget
 
     @classmethod
-    def connect(cls, /, done=None):
+    def connect(cls, done=None):
         if done:
             cls.done_callback = done
 

@@ -88,7 +88,7 @@ class App:
             cls.notify_callback(message)
 
     @classmethod
-    def connect(cls, /, notify=None):
+    def connect(cls, notify=None):
         if notify:
             cls.notify_callback = notify
 
