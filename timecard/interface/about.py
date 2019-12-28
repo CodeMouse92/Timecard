@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from pkg_resources import resource_filename
 
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QWidget, QVBoxLayout, QTextEdit
@@ -15,11 +16,9 @@ class About:
         """Build the interface."""
         cls.lbl_info = QTextEdit()
 
-        about_path = os.path.join(
-            os.path.split(__file__)[0],
-            os.pardir,
-            'resources',
-            'about.txt'
+        about_path = resource_filename(
+            'timecard',
+            os.path.join('resources', 'about.txt')
         )
         about_file = Path(about_path)
         try:

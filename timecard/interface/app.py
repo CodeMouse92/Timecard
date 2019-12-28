@@ -1,6 +1,6 @@
 import logging
 import os
-from pathlib import Path
+from pkg_resources import resource_filename
 
 from PySide2.QtWidgets import QApplication, QVBoxLayout, QWidget
 from PySide2.QtGui import QIcon
@@ -23,11 +23,9 @@ class App:
     window = MainWindow()
     layout = QVBoxLayout()
 
-    icon_path = os.path.join(
-        os.path.split(__file__)[0],
-        os.pardir,
-        'resources',
-        'timecard.svg'
+    icon_path = resource_filename(
+        'timecard',
+        os.path.join('resources', 'timecard.svg')
     )
     icon = QIcon(icon_path)
 
