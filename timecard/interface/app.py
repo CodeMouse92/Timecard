@@ -1,4 +1,5 @@
 import logging
+import os
 from pathlib import Path
 
 from PySide2.QtWidgets import QApplication, QVBoxLayout, QWidget
@@ -21,7 +22,14 @@ class App:
     app = QApplication()
     window = MainWindow()
     layout = QVBoxLayout()
-    icon = QIcon(str(Path('timecard', 'resources', 'timecard.svg')))
+
+    icon_path = os.path.join(
+        os.path.split(__file__)[0],
+        os.pardir,
+        'resources',
+        'timecard.svg'
+    )
+    icon = QIcon(icon_path)
 
     notify_callback = None
 

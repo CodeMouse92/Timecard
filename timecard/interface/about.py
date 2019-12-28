@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from PySide2.QtCore import Qt
@@ -14,7 +15,13 @@ class About:
         """Build the interface."""
         cls.lbl_info = QTextEdit()
 
-        about_file = Path('timecard', 'resources', 'about.txt')
+        about_path = os.path.join(
+            os.path.split(__file__)[0],
+            os.pardir,
+            'resources',
+            'about.txt'
+        )
+        about_file = Path(about_path)
         try:
             with about_file.open('r') as file:
                 cls.lbl_info.setPlainText(file.read())
