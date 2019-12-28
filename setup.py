@@ -11,13 +11,13 @@ from setuptools import find_packages, setup, Command
 
 # Package meta-data
 NAME = 'Timecard-App'
-VERSION = '2.0.1'
+VERSION = '2.0.2'
 DESCRIPTION = 'Application for tracking time spent.'
 AUTHOR = 'Jason C. McDonald'
 EMAIL = 'codemouse92@outlook.com'
 URL = 'https://github.com/codemouse92/timecard'
 
-REQUIRES_PYTHON = '>=3.7.0'
+REQUIRES_PYTHON = '>=3.6.0'
 
 REQUIRED = ['PySide2 >= 5.14.0']
 
@@ -89,7 +89,12 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
+    packages=find_packages(),
+    entry_points={
+          'gui_scripts': [
+              'timecard = timecard.__main__:main'
+          ]
+      },
     install_requires=REQUIRED,
     include_package_data=True,
     license='BSD-3-Clause',
@@ -102,6 +107,8 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Office/Business'
