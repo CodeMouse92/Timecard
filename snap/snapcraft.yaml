@@ -1,0 +1,65 @@
+# WARNING: Not presently functional; Qt version 5.14 is not installed.
+
+name: timecard
+version: git
+summary: Track time spent.
+description: Track how much time you spend on tasks.
+base: core18
+grade: stable
+confinement: devmode
+parts:
+    timecard:
+        plugin: python
+        python-version: python3
+        source: .
+        requirements:
+            - requirements.txt
+        stage-packages:
+            - python3-distutils
+            #- libfreetype6
+            #- libpng16-16
+            #- libgl1-mesa-glx
+            #- qtwayland5
+        after: [desktop-qt5]
+
+    # This part installs the qt5 dependencies and a `desktop-launch` script to initialise
+    # desktop-specific features such as fonts, themes and the XDG environment.
+    #
+    # It is copied straight from the snapcraft desktop helpers project. Please periodically
+    # check the source for updates and copy the changes.
+    # https://github.com/ubuntu/snapcraft-desktop-helpers/blob/master/snapcraft.yaml
+    #
+    desktop-qt5:
+        source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+        source-subdir: qt
+        plugin: make
+        make-parameters: ["FLAVOR=qt5"]
+        build-packages:
+            - build-essential
+            - qtbase5-dev
+            - dpkg-dev
+        stage-packages:
+            - libxkbcommon0
+            - ttf-ubuntu-font-family
+            - dmz-cursor-theme
+            - light-themes
+            - adwaita-icon-theme
+            - gnome-themes-standard
+            - shared-mime-info
+            - libqt5gui5
+            - libgdk-pixbuf2.0-0
+            - libqt5svg5 # for loading icon themes which are svg
+            - try: [appmenu-qt5] # not available on core18
+            - locales-all
+            - xdg-user-dirs
+            - fcitx-frontend-qt5
+apps:
+    timecard:
+        command: bin/desktop-launch timecard
+        plugs:
+            - desktop
+            - desktop-legacy
+            - home
+            - opengl
+            - wayland
+            - x11

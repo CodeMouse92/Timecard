@@ -2,6 +2,7 @@
     "python.pythonPath": "venv/bin/python3.8",
     "cSpell.words": [
         "chk",
+        "cmdclass",
         "datefmt",
         "lbl",
         "number",

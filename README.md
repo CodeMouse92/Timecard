@@ -14,6 +14,30 @@ until you need it again.
 * Hides to system tray.
 * Quit protection helps prevent accidentally closing while tracking time.
 
+## Installation
+
+This can be installed a number of ways.
+
+### PyPI
+
+You can install directly via `pip` using the following command:
+
+```
+pip install Timecard-App
+```
+
+If you're installing outside of a virtual environment, use the following:
+
+```
+pip install --user Timecard-App
+```
+
+Then, you can start the program with just:
+
+```
+timecard
+```
+
 ## Usage
 
 Using Timecard is simple!
