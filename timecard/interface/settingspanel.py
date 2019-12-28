@@ -17,7 +17,7 @@ class SettingsPanel:
     txt_logdir = QLineEdit()
     lbl_logname = QLabel("Log Name")
     txt_logname = QLineEdit()
-    chk_pomodoro = QCheckBox("Use Pomodoro")
+    chk_persist = QCheckBox("Keep in Notification Area")
 
     btn_revert = QPushButton(QIcon.fromTheme('edit-undo'), "Revert")
     btn_save = QPushButton(QIcon.fromTheme('document-save'), "Save")
@@ -31,14 +31,16 @@ class SettingsPanel:
         cls.txt_logname.textEdited.connect(cls.edited)
         cls.lbl_logname.setWhatsThis("The filename for the log.")
         cls.txt_logname.setWhatsThis("The filename for the log.")
-        cls.chk_pomodoro.stateChanged.connect(cls.edited)
-        cls.chk_pomodoro.setWhatsThis("Display reminders every 20 minutes.")
+
+        cls.chk_persist.stateChanged.connect(cls.edited)
+        cls.chk_persist.setWhatsThis("When window is closed, keep application "
+                                     "running in notification area.")
 
         cls.grid_layout.addWidget(cls.lbl_logdir, 0, 0)
         cls.grid_layout.addWidget(cls.txt_logdir, 0, 1)
         cls.grid_layout.addWidget(cls.lbl_logname, 1, 0)
         cls.grid_layout.addWidget(cls.txt_logname, 1, 1)
-        cls.grid_layout.addWidget(cls.chk_pomodoro, 2, 1)
+        cls.grid_layout.addWidget(cls.chk_persist, 2, 1)
         cls.grid_widget.setLayout(cls.grid_layout)
 
         cls.buttons_layout.addWidget(cls.btn_revert)
@@ -70,10 +72,12 @@ class SettingsPanel:
     def refresh(cls):
         cls.txt_logdir.setText(Settings.get_logdir_str())
         cls.txt_logname.setText(Settings.get_logname())
+        cls.chk_persist.setChecked(Settings.get_persist())
         cls.not_edited()
 
     @classmethod
     def save(cls):
         Settings.set_logdir(cls.txt_logdir.text())
         Settings.set_logname(cls.txt_logname.text())
+        Settings.set_persist(cls.chk_persist.isChecked())
         cls.not_edited()

@@ -4,13 +4,17 @@ from pathlib import Path
 from PySide2.QtWidgets import QApplication, QVBoxLayout, QWidget
 from PySide2.QtGui import QIcon
 
+from timecard.data.settings import Settings
+
 
 class MainWindow(QWidget):
     def closeEvent(self, event):
         """Hide the window on close."""
-        App.hide_window()
-        event.ignore()
-        # TODO: Use a setting to determine this behavior?
+        if Settings.get_persist():
+            App.hide_window()
+            event.ignore()
+        else:
+            event.accept()
 
 
 class App:

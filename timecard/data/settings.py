@@ -65,11 +65,9 @@ class Settings:
         """
         cls._settings = dict()
 
-        default_logdir = cls.get_logdir_str()
-        cls._settings['logdir'] = default_logdir
-
-        default_logname = cls.get_logname()
-        cls._settings['logname'] = default_logname
+        cls._settings['logdir'] = cls.get_logdir_str()
+        cls._settings['logname'] = cls.get_logname()
+        cls._settings['persist'] = str(cls.get_persist())
 
     @classmethod
     def save(cls):
@@ -106,8 +104,7 @@ class Settings:
     def get_logname(cls):
         """Get the log filename."""
         try:
-            logname = cls._settings['logname']
-            return logname
+            return cls._settings['logname']
         except KeyError:
             return "time.log"
 
@@ -122,3 +119,18 @@ class Settings:
     def get_logpath(cls):
         """Get the full log path."""
         return cls.get_logdir().joinpath(cls.get_logname())
+
+    @classmethod
+    @settings_getter
+    def get_persist(cls):
+        """Returns whether closing the window should hide it or quit."""
+        try:
+            return cls._settings['persist'] != "False"
+        except KeyError:
+            return True
+
+    @classmethod
+    @settings_setter
+    def set_persist(cls, persist):
+        """Sets persistence."""
+        cls._settings['persist'] = str(persist)
