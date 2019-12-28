@@ -51,4 +51,5 @@ class Workspace:
 
     @classmethod
     def edit_done(cls):
+        LogView.unselected()
         cls.set_mode_timelog()

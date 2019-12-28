@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PySide2.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout
 from PySide2.QtWidgets import QPushButton
 from PySide2.QtWidgets import QLabel, QLineEdit, QDateTimeEdit, QSpinBox
@@ -46,6 +48,9 @@ class EditView:
         cls.spn_sec.valueChanged.connect(cls.edited)
         cls.txt_activity.textChanged.connect(cls.edited)
 
+        # TODO: Implement user settings to format datestamp
+        cls.cal_timestamp.setDisplayFormat("MM/d/yy hh:mm:ss")
+
         cls.grid_layout.addWidget(cls.lbl_timestamp, 0, 0, 1, 1)
         cls.grid_layout.addWidget(cls.cal_timestamp, 0, 1, 1, 1)
 
@@ -91,18 +96,19 @@ class EditView:
             cls.done_callback()
 
     @classmethod
-    def load_item(cls, index):
-        cls.index = index
-        cls.entry = TimeLog.retrieve_from_log(cls.index)
+    def load_item(cls, timestamp):
+        cls.entry = TimeLog.retrieve_from_log(timestamp)
         cls.refresh()
 
     @classmethod
     def edited(cls):
+        cls.btn_done.setEnabled(False)
         cls.btn_revert.setEnabled(True)
         cls.btn_save.setEnabled(True)
 
     @classmethod
     def not_edited(cls):
+        cls.btn_done.setEnabled(True)
         cls.btn_revert.setEnabled(False)
         cls.btn_save.setEnabled(False)
 
@@ -131,18 +137,22 @@ class EditView:
 
     @classmethod
     def save(cls):
-        timestamp = (f"{cls.cal_timestamp.date().year()}-"
-                     f"{cls.cal_timestamp.date().month()}-"
-                     f"{cls.cal_timestamp.date().day()}-"
-                     f"{cls.cal_timestamp.time().hour()}-"
-                     f"{cls.cal_timestamp.time().minute()}-"
-                     f"{cls.cal_timestamp.time().second()}"
-                     )
-        TimeLog.edit_in_log(cls.index,
-                            timestamp,
-                            cls.spn_hour.value(),
-                            cls.spn_min.value(),
-                            cls.spn_sec.value(),
-                            cls.txt_activity.text()
-                            )
+        TimeLog.remove_from_log(cls.entry.timestamp)
+        timestamp = datetime(cls.cal_timestamp.date().year(),
+                             cls.cal_timestamp.date().month(),
+                             cls.cal_timestamp.date().day(),
+                             cls.cal_timestamp.time().hour(),
+                             cls.cal_timestamp.time().minute(),
+                             cls.cal_timestamp.time().second()
+                             )
+        new_timestamp = TimeLog.add_to_log(timestamp,
+                                           cls.spn_hour.value(),
+                                           cls.spn_min.value(),
+                                           cls.spn_sec.value(),
+                                           cls.txt_activity.text()
+                                           )
         cls.not_edited()
+
+        cls.entry = TimeLog.retrieve_from_log(new_timestamp)
+        # Display the revised data.
+        cls.refresh()

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PySide2.QtCore import Qt, QDateTime, QTime, QTimer
 from PySide2.QtWidgets import QLCDNumber
 
@@ -99,14 +101,14 @@ class TimeDisplay:
 
     @classmethod
     def get_timestamp(cls):
-        """Returns the timestamp of the last timer start as a string."""
-        # TODO: Format based on user settings
-        timestamp = ((f"{cls.timestamp.date().year()}-"
-                      f"{cls.timestamp.date().month()}-"
-                      f"{cls.timestamp.date().day()}-"
-                      f"{cls.timestamp.time().hour()}-"
-                      f"{cls.timestamp.time().minute()}-"
-                      f"{cls.timestamp.time().second()}"))
+        """Returns the timestamp of the last timer as a datetime object."""
+        timestamp = datetime(cls.timestamp.date().year(),
+                             cls.timestamp.date().month(),
+                             cls.timestamp.date().day(),
+                             cls.timestamp.time().hour(),
+                             cls.timestamp.time().minute(),
+                             cls.timestamp.time().second()
+                             )
         return timestamp
 
     @classmethod

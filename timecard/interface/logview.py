@@ -1,11 +1,29 @@
 from PySide2.QtWidgets import QWidget, QTreeWidget, QGridLayout, QPushButton
 from PySide2.QtWidgets import QTreeWidgetItem
-from PySide2.QtGui import QStandardItem, QStandardItemModel
 from PySide2.QtGui import QIcon
 
 from timecard.data.timelog import TimeLog
 
 # Datestamp | Duration | Description
+
+
+class LogViewEntry(QTreeWidgetItem):
+
+    def __init__(self, entry, *args, **kwargs):
+        self.entry = entry
+        super().__init__(*args, **kwargs)
+
+        # TODO: Implement user settings to format datestamp
+        # TODO: Implement user settings to format duration (HMS or decimal)
+        self.setText(0, self.entry.timestamp_as_format("%m/%d/%y %H:%M:%S"))
+        self.setText(1, self.entry.duration_as_string())
+        self.setText(2, self.entry.notes)
+        self.setToolTip(0, self.text(0))
+        self.setToolTip(1, self.text(1))
+        self.setToolTip(2, self.text(2))
+
+    def get_timestamp(self):
+        return self.entry.timestamp
 
 
 class LogView:
@@ -39,21 +57,12 @@ class LogView:
     @classmethod
     def refresh(cls):
         """Reload the data from the log."""
-        #cls.model.clear()
         cls.tree_log.clear()
         cls.tree_log.setHeaderLabels(
             ["Date", "Duration", "Activity"]
         )
-        # TODO: Implement user settings to format datestamp
-        # TODO: Implement user settings to format duration (HMS or decimal)
         for entry in TimeLog.retrieve_log():
-            item = QTreeWidgetItem()
-            item.setText(0, entry.timestamp_as_format("%m/%d/%y %H:%M:%S"))
-            item.setText(1, entry.duration_as_string())
-            item.setText(2, entry.notes)
-            item.setToolTip(0, item.text(0))
-            item.setToolTip(1, item.text(1))
-            item.setToolTip(2, item.text(2))
+            item = LogViewEntry(entry)
             cls.tree_log.addTopLevelItem(item)
 
     @classmethod
@@ -66,6 +75,11 @@ class LogView:
         """Disconnect signals from the control buttons.
         This must be done before new signals can be added properly.
         """
+        try:
+            cls.btn_edit.clicked.disconnect()
+        except RuntimeError:
+            pass
+
         try:
             cls.btn_delete.clicked.disconnect()
         except RuntimeError:
@@ -96,15 +110,15 @@ class LogView:
         cls.btn_delete.clicked.connect(cls.delete)
 
     @classmethod
-    def _selected_index(cls):
+    def _selected_entry(cls):
         item = cls.tree_log.selectedItems()[0]
-        return cls.tree_log.indexFromItem(item).row()
+        return item.get_timestamp()
 
     @classmethod
     def delete(cls):
-        index = cls._selected_index()
-        cls.tree_log.takeTopLevelItem(index)
-        TimeLog.remove_from_log(index)
+        timestamp = cls._selected_entry()
+        TimeLog.remove_from_log(timestamp)
+        cls.refresh()
 
         cls.unselected()
         cls._set_mode_default()
@@ -131,6 +145,6 @@ class LogView:
 
     @classmethod
     def edit(cls):
-        index = cls._selected_index()
+        timestamp = cls._selected_entry()
         if cls.edit_callback:
-            cls.edit_callback(index)
+            cls.edit_callback(timestamp)
