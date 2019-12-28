@@ -1,3 +1,9 @@
+"""Settings [Timecard]
+Author(s): Jason C. McDonald
+
+Manages access, storage, and file read/write for application settings.
+"""
+
 import functools
 import logging
 import os
@@ -47,6 +53,8 @@ class Settings:
         You probably shouldn't use this directly; use Settings.load() instead.
         """
         cls._settings = dict()
+
+        logging.debug(f"Loading settings from {str(cls._settings_path)}")
 
         with cls._settings_path.open('r') as file:
             for lineno, line in enumerate(file, start=1):

@@ -1,3 +1,10 @@
+"""Log View [Timecard]
+Author(s): Jason C. McDonald
+
+Displays the current log entries and allows deleting or triggering edits
+on them.
+"""
+
 from PySide2.QtWidgets import QWidget, QTreeWidget, QGridLayout, QPushButton
 from PySide2.QtWidgets import QTreeWidgetItem
 from PySide2.QtGui import QIcon
@@ -39,12 +46,15 @@ class LogView:
     def build(cls):
         """Build the interface"""
         cls.tree_log.setWhatsThis("The time log.")
+        cls.tree_log.setHeaderLabels(
+            ["Date", "Duration", "Activity"]
+        )
         cls.tree_log.setSortingEnabled(True)
         cls.layout.addWidget(cls.tree_log, 0, 0, 3, 3)
         cls.refresh()
 
-        cls.layout.addWidget(cls.btn_edit, 3, 1, 1, 1)
-        cls.layout.addWidget(cls.btn_delete, 3, 2, 1, 1)
+        cls.layout.addWidget(cls.btn_delete, 3, 1, 1, 1)
+        cls.layout.addWidget(cls.btn_edit, 3, 2, 1, 1)
         cls.unselected()
         cls._set_mode_default()
 
@@ -57,9 +67,6 @@ class LogView:
     def refresh(cls):
         """Reload the data from the log."""
         cls.tree_log.clear()
-        cls.tree_log.setHeaderLabels(
-            ["Date", "Duration", "Activity"]
-        )
         for entry in TimeLog.retrieve_log():
             item = LogViewEntry(entry)
             cls.tree_log.addTopLevelItem(item)
@@ -88,25 +95,29 @@ class LogView:
     def _set_mode_default(cls):
         cls._disconnect_buttons()
 
-        cls.btn_edit.setText("Edit")
-        cls.btn_edit.setIcon(QIcon.fromTheme('document-properties'))
-        cls.btn_edit.clicked.connect(cls.edit)
-
         cls.btn_delete.setText("Delete")
         cls.btn_delete.setIcon(QIcon.fromTheme('edit-delete'))
+        cls.btn_delete.setWhatsThis("Delete the selected log entry.")
         cls.btn_delete.clicked.connect(cls.prompt_delete)
+
+        cls.btn_edit.setText("Edit")
+        cls.btn_edit.setIcon(QIcon.fromTheme('document-properties'))
+        cls.btn_edit.setWhatsThis("Edit the selected log entry.")
+        cls.btn_edit.clicked.connect(cls.edit)
 
     @classmethod
     def _set_mode_prompt_delete(cls):
         cls._disconnect_buttons()
 
-        cls.btn_edit.setText("Cancel")
-        cls.btn_edit.setIcon(QIcon.fromTheme('cancel'))
-        cls.btn_edit.clicked.connect(cls.cancel)
-
         cls.btn_delete.setText("Confirm Delete")
         cls.btn_delete.setIcon(QIcon.fromTheme('edit-delete'))
+        cls.btn_delete.setWhatsThis("Delete the selected log entry.")
         cls.btn_delete.clicked.connect(cls.delete)
+
+        cls.btn_edit.setText("Keep")
+        cls.btn_edit.setIcon(QIcon.fromTheme('edit-undo'))
+        cls.btn_edit.setWhatsThis("Keep the selected log entry.")
+        cls.btn_edit.clicked.connect(cls.cancel)
 
     @classmethod
     def _selected_entry(cls):

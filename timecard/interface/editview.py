@@ -1,3 +1,9 @@
+"""Edit View [Timecard]
+Author(s): Jason C. McDonald
+
+Allows editing a single time log entry.
+"""
+
 from datetime import datetime
 
 from PySide2.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout

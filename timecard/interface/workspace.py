@@ -1,9 +1,15 @@
+"""Workspace [Timecard]
+Author(s): Jason C. McDonald
+
+Switches between Views in the application.
+"""
+
 from PySide2.QtWidgets import QWidget, QStackedLayout
 
-from timecard.interface.about import About
+from timecard.interface.aboutview import AboutView
 from timecard.interface.editview import EditView
 from timecard.interface.logview import LogView
-from timecard.interface.settingspanel import SettingsPanel
+from timecard.interface.settingsview import SettingsView
 from timecard.interface.quitview import QuitView
 
 
@@ -17,8 +23,8 @@ class Workspace:
     def build(cls):
         cls.widget.setLayout(cls.layout)
         cls.layout.addWidget(LogView.build())
-        cls.layout.addWidget(About.build())
-        cls.layout.addWidget(SettingsPanel.build())
+        cls.layout.addWidget(AboutView.build())
+        cls.layout.addWidget(SettingsView.build())
         cls.layout.addWidget(QuitView.build())
         cls.layout.addWidget(EditView.build())
 

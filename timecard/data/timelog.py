@@ -1,3 +1,10 @@
+"""Time Log [Timecard]
+Author(s): Jason C. McDonald
+
+Manages access, storage, and file read/write for the time log.
+Also contains the class representing a single time log entry.
+"""
+
 from datetime import datetime
 import functools
 import logging
@@ -132,6 +139,8 @@ class TimeLog:
 
         # Retrieve the path from settings
         path = Settings.get_logpath()
+
+        logging.debug(f"Loading time log from {path}")
 
         # Initialize an empty log.
         cls._log = dict()

@@ -1,13 +1,20 @@
+"""Settings View [Timecard]
+Author(s): Jason C. McDonald
+
+Allows viewing and editing application settings.
+"""
+
 from datetime import datetime
 
 from PySide2.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout
 from PySide2.QtWidgets import QLabel, QCheckBox, QLineEdit, QPushButton
 from PySide2.QtGui import QIcon
 
+from timecard.data.timelog import TimeLog
 from timecard.data.settings import Settings
 
 
-class SettingsPanel:
+class SettingsView:
     widget = QWidget()
     layout = QVBoxLayout()
     grid_widget = QWidget()
@@ -28,13 +35,17 @@ class SettingsPanel:
     btn_revert = QPushButton(QIcon.fromTheme('edit-undo'), "Revert")
     btn_save = QPushButton(QIcon.fromTheme('document-save'), "Save")
 
+    reload_log = False
+
     @classmethod
     def build(cls):
         """Build the interface."""
         cls.txt_logdir.textEdited.connect(cls.edited)
+        cls.txt_logdir.textEdited.connect(cls.logpath_edited)
         cls.lbl_logdir.setWhatsThis("The directory where the logs are saved.")
         cls.txt_logdir.setWhatsThis("The directory where the logs are saved.")
         cls.txt_logname.textEdited.connect(cls.edited)
+        cls.txt_logname.textEdited.connect(cls.logpath_edited)
         cls.lbl_logname.setWhatsThis("The filename for the log.")
         cls.txt_logname.setWhatsThis("The filename for the log.")
 
@@ -85,6 +96,11 @@ class SettingsPanel:
         return cls.widget
 
     @classmethod
+    def logpath_edited(cls):
+        """Schedule reload of log."""
+        cls.reload_log = True
+
+    @classmethod
     def datefmt_edited(cls):
         """Update the preview for the timestamp format."""
         test = datetime(1998, 1, 2, 14, 30, 25, 0)
@@ -105,11 +121,17 @@ class SettingsPanel:
     @classmethod
     def refresh(cls):
         """Load and display current settings."""
+        # Cancel any scheduled log reloads.
+        cls.reload_log = False
+
+        # Load settings into interface.
         cls.txt_logdir.setText(Settings.get_logdir_str())
         cls.txt_logname.setText(Settings.get_logname())
         cls.chk_persist.setChecked(Settings.get_persist())
         cls.txt_datefmt.setText(Settings.get_datefmt())
         cls.chk_decdur.setChecked(Settings.get_decdur())
+
+        # Update interface controls.
         cls.datefmt_edited()
         cls.not_edited()
 
@@ -122,3 +144,9 @@ class SettingsPanel:
         Settings.set_datefmt(cls.txt_datefmt.text())
         Settings.set_decdur(cls.chk_decdur.isChecked())
         cls.not_edited()
+
+        # If we're scheduled to reload the time logs...
+        if cls.reload_log:
+            # We must do so AFTER updating the path (earlier)
+            TimeLog.load(force=True)
+            cls.reload_log = False

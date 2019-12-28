@@ -1,14 +1,16 @@
-"""
-[Timecard]
-Version: 2.0
+#!/usr/bin/env python3
+
+"""Timecard
 Author(s): Jason C. McDonald
+
+Track time spent.
 """
 
 import logging
 
 from timecard.interface import interface
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 def startUI():

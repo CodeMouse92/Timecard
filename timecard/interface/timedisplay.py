@@ -1,6 +1,13 @@
+"""Time Display [Timecard]
+Author(s): Jason C. McDonald
+
+Displays and stores the current timer duration, including its start timestamp
+and state.
+"""
+
 from datetime import datetime
 
-from PySide2.QtCore import Qt, QDateTime, QTime, QTimer
+from PySide2.QtCore import QDateTime, QTime, QTimer
 from PySide2.QtWidgets import QLCDNumber
 
 

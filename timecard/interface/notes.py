@@ -1,3 +1,9 @@
+"""Notes [Timecard]
+Author(s): Jason C. McDonald
+
+The box for entering session activity notes.
+"""
+
 from PySide2.QtWidgets import QLineEdit
 
 

@@ -1,3 +1,9 @@
+"""System Tray [Timecard]
+Author(s): Jason C. McDonald
+
+The application system tray and its menu.
+"""
+
 from PySide2.QtWidgets import QAction, QMenu, QSystemTrayIcon
 from PySide2.QtGui import QIcon
 

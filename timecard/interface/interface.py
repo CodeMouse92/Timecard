@@ -1,3 +1,10 @@
+"""Interface [Timecard]
+Author(s): Jason C. McDonald
+
+Top-level functions for the interface sub-package. These are the functions
+initially called to build and run the interface.
+"""
+
 from timecard.interface.app import App
 from timecard.interface.appcontrols import AppControls
 from timecard.interface.notes import Notes

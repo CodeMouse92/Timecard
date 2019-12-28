@@ -1,3 +1,9 @@
+"""Time Controls [Timecard]
+Author(s): Jason C. McDonald
+
+Controls the timer and saves the time entries to the log.
+"""
+
 from PySide2.QtWidgets import QPushButton, QHBoxLayout, QWidget
 from PySide2.QtGui import QIcon
 

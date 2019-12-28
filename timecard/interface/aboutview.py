@@ -1,3 +1,9 @@
+"""About View [Timecard]
+Author(s): Jason C. McDonald
+
+Displays "about" data for Timecard.
+"""
+
 import os
 from pathlib import Path
 from pkg_resources import resource_filename
@@ -6,7 +12,7 @@ from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QWidget, QVBoxLayout, QTextEdit
 
 
-class About:
+class AboutView:
     widget = QWidget()
     layout = QVBoxLayout()
     lbl_info = QTextEdit()

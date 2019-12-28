@@ -1,3 +1,10 @@
+"""App [Timecard]
+Author(s): Jason C. McDonald
+
+The main application classes. Most of the interface modules rely on this,
+so it should not rely on any other module in the interface subpackage.
+"""
+
 import logging
 import os
 from pkg_resources import resource_filename
@@ -45,7 +52,7 @@ class App:
     def build(cls):
         """Construct the interface."""
         logging.debug("Building main window.")
-        cls.window.resize(380, 400)
+        cls.window.resize(400, 400)
         cls.window.setWindowTitle(
             QApplication.translate("program_name", "Timecard")
         )
