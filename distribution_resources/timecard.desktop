@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=2.0
+Name=Timecard
+GenericName=Time tracker
+Comment=Track time spent
+Type=Application
+Categories=Office
+Exec=timecard
+Terminal=false
+StartupNotify=true
+Icon=timecard.svg

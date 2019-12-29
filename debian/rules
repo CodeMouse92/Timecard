@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	rm -rf dist/
+	rm -rf build/
+	rm -rf venv_deb/
+
+override_dh_auto_configure:
+	python3 -m venv venv_deb
+	venv_deb/bin/pip install pyinstaller
+	venv_deb/bin/pip install -r requirements.txt
+
+override_dh_auto_build:
+	venv_deb/bin/pyinstaller --clean --windowed timecard_app.spec
