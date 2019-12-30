@@ -1,13 +1,17 @@
 {
     "python.pythonPath": "venv/bin/python3.8",
     "cSpell.words": [
+        "bdist",
         "chk",
         "cmdclass",
         "datefmt",
         "lbl",
         "number",
         "pomodoro",
+        "pyinstaller",
         "qlcd",
-        "timecardrc"
+        "sdist",
+        "timecardrc",
+        "wheel"
     ]
 }

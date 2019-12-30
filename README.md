@@ -22,19 +22,19 @@ This can be installed a number of ways.
 
 You can install directly via `pip` using the following command:
 
-```
+```bash
 pip install Timecard-App
 ```
 
 If you're installing outside of a virtual environment, use the following:
 
-```
+```bash
 pip install --user Timecard-App
 ```
 
 Then, you can start the program with just:
 
-```
+```bash
 timecard-app
 ```
 
