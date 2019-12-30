@@ -1,13 +1,16 @@
-Source: timecard
+Source: timecard-app
 Section: python
-Priority: extra
+Priority: optional
 Maintainer: Jason C. McDonald <codemouse92@outlook.com>
-Build-Depends: debhelper (>= 9), python3 (>= 3.6), python3-virtualenv
+Build-Depends: debhelper (>= 11~), dh-python, python3-all, python3-setuptools
+Homepage: https://codemouse92.github.io/Timecard/
+Vcs-Browser: https://github.com/CodeMouse92/timecard
+Vcs-Git: https://github.com/CodeMouse92/Timecard.git
+X-Python3-Version: >= 3.6
 Standards-Version: 3.9.5
 
-Package: timecard
-Architecture: any
-Pre-Depends: dpkg (>= 1.16.1), python3.8 | python3.7 | python3.6, ${misc:Pre-Depends}
-Depends: ${misc:Depends}
+Package: timecard-app
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}
 Description: Track time beautifully.
  Timecard allows you to track how much time you spend on tasks.

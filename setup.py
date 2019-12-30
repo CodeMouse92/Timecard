@@ -11,7 +11,7 @@ from setuptools import find_packages, setup, Command
 
 # Package meta-data
 NAME = 'Timecard-App'
-VERSION = '2.0.4'
+VERSION = '2.0.5'
 DESCRIPTION = 'Track time beautifully.'
 AUTHOR = 'Jason C. McDonald'
 EMAIL = 'codemouse92@outlook.com'
@@ -19,7 +19,7 @@ URL = 'https://github.com/codemouse92/timecard'
 
 REQUIRES_PYTHON = '>=3.6.0'
 
-REQUIRED = ['PySide2 >= 5.14.0']
+REQUIRED = ['PySide2 >= 5.11.0']
 
 here = os.path.abspath(os.path.dirname(__file__))
 

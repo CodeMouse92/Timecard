@@ -1,4 +1,23 @@
 # -*- mode: python ; coding: utf-8 -*-
+import subprocess
+
+def find_package(path, prefix=''):
+    try:
+        process = subprocess.check_output(
+            ("dpkg", "-S", f"{prefix}{path}"),
+            stderr=subprocess.DEVNULL,
+            encoding='utf-8'
+            )
+    except subprocess.CalledProcessError:
+        if prefix == '':
+            return find_package(path, prefix='/usr')
+        else:
+            return None
+    except FileNotFoundError:
+        print("Could not find 'dpkg' (this probably isn't a Debian system.)")
+        return None
+    else:
+        return process.split(':')[0]
 
 def filter_binaries(all_binaries):
     exclude_binaries = set()
@@ -15,22 +34,23 @@ def filter_binaries(all_binaries):
     binaries = [x for x in all_binaries if x not in exclude_binaries]
 
     with open('dist/binary_list.txt', 'w') as file:
+        packages = set()
         for name, path, type in binaries:
-            print(f".. Including {type} {path}")
-            file.write(f"Including {type} {path}.\n")
+            print(f"    Including {type} {path}")
 
-        file.write("\n")
+        print("\n")
 
         for name, path, type in exclude_binaries:
-            print(f">> EXCLUDING {type} {path}")
-            file.write(f"EXCLUDING {type} {path}.\n")
+            package = find_package(path)
+            print(f"    EXCLUDING {type} {path}")
+            if package:
+                packages.add(package)
+                print(f"    from package {package}\n")
+            else:
+                print(f"/!\ WARNING: No package found\n")
 
-        file.write("\n")
-
-        info = "On Debian, use `dpkg -S <pkg_name> to find dependency packages."
-
-        print(info)
-        file.write(f"{info}\n")
+        for package in packages:
+            file.write(f"{package}\n")
 
     return binaries
 
