@@ -1,8 +1,4 @@
-<img src="img/timecard.svg" alt="drawing" width="256"/>
-
-# Timecard
-
-## Track Time Beautifully
+# Features
 
 Time tracking should be simple. **Timecard** allows you to start, pause, and
 log how much time you spend, all from within a simple, unified interface.
@@ -37,7 +33,7 @@ You can even display your entry durations in decimal
 hours, so you never have to drag out your calculator again when entering
 billable hours on your company's time reporting software.
 
-## What's Next?
+# What's Next?
 
 We're planning to add a few additional features to Timecard in the coming year:
 
@@ -50,7 +46,7 @@ switch between them with a click.
 No matter what, we're staying focused on Timecard's prime objective:
 **tracking time beautifully!**
 
-## A Little History
+# A Little History
 
 Timecard 1.0 was created many moons ago by a budding software developer
 named [Jason C. McDonald](https://indeliblebluepen.com), using Visual
@@ -67,7 +63,7 @@ software so it can never be lost to the silicon dioxide of history again.
 
 Long live Timecard!
 
-## Download!
+# Download!
 
 Timecard is built with PySide2 (Qt 5), so it should run on all modern operating
 systems: Windows, Mac, and Linux.
@@ -90,7 +86,7 @@ We're working on creating various distribution packages, so stay tuned!
 * Snapcraft
 * Windows Installer
 
-## Contribute
+# Contribute
 
 Timecard 2.0 is **free and open source software**, licensed under the
 BSD-3-Clause license. You can access the source code, submit issue reports,
