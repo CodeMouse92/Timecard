@@ -16,9 +16,9 @@ configure: clean
 	venv_make/bin/pip install -r requirements.txt
 
 build: configure
-	venv_make/bin/pyinstaller --clean --windowed timecard_app.spec
+	venv_make/bin/pyinstaller --clean --windowed timecard-app.spec
 
 build_folder: configure
-	venv_make/bin/pyinstaller --clean --windowed timecard_app_folder.spec
+	venv_make/bin/pyinstaller --clean --windowed timecard-app_folder.spec
 
 .PHONY: clean configure build build_folder

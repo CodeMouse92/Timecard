@@ -35,7 +35,7 @@ pip install --user Timecard-App
 Then, you can start the program with just:
 
 ```
-timecard
+timecard-app
 ```
 
 ## Usage

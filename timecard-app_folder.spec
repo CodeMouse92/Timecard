@@ -61,16 +61,21 @@ pyz = PYZ(a.pure,
 
 exe = EXE(pyz,
           a.scripts,
-          filter_binaries(a.binaries),
-          a.zipfiles,
-          a.datas,
           [],
-          name='timecard_app',
+          exclude_binaries=True,
+          name='timecard-app',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          upx_exclude=[],
-          runtime_tmpdir=None,
           console=False
           )
+
+coll = COLLECT(exe,
+               filter_binaries(a.binaries),
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               upx_exclude=[],
+               name='timecard-app')

@@ -92,7 +92,7 @@ setup(
     packages=find_packages(),
     entry_points={
           'gui_scripts': [
-              'timecard = timecard.__main__:main'
+              'timecard-app = timecard.__main__:main'
           ]
       },
     install_requires=REQUIRED,

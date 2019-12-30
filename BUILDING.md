@@ -14,11 +14,11 @@ Alternatively, run the following in a virtual environment to build Timecard:
 ```
 pip install pyinstaller
 pip install -r requirements.txt
-pyinstaller --clean --windowed timecard_app.spec
+pyinstaller --clean --windowed timecard-app.spec
 ```
 
-The distribution folder is `dist/timecard_app`, and the standalone binary is
-at `dist/timecard_app/timecard_app`.
+The distribution folder is `dist/timecard-app`, and the standalone binary is
+at `dist/timecard-app/timecard-app`.
 
 ## Debian Package
 
