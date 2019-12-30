@@ -2,4 +2,4 @@
 distribution_resources/timecard.desktop usr/share/applications
 distribution_resources/timecard.svg usr/share/icons/hicolor/scalable/apps
 
-dist/timecard usr/bin
+dist/timecard_app usr/bin
