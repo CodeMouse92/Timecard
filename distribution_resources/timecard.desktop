@@ -2,7 +2,7 @@
 Version=2.0
 Name=Timecard
 GenericName=Time tracker
-Comment=Track time spent
+Comment=Track time beautifully.
 Type=Application
 Categories=Office
 Exec=timecard

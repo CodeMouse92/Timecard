@@ -12,7 +12,7 @@ from setuptools import find_packages, setup, Command
 # Package meta-data
 NAME = 'Timecard-App'
 VERSION = '2.0.4'
-DESCRIPTION = 'Application for tracking time spent.'
+DESCRIPTION = 'Track time beautifully.'
 AUTHOR = 'Jason C. McDonald'
 EMAIL = 'codemouse92@outlook.com'
 URL = 'https://github.com/codemouse92/timecard'

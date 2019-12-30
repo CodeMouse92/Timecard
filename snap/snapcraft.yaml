@@ -2,7 +2,7 @@
 
 name: timecard
 version: git
-summary: Track time spent.
+summary: Track time beautifully
 description: Track how much time you spend on tasks.
 base: core18
 grade: stable

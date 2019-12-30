@@ -1,5 +1,7 @@
 # Timecard
 
+**Track time beautifully.**
+
 Timecard allows you to track how much time you spend on tasks.
 It offers a clean, responsive one-window interface that allows you to
 quickly configure your time tracking, and then hides away in the system tray

@@ -3,7 +3,7 @@
 """Timecard
 Author(s): Jason C. McDonald
 
-Track time spent.
+Track time beautifully.
 """
 
 import logging
