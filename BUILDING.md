@@ -5,13 +5,13 @@ environment.
 
 If you're on a Linux system, you can use the provided Makefile:
 
-```
+```bash
 make build
 ```
 
 Alternatively, run the following in a virtual environment to build Timecard:
 
-```
+```bash
 pip install pyinstaller
 pip install -r requirements.txt
 pyinstaller --clean --windowed timecard-app.spec

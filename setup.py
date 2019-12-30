@@ -11,7 +11,7 @@ from setuptools import find_packages, setup, Command
 
 # Package meta-data
 NAME = 'Timecard-App'
-VERSION = '2.0.3'
+VERSION = '2.0.4'
 DESCRIPTION = 'Application for tracking time spent.'
 AUTHOR = 'Jason C. McDonald'
 EMAIL = 'codemouse92@outlook.com'
@@ -66,7 +66,7 @@ class UploadCommand(Command):
             pass
 
         self.status('Building Source and Wheel (universal) distribution...')
-        os.system('{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
+        os.system(f"{sys.executable} setup.py sdist bdist_wheel --universal")
 
         self.status('Uploading the package to PyPI via Twine...')
         os.system('twine upload dist/*')
