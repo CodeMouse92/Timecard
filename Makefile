@@ -1,5 +1,10 @@
 #!/usr/bin/make -f
 
+none:
+	@echo "build			Build as single file."
+	@echo "build_folder		Build as single folder."
+	@echo "clean			Clean build artifacts."
+
 clean:
 	rm -rf dist/
 	rm -rf build/
