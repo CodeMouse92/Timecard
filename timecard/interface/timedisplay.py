@@ -76,8 +76,6 @@ class TimeDisplay:
         if cls.timer is not None:
             cls.timer.stop()
 
-        print(f"{cls.time.elapsed() + cls.freeze=}")
-
     @classmethod
     def reset_time(cls):
         """Prepare timer for reset, without erasing the last session's time."""
