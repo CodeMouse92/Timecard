@@ -265,9 +265,8 @@ class TimeControls:
     @classmethod
     def stop(cls):
         """Stop a timer."""
-
+        # DO NOT call TimeDisplay.stop_time() again; it will double the time
         cls._set_mode_save()
-        TimeDisplay.stop_time()
         TimeDisplay.reset_time()
         if cls.stop_callback:
             cls.stop_callback()
