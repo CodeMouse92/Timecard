@@ -115,4 +115,8 @@ stage/
 *.xz
 
 # Debian packaging
-debian/timecard*
+debian/.debhelper/
+debian/timecard-app/
+debian/timecard-app.postinst.debhelper
+debian/timecard-app.debhelper.log
+debian/timecard-app.substvars
