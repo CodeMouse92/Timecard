@@ -1,15 +1,31 @@
 # Building
 
+Timecard can be built and run a number of ways.
+
+## setup.py
+
+You can build Timecard directly using its `setup.py` file. We recommend
+doing so in a virtual environment:
+
+```bash
+python3 setup.py install
+```
+
+If you're on a Linux system, you can also install from the `setup.py` and
+automatically create and place the `.desktop` and icon files using the
+provided Makefile. Run as user for a local install, or as `sudo` for a
+(safe) system-wide installation.
+
+```bash
+make install
+```
+
+## Building with PyInstaller
+
 To build Timecard, we recommend using Python 3.7 and creating a virtual
 environment.
 
-If you're on a Linux system, you can use the provided Makefile:
-
-```bash
-make build
-```
-
-Alternatively, run the following in a virtual environment to build Timecard:
+Run the following in a virtual environment to build Timecard:
 
 ```bash
 pip install pyinstaller
@@ -22,9 +38,6 @@ at `dist/timecard-app/timecard-app`.
 
 ## Debian Package
 
-The Debian packaging is configured to build an executable using
-a virtual environment and PyInstaller. Standard Debian packaging commands
-apply.
-
-WARNING: This should be considered experimental right now. I have yet to add
-the rest of the dependencies stripped out of the PyInstaller.
+The Debian packaging is configured to rely on the `libpyside2-dev` package,
+which is available in the main apt repositories since Debian Buster and
+Ubuntu 19.04.

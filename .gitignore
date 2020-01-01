@@ -116,7 +116,9 @@ stage/
 
 # Debian packaging
 debian/.debhelper/
+debian/files
 debian/timecard-app/
-debian/timecard-app.postinst.debhelper
-debian/timecard-app.debhelper.log
+debian/timecard-app.*.log
 debian/timecard-app.substvars
+debian/timecard-app.*.debhelper
+debian/debhelper-build-stamp
