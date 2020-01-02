@@ -56,7 +56,7 @@ class Settings:
 
         logging.debug(f"Loading settings from {str(cls._settings_path)}")
 
-        with cls._settings_path.open('r') as file:
+        with cls._settings_path.open('r', encoding='utf-8') as file:
             for lineno, line in enumerate(file, start=1):
                 try:
                     k, v = (s.strip() for s in line.split(sep='=', maxsplit=2))
@@ -82,7 +82,7 @@ class Settings:
     @classmethod
     def save(cls):
         """Save the log to file."""
-        with cls._settings_path.open('w') as file:
+        with cls._settings_path.open('w', encoding='utf-8') as file:
             for key, value in cls._settings.items():
                 file.write(f"{key}={value}\n")
 
