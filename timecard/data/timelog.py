@@ -146,7 +146,7 @@ class TimeLog:
         cls._log = dict()
         # Attempt to open and parse the file.
         try:
-            with path.open('r') as file:
+            with path.open('r', encoding='utf-8') as file:
                 # Process each line in the log file
                 for lineno, line in enumerate(file, start=1):
                     # Each entry consists of three fields, separated by pipes
@@ -185,7 +185,7 @@ class TimeLog:
         # Retrieve the full save path from settings
         logpath = Settings.get_logpath()
         # Write the log out to the file.
-        with logpath.open('w') as file:
+        with logpath.open('w', encoding='utf-8') as file:
             for entry in cls._log.values():
                 file.write((f"{entry.timestamp_as_string()}|"
                             f"{entry.duration_as_string()}|"

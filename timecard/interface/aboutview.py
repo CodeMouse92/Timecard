@@ -28,7 +28,7 @@ class AboutView:
         )
         about_file = Path(about_path)
         try:
-            with about_file.open('r') as file:
+            with about_file.open('r', encoding='utf-8') as file:
                 cls.lbl_info.setPlainText(file.read())
         except FileNotFoundError:
             cls.lbl_info.setPlainText("TIMECARD\n"
