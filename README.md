@@ -72,6 +72,10 @@ This is a resurrection of that project. It offers the same core functionality
 as the original, but in an improved interface. Unlike its predecessor,
 Timecard 2.0 is portable and completely open source.
 
+## Donate
+
+Like what you see? [Buy Me A Coffee!](https://www.buymeacoffee.com/CodeMouse92)
+
 ## Contributing
 
 Bug reports and pull requests are welcome via
