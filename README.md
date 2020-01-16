@@ -74,7 +74,7 @@ Timecard 2.0 is portable and completely open source.
 
 ## Donate
 
-Like what you see? [Buy Me A Coffee!](https://www.buymeacoffee.com/CodeMouse92)
+Like what you see? Sponsor me on [GitHub](https://github.com/codemouse92/timecard) or [Buy Me A Coffee!](https://www.buymeacoffee.com/CodeMouse92).
 
 ## Contributing
 
