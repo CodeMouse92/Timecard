@@ -1,3 +1,0 @@
-# Copy application file and icon
-timecard/resources/com.indeliblebluepen.timecard_app.desktop usr/share/applications
-timecard/resources/timecard.svg usr/share/icons/hicolor/scalable/apps

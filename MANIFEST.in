@@ -1,1 +1,3 @@
-include README.md LICENSE timecard/resources/*
+include README.md LICENSE
+include src/timecard/resources/*
+recursive-include distribution_resources *
