@@ -18,6 +18,7 @@ class TimeDisplay:
     time = None
     timestamp = None
     freeze = 0
+    paused = False
 
     callback = None
 
@@ -62,25 +63,32 @@ class TimeDisplay:
             cls.time = QTime()
             cls.time.start()
             cls.timestamp = QDateTime.currentDateTime()
-            cls.freeze = 0
         else:
             cls.time.restart()
         cls.timer.start()
+        cls.paused = False
 
     @classmethod
     def stop_time(cls):
         """Stop (paused) the timer."""
+        if cls.paused:
+            return
+
         if cls.time is not None:
             cls.freeze += cls.time.elapsed()
 
         if cls.timer is not None:
             cls.timer.stop()
 
+        cls.paused = True
+
     @classmethod
-    def reset_time(cls):
-        """Prepare timer for reset, without erasing the last session's time."""
+    def reset_time(cls, erase=False):
+        """Prepare timer for reset, optionally erasing the last session's time."""
         cls.timer = None
         cls.time = None
+        if erase:
+            cls.freeze = 0
 
     @classmethod
     def get_time_ms(cls):

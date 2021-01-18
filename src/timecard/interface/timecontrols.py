@@ -265,7 +265,7 @@ class TimeControls:
     @classmethod
     def stop(cls):
         """Stop a timer."""
-        # DO NOT call TimeDisplay.stop_time() again; it will double the time
+        # stop_time() already called from prompt_stop()
         cls._set_mode_save()
         TimeDisplay.reset_time()
         if cls.stop_callback:
@@ -282,7 +282,7 @@ class TimeControls:
         LogView.refresh()
         Notes.clear()
         TimeDisplay.stop_time()
-        TimeDisplay.reset_time()
+        TimeDisplay.reset_time(erase=True)
         if cls.save_callback:
             cls.save_callback()
 
@@ -291,6 +291,7 @@ class TimeControls:
         """Discard a stopped timer's time instead of saving it."""
 
         cls._set_mode_stopped()
+        TimeDisplay.reset_time(erase=True)
         TimeDisplay.show_default()
         Notes.clear()
         if cls.reset_callback:
