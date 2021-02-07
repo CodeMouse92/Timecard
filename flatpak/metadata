@@ -1,0 +1,5 @@
+[Application]
+name=com.codemouse92.timecard
+runtime=org.kde.Platform/x86_64/5.14
+sdk=org.kde.Sdk/x86_64/5.14
+base=app/io.qt.qtwebkit.BaseApp/x86_64/5.14

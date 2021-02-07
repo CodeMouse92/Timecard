@@ -13,5 +13,6 @@
         "sdist",
         "timecardrc",
         "wheel"
-    ]
+    ],
+    "restructuredtext.languageServer.disabled": true
 }

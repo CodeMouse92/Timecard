@@ -123,3 +123,8 @@ debian/timecard-app.*.log
 debian/timecard-app.substvars
 debian/timecard-app.*.debhelper
 debian/debhelper-build-stamp
+
+# Flatpak
+flatpak/files/
+flatpak/var/
+.flatpak-builder/
