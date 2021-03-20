@@ -61,4 +61,4 @@ modules:
       sources:
         - type: git
           url: https://github.com/codemouse92/timecard
-          branch: main
+          branch: stable
