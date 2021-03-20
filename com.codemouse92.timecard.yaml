@@ -55,6 +55,9 @@ modules:
           - "--share=network"
       build-commands:
         - python3 setup.py install --prefix=${FLATPAK_DEST}
+        - install -Dm644 app/share/icons/${FLATPAK_ID}.svg ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
+        - install -Dm644 app/share/applications/${FLATPAK_ID}.desktop ${FLATPAK_DEST}/share/applications/${FLATPAK_ID}.desktop
+        - install -Dm644 app/share/metainfo/${FLATPAK_ID}.appdata.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.appdata.xml
       sources:
         - type: git
           url: https://github.com/codemouse92/timecard
