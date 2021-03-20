@@ -1,0 +1,5 @@
+[Runtime]
+name=com.codemouse92.timecard.Debug
+
+[ExtensionOf]
+ref=app/com.codemouse92.timecard/x86_64/stable

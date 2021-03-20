@@ -50,13 +50,15 @@ class App:
 
     @classmethod
     def build(cls):
-        """Construct the interface."""
+        """Construct the application."""
+        logging.debug("Building application.")
+        cls.app.setApplicationName("Timecard")
+        cls.app.setApplicationVersion('2.0.5')
+        cls.app.setDesktopFileName('com.codemouse92.timecard')
+        cls.app.setWindowIcon(cls.icon)
+
         logging.debug("Building main window.")
         cls.window.resize(400, 400)
-        cls.window.setWindowTitle(
-            QApplication.translate("program_name", "Timecard")
-        )
-        cls.window.setWindowIcon(cls.icon)
         cls.window.setLayout(cls.layout)
 
     @classmethod

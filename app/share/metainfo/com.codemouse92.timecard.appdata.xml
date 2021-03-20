@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2013 First Lastname <your@email.com> -->
+<component type="desktop-application">
+    <id>com.codemouse92.timecard</id>
+    <metadata_license>CC-BY-3.0</metadata_license>
+    <project_license>BSD-3-Clause</project_license>
+    <name>Timecard</name>
+    <summary>Track time beautifully.</summary>
+
+    <description>
+        <p>
+            Timecard allows you to track how much time you spend on tasks.
+            It offers a clean, responsive one-window interface that allows you to
+            quickly configure your time tracking, and then hides away in the system tray
+            until you need it again.
+        </p>
+        <p>Features:</p>
+        <ul>
+            <li>Start and pause time tracking from application window or system tray.</li>
+            <li>Stop timer and save to log with activity notes.</li>
+            <li>View, sort, and edit time log entries.</li>
+            <li>Customizable time log path.</li>
+            <li>Hides to system tray.</li>
+            <li>Quit protection helps prevent accidentally closing while tracking time.</li>
+        </ul>
+    </description>
+
+    <launchable type="desktop-id">com.codemouse92.timecard.desktop</launchable>
+
+    <screenshots>
+        <screenshot type="default">
+            <caption>The main time tracking screen.</caption>
+            <image>https://codemouse92.github.io/Timecard/img/log.jpg</image>
+        </screenshot>
+        <screenshot>
+            <caption>Control Timecard from the system tray.</caption>
+            <image>https://codemouse92.github.io/Timecard/img/systemtray.jpg</image>
+        </screenshot>
+        <screenshot>
+            <caption>You have complete control over your log entries.</caption>
+            <image>https://codemouse92.github.io/Timecard/img/edit.jpg</image>
+        </screenshot>
+        <screenshot>
+            <caption>Customize time display and log location.</caption>
+            <image>https://codemouse92.github.io/Timecard/img/settings.jpg</image>
+        </screenshot>
+    </screenshots>
+
+    <url type="homepage">https://codemouse92.github.io/Timecard/</url>
+    <developer_name>Jason C. McDonald</developer_name>
+    <update_contact>codemouse92_AT_outlook.com</update_contact>
+
+    <provides>
+        <binary>timecard</binary>
+    </provides>
+
+    <releases>
+        <release version="2.0.5" date="2021-03-19">
+            <description>
+            <p>Fixes erroneous duration when stopping after pause.</p>
+            </description>
+        </release>
+    </releases>
+</component>

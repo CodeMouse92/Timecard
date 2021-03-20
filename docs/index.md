@@ -57,7 +57,7 @@ lost over the years, and all known downloads are locked away within
 unauthorized adware installers (darn it, Cnet!)
 
 After years of pining for his first successful project, Jason finally
-resurrected Timecard, recreating and reimagining it
+resurrected Timecard, recreating and re-imagining it
 with modern Python and Qt 5 (PySide2), and releasing it as open source
 software so it can never be lost to the silicon dioxide of history again.
 

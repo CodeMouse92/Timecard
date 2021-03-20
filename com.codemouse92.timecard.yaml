@@ -5,7 +5,7 @@ base-version: "5.14"
 runtime: org.kde.Platform
 runtime-version: "5.14"
 sdk: org.kde.Sdk
-command: Timecard
+command: Timecard-App
 cleanup:
     - /include
     - /share/aclocal
@@ -14,6 +14,22 @@ cleanup:
     - /share/man
     - "*.a"
     - "*.la"
+finish-args:
+    - --filesystem=host
+    - --share=ipc
+    - --socket=x11
+    - --socket=fallback-x11
+    - --socket=wayland
+    - --device=dri
+    - --talk-name=org.freedesktop.DBus.Proprieties
+    - --talk-name=org.freedesktop.IBus
+    - --talk-name=org.freedesktop.Notifications
+    - --talk-name=org.kde.StatusNotifierWatcher
+    - --own-name=org.kde.*
+    - --talk-name=com.canonical.indicator.application
+    - --talk-name=org.ayatana.indicator.application
+    - --env=PATH=/app/bin
+    - --env=PYTHONPATH=/app/packages/python
 modules:
     - name: pyside2
       buildsystem: cmake-ninja
@@ -32,11 +48,14 @@ modules:
            - mkdir -p /app/include/qt5tmp && cp -R /usr/include/Qt* /app/include/qt5tmp  # https://bugreports.qt.io/browse/PYSIDE-787
            - sed -i 's|\(--include-paths=\)|\1/app/include/qt5tmp:|' sources/pyside2/cmake/Macros/PySideModules.cmake
 
-    - name: Timecard
+    - name: Timecard-App
       buildsystem: simple
+      build-options:
+        build-args:
+          - "--share=network"
       build-commands:
-        - pip3 install --prefix=/app --no-deps .
+        - python3 setup.py install --prefix=${FLATPAK_DEST}
       sources:
-        - type: archive
-          url: https://github.com/CodeMouse92/Timecard/archive/2.0.5-alpha1.tar.gz
-          sha256: 6194c25d9cae497d5254163ffb46d082507efcf5159c2704f1582d2827f89598
+        - type: git
+          url: https://github.com/codemouse92/timecard
+          branch: main
