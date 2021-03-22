@@ -7,8 +7,8 @@ and state.
 
 from datetime import datetime
 
-from PySide6.QtCore import QDateTime, QElapsedTimer, QTimer
-from PySide6.QtWidgets import QLCDNumber
+from PySide2.QtCore import QDateTime, QElapsedTimer, QTimer
+from PySide2.QtWidgets import QLCDNumber
 
 
 class TimeDisplay:

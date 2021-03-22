@@ -44,7 +44,7 @@ setup(
     include_package_data=True,
 
     python_requires='>=3.6, <4',
-    install_requires=['PySide6 >= 6.0.2'],
+    install_requires=['PySide2 >= 5.15.0'],
 
     extras_require={
         'test': ['pytest'],

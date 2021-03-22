@@ -8,8 +8,8 @@ import os
 from pathlib import Path
 from pkg_resources import resource_filename
 
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QTextEdit
+from PySide2.QtCore import Qt
+from PySide2.QtWidgets import QWidget, QVBoxLayout, QTextEdit
 
 
 class AboutView:

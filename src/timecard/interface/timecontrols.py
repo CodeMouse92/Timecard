@@ -4,8 +4,8 @@ Author(s): Jason C. McDonald
 Controls the timer and saves the time entries to the log.
 """
 
-from PySide6.QtWidgets import QPushButton, QHBoxLayout, QWidget
-from PySide6.QtGui import QIcon
+from PySide2.QtWidgets import QPushButton, QHBoxLayout, QWidget
+from PySide2.QtGui import QIcon
 
 from timecard.interface.notes import Notes
 from timecard.interface.timedisplay import TimeDisplay

@@ -9,8 +9,8 @@ import logging
 import os
 from pkg_resources import resource_filename
 
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
-from PySide6.QtGui import QIcon
+from PySide2.QtWidgets import QApplication, QVBoxLayout, QWidget
+from PySide2.QtGui import QIcon
 
 from timecard.data.settings import Settings
 

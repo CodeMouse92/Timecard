@@ -58,14 +58,14 @@ unauthorized adware installers (darn it, Cnet!)
 
 After years of pining for his first successful project, Jason finally
 resurrected Timecard, recreating and re-imagining it
-with modern Python and Qt 6 (PySide6), and releasing it as open source
+with modern Python and Qt 5 (PySide2), and releasing it as open source
 software so it can never be lost to the silicon dioxide of history again.
 
 Long live Timecard!
 
 # Download!
 
-Timecard is built with PySide6 (Qt 6), so it should run on all modern operating
+Timecard is built with PySide2 (Qt 5), so it should run on all modern operating
 systems: Windows, Mac, and Linux.
 
 Right now, the easiest way to install Timecard is through PyPI:

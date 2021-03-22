@@ -6,11 +6,11 @@ Allows editing a single time log entry.
 
 from datetime import datetime
 
-from PySide6.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout
-from PySide6.QtWidgets import QPushButton
-from PySide6.QtWidgets import QLabel, QLineEdit, QDateTimeEdit, QSpinBox
-from PySide6.QtGui import QIcon
-from PySide6.QtCore import QDateTime, QDate, QTime
+from PySide2.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout
+from PySide2.QtWidgets import QPushButton
+from PySide2.QtWidgets import QLabel, QLineEdit, QDateTimeEdit, QSpinBox
+from PySide2.QtGui import QIcon
+from PySide2.QtCore import QDateTime, QDate, QTime
 
 from timecard.data.timelog import TimeLog
 
