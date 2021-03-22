@@ -125,6 +125,5 @@ debian/timecard-app.*.debhelper
 debian/debhelper-build-stamp
 
 # Flatpak
-flatpak/files/
-flatpak/var/
+flatpak/
 .flatpak-builder/
