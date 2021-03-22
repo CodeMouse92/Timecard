@@ -7,8 +7,8 @@ and state.
 
 from datetime import datetime
 
-from PySide2.QtCore import QDateTime, QTime, QTimer
-from PySide2.QtWidgets import QLCDNumber
+from PySide6.QtCore import QDateTime, QElapsedTimer, QTimer
+from PySide6.QtWidgets import QLCDNumber
 
 
 class TimeDisplay:
@@ -60,7 +60,7 @@ class TimeDisplay:
             cls.timer = QTimer(cls.lcd)
             cls.timer.timeout.connect(cls.update_time)
         if cls.time is None:
-            cls.time = QTime()
+            cls.time = QElapsedTimer()
             cls.time.start()
             cls.timestamp = QDateTime.currentDateTime()
         else:

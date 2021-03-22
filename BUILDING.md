@@ -36,8 +36,3 @@ pyinstaller --clean --windowed timecard-app.spec
 The distribution folder is `dist/timecard-app`, and the standalone binary is
 at `dist/timecard-app/timecard-app`.
 
-## Debian Package
-
-The Debian packaging is configured to rely on the `libpyside2-dev` package,
-which is available in the main apt repositories since Debian Buster and
-Ubuntu 19.04.

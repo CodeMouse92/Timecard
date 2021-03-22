@@ -5,9 +5,9 @@ Displays the current log entries and allows deleting or triggering edits
 on them.
 """
 
-from PySide2.QtWidgets import QWidget, QTreeWidget, QGridLayout, QPushButton
-from PySide2.QtWidgets import QTreeWidgetItem
-from PySide2.QtGui import QIcon
+from PySide6.QtWidgets import QWidget, QTreeWidget, QGridLayout, QPushButton
+from PySide6.QtWidgets import QTreeWidgetItem
+from PySide6.QtGui import QIcon
 
 from timecard.data.timelog import TimeLog
 from timecard.data.settings import Settings
