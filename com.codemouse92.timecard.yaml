@@ -27,13 +27,13 @@ finish-args:
     - --own-name=org.kde.*
     - --talk-name=com.canonical.indicator.application
     - --talk-name=org.ayatana.indicator.application
-    - --env=PYTHONPATH=${FLATPAK_DEST}/packages/python
+    - --env=PYTHONPATH=/app/packages/python
 modules:
-    # pyside2 module borrowed from https://github.com/flathub/com.github.unrud.djpdf (@hfiguiere)
+    # pyside2 module borrowed from https://github.com/flathub/com.github.unrud.djpdf
     - name: pyside2
       buildsystem: simple
       build-commands:
-        - mkdir -p ${FLATPAK_DEST}/qt5include && cp -R /usr/include/Qt* ${FLATPAK_DEST}/qt5include # https://bugreports.qt.io/browse/PYSIDE-787
+        - mkdir -p /app/qt5include && cp -R /usr/include/Qt* /app/qt5include # https://bugreports.qt.io/browse/PYSIDE-787
         - mkdir _build && cd _build &&
           cmake -GNinja -j"$FLATPAK_BUILDER_N_JOBS"
           -DCMAKE_INSTALL_PREFIX:PATH="$FLATPAK_DEST"
@@ -56,7 +56,7 @@ modules:
           sha256: b306504b0b8037079a8eab772ee774b9e877a2d84bab2dbefbe4fa6f83941418
         - type: shell
           commands:
-          - sed -i 's|\(--include-paths=\)|\1${FLATPAK_DEST}/qt5include:|' sources/pyside2/cmake/Macros/PySideModules.cmake
+          - sed -i 's|\(--include-paths=\)|\1/app/qt5include:|' sources/pyside2/cmake/Macros/PySideModules.cmake
 
     - name: Timecard-App
       buildsystem: simple
@@ -74,4 +74,4 @@ modules:
           sha256: e11eefd162658ea59a60a0f6c7d493a7190ea4b9a85e335b33489d9f17e0245e
         - type: git
           url: https://github.com/codemouse92/timecard
-          tag: v2.0.6
+          branch: main
