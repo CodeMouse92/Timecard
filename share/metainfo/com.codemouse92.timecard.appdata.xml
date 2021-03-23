@@ -55,7 +55,7 @@
     </provides>
 
     <releases>
-        <release version="2.0.5" date="2021-03-19">
+        <release version="2.0.6" date="2021-03-19">
             <description>
             <p>Fixes erroneous duration when stopping after pause.</p>
             </description>

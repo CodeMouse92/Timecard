@@ -7,7 +7,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='Timecard-App',
-    version='2.0.5',
+    version='2.0.6',
     description='Track time beautifully.',
     long_description=long_description,
     long_description_content_type='text/markdown',

@@ -53,7 +53,7 @@ class App:
         """Construct the application."""
         logging.debug("Building application.")
         cls.app.setApplicationName("Timecard")
-        cls.app.setApplicationVersion('2.0.5')
+        cls.app.setApplicationVersion('2.0.6')
         cls.app.setDesktopFileName('com.codemouse92.timecard')
         cls.app.setWindowIcon(cls.icon)
 
