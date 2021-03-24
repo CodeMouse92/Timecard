@@ -1,4 +1,4 @@
-TIMECARD 2.0.6
+TIMECARD 2.0.7
 
 Created by Jason C. McDonald
 (CodeMouse92)

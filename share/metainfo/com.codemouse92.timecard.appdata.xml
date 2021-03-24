@@ -25,23 +25,25 @@
         </ul>
     </description>
 
+    <content_rating type="oars-1.0" />
+
     <launchable type="desktop-id">com.codemouse92.timecard.desktop</launchable>
 
     <screenshots>
         <screenshot type="default">
-            <caption>The main time tracking screen.</caption>
+            <caption>The main time tracking screen</caption>
             <image>https://codemouse92.github.io/Timecard/img/log.jpg</image>
         </screenshot>
         <screenshot>
-            <caption>Control Timecard from the system tray.</caption>
+            <caption>Control Timecard from the system tray</caption>
             <image>https://codemouse92.github.io/Timecard/img/systemtray.jpg</image>
         </screenshot>
         <screenshot>
-            <caption>You have complete control over your log entries.</caption>
+            <caption>You have complete control over your log entries</caption>
             <image>https://codemouse92.github.io/Timecard/img/edit.jpg</image>
         </screenshot>
         <screenshot>
-            <caption>Customize time display and log location.</caption>
+            <caption>Customize time display and log location</caption>
             <image>https://codemouse92.github.io/Timecard/img/settings.jpg</image>
         </screenshot>
     </screenshots>
@@ -55,7 +57,7 @@
     </provides>
 
     <releases>
-        <release version="2.0.6" date="2021-03-19">
+        <release version="2.0.7" date="2021-03-19">
             <description>
             <p>Fixes erroneous duration when stopping after pause.</p>
             </description>
