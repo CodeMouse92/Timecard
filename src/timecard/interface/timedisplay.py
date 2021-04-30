@@ -84,7 +84,8 @@ class TimeDisplay:
 
     @classmethod
     def reset_time(cls, erase=False):
-        """Prepare timer for reset, optionally erasing the last session's time."""
+        """Prepare timer for reset, optionally erasing the last session's time.
+        """
         cls.timer = None
         cls.time = None
         if erase:

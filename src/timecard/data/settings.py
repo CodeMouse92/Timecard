@@ -8,6 +8,7 @@ import functools
 import logging
 import os
 from pathlib import Path
+from appdirs import user_config_dir, user_data_dir
 
 
 def settings_getter(func):
@@ -32,7 +33,11 @@ def settings_setter(func):
 
 class Settings:
     _settings = None
-    _settings_path = Path(Path.home(), ".timecardrc")
+    _settings_path = Path(user_config_dir('timecard'), "settings.conf")
+    # Other places to read the settings from (will not save to)
+    _settings_path_alts = (Path(Path.home(), ".timecardrc"),)
+    # Whether we loaded from an alt location
+    _from_alt = False
 
     @classmethod
     def load(cls, force=False):
@@ -42,26 +47,43 @@ class Settings:
         if not force and cls._settings is not None:
             return
 
+        # Attempt first to load from default location
         if cls._settings_path.exists():
-            cls.load_from_file()
+            cls.load_from_file(cls._settings_path)
+        # If default settings file doesn't exist, attempt to load from
+        # alternative settings file paths
         else:
-            cls.load_from_default()
+            for settings_path in cls._settings_path_alts:
+                if settings_path.exists():
+                    cls._from_alt = True
+                    cls.load_from_file(settings_path)
+                    break
+            # If no settings files are found, create a new one.
+            else:
+                # Load the default file format
+                cls.load_from_default()
+                # Immediately save as well
+                cls.save()
 
     @classmethod
-    def load_from_file(cls):
+    def load_from_file(cls, settings_path):
         """Load the settings from file.
         You probably shouldn't use this directly; use Settings.load() instead.
         """
         cls._settings = dict()
 
-        logging.debug(f"Loading settings from {str(cls._settings_path)}")
+        logging.debug(f"Loading settings from {str(settings_path)}")
 
-        with cls._settings_path.open('r', encoding='utf-8') as file:
+        with settings_path.open('r', encoding='utf-8') as file:
             for lineno, line in enumerate(file, start=1):
                 try:
+                    if line[0] == '#':
+                        # Line is a comment, ignore.
+                        continue
+                    # Split line around the = operator
                     k, v = (s.strip() for s in line.split(sep='=', maxsplit=2))
                 except ValueError:
-                    logging.warning(f"Invalid entry in .timecardrc:{lineno}\n"
+                    logging.warning(f"Invalid entry in {settings_path}:{lineno}\n"
                                     f"  {line}")
                 else:
                     cls._settings[k] = v
@@ -82,9 +104,39 @@ class Settings:
     @classmethod
     def save(cls):
         """Save the log to file."""
+        cls._settings_path.parent.mkdir(parents=True, exist_ok=True)
         with cls._settings_path.open('w', encoding='utf-8') as file:
             for key, value in cls._settings.items():
                 file.write(f"{key}={value}\n")
+        # Clean up alternatives
+        if cls._from_alt:
+            cls.cleanup_alts()
+
+    @classmethod
+    def cleanup_alts(cls):
+        print("ALT!")
+        """Rewrite alternative files to discourage their continued use."""
+        message = [
+            "# Your settings have automatically been migrated!\n",
+            f"# See {cls._settings_path}\n"
+        ]
+        for settings_path in cls._settings_path_alts:
+            if not settings_path.exists():
+                continue
+            with settings_path.open('r') as file:
+                original = file.readlines()
+
+            # If file was already processed by this instance...
+            if original[:2] == message:
+                continue
+            # If file was previously processed, strip prior comments...
+            elif original[:1] == message[:1]:
+                original = original[2:]
+
+            # Prepend processing comments
+            with settings_path.open('w', encoding='utf-8') as file:
+                file.writelines(message)
+                file.writelines(original)
 
     @classmethod
     @settings_getter
@@ -94,7 +146,7 @@ class Settings:
             logdir = cls._settings['logdir']
             return os.path.normpath(logdir)
         except KeyError:
-            return str(Path(Path.home(), ".timecard"))
+            return str(Path(user_data_dir('timecard')))
 
     @classmethod
     @settings_getter

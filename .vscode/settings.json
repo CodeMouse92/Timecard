@@ -13,5 +13,6 @@
         "timecardrc",
         "wheel"
     ],
+    "python.analysis.typeCheckingMode": "off",
     "restructuredtext.languageServer.disabled": true
 }

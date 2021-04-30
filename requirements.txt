@@ -1,2 +1,2 @@
 PySide2 >= 5.15.0
-pytest
+appdirs >= 1.4.4

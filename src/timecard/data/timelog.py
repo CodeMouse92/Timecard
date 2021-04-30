@@ -104,7 +104,7 @@ class LogEntry:
     def duration_as_string(self, as_decimal=False):
         """Retrieve duration in format HH:MM:SS"""
         if as_decimal:
-            decdur = self.duration[0] + (self.duration[1]/60)
+            decdur = self.duration[0] + (self.duration[1] / 60)
             return f"{decdur:.2f}"
         else:
             return (f"{self.duration[0]:02}:"
@@ -126,7 +126,7 @@ class TimeLog:
                         timestamp.day,
                         timestamp.hour,
                         timestamp.minute,
-                        timestamp.second+1
+                        timestamp.second + 1
                         )
 
     @classmethod

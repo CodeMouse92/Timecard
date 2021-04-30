@@ -36,7 +36,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: Implementation :: CPython',
-        ],
+    ],
 
     package_dir={'': 'src'},
     packages=find_packages(where='src'),
@@ -44,15 +44,15 @@ setup(
     include_package_data=True,
 
     python_requires='>=3.6, <4',
-    install_requires=['PySide2 >= 5.15.0'],
+    install_requires=['PySide2 >= 5.15.0', 'appdirs >= 1.4.4'],
 
     extras_require={
         'test': ['pytest'],
     },
 
     entry_points={
-          'gui_scripts': [
-              'Timecard-App = timecard.__main__:main'
-          ]
-      }
+        'gui_scripts': [
+            'Timecard-App = timecard.__main__:main'
+        ]
+    }
 )
