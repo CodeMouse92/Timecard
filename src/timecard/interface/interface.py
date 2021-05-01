@@ -13,6 +13,8 @@ from timecard.interface.timedisplay import TimeDisplay
 from timecard.interface.systray import SysTray
 from timecard.interface.workspace import Workspace
 
+from timecard.data.backup import Backup
+
 
 def build():
     """Construct the interface."""
@@ -23,6 +25,11 @@ def build():
     App.add_widget(Workspace.build())
     App.add_widget(AppControls.build())
     SysTray.build()
+
+    # See if there's anything to recover from a damaged session.
+    Backup.check_for_recall()
+    # Start monitoring new timers.
+    Backup.start_monitoring()
 
 
 def run():

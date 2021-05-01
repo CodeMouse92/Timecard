@@ -50,7 +50,7 @@ class SysTray:
         cls.systray.setContextMenu(cls.menu)
         cls.systray.show()
 
-        TimeDisplay.subscribe(cls.update_time)
+        TimeDisplay.subscribe_tick(cls.update_time)
         TimeControls.connect(
             start=cls.set_mode_running,
             resume=cls.set_mode_running,

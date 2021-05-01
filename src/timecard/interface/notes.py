@@ -19,6 +19,11 @@ class Notes:
         return cls.txt_notes
 
     @classmethod
+    def restore_from_backup(cls, notes):
+        """Sets value from backup."""
+        cls.txt_notes.setText(notes)
+
+    @classmethod
     def get_text(cls):
         """Returns the current text in the notes box."""
         return cls.txt_notes.text()
