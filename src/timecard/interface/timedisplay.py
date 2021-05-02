@@ -181,17 +181,11 @@ class TimeDisplay:
                 )
 
     @classmethod
-    def subscribe_tick(cls, callback=None):
+    def connect(cls, on_tick=None, on_stop=None):
         """Subscribe to every clock tick
         Callback callable must accept the arguments: (hours, minutes, seconds)
         """
-        if callback:
-            cls.callback_tick.append(callback)
-
-    @classmethod
-    def subscribe_stop(cls, callback=None):
-        """Subscribe to the clock being stopped (not paused)
-        Callback callable must accept the arguments: (erased: bool)
-        """
-        if callback:
-            cls.callback_stop.append(callback)
+        if on_tick:
+            cls.callback_tick.append(on_tick)
+        if on_stop:
+            cls.callback_stop.append(on_stop)

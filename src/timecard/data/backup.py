@@ -117,5 +117,4 @@ class Backup:
             if erase:
                 cls.forget()
 
-        TimeDisplay.subscribe_tick(tick)
-        TimeDisplay.subscribe_stop(stop)
+        TimeDisplay.connect(on_tick=tick, on_stop=stop)

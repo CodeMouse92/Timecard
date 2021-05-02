@@ -36,7 +36,7 @@ class App:
     )
     icon = QIcon(icon_path)
 
-    notify_callback = None
+    hide_callback = []
 
     @classmethod
     def run(cls):
@@ -53,7 +53,7 @@ class App:
         """Construct the application."""
         logging.debug("Building application.")
         cls.app.setApplicationName("Timecard")
-        cls.app.setApplicationVersion('2.0.7')
+        cls.app.setApplicationVersion('2.1.0')
         cls.app.setDesktopFileName('com.codemouse92.timecard')
         cls.app.setWindowIcon(cls.icon)
 
@@ -86,13 +86,13 @@ class App:
 
     @classmethod
     def notify(cls, message):
-        if cls.notify_callback:
-            cls.notify_callback(message)
+        for callback in cls.hide_callback:
+            callback(message)
 
     @classmethod
-    def connect(cls, notify=None):
-        if notify:
-            cls.notify_callback = notify
+    def connect(cls, on_hide=None):
+        if on_hide:
+            cls.hide_callback.append(on_hide)
 
     @classmethod
     def quit(cls):

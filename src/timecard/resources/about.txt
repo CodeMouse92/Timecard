@@ -1,11 +1,11 @@
-TIMECARD 2.0.7
+TIMECARD 2.1.0
 
 Created by Jason C. McDonald
 (CodeMouse92)
 
 ============================
 
-TIMECARD 2.0 LICENSE
+TIMECARD LICENSE
 BSD-3-Clause
 
 Copyright 2020 Jason C. McDonald.

@@ -19,12 +19,12 @@ class TimeControls:
     btn_startpause = QPushButton()
     btn_stopsave = QPushButton()
 
-    start_callback = None
-    resume_callback = None
-    pause_callback = None
-    stop_callback = None
-    save_callback = None
-    reset_callback = None
+    start_callback = []
+    resume_callback = []
+    pause_callback = []
+    stop_callback = []
+    save_callback = []
+    reset_callback = []
 
     @classmethod
     def build(cls):
@@ -38,70 +38,81 @@ class TimeControls:
         return cls.widget
 
     @classmethod
-    def connect(cls, start=None, resume=None, pause=None,
-                stop=None, save=None, reset=None):
+    def connect(cls, on_start=None, on_resume=None, on_pause=None,
+                on_stop=None, on_save=None, on_reset=None):
         """Connect callbacks to the time control events.
         Any callbacks not specified will not be overridden.
         (See disconnect() for removing callbacks.)
 
         Keyword arguments:
-        start -- called when a new timer is started
-        resume -- called when a timer is un-paused
-        pause -- called when a timer is paused or tentatively-stopped
-        stop -- called when a timer is stopped
-        save -- called when a stopped timer is saved to log
-        reset -- called when a stopped timer is cleared
+        on_start -- called when a new timer is started
+        on_resume -- called when a timer is un-paused
+        on_pause -- called when a timer is paused or tentatively-stopped
+        on_stop -- called when a timer is stopped
+        on_save -- called when a stopped timer is saved to log
+        on_reset -- called when a stopped timer is cleared
         """
-        if start:
-            cls.start_callback = start
+        if on_start:
+            cls.start_callback.append(on_start)
 
-        if resume:
-            cls.resume_callback = resume
+        if on_resume:
+            cls.resume_callback.append(on_resume)
 
-        if pause:
-            cls.pause_callback = pause
+        if on_pause:
+            cls.pause_callback.append(on_pause)
 
-        if stop:
-            cls.stop_callback = stop
+        if on_stop:
+            cls.stop_callback.append(on_stop)
 
-        if save:
-            cls.save_callback = save
+        if on_save:
+            cls.save_callback.append(on_save)
 
-        if reset:
-            cls.reset_callback = reset
+        if on_reset:
+            cls.reset_callback.append(on_reset)
 
     @classmethod
-    def disconnect(cls, start=False, resume=False, pause=False,
-                   stop=False, save=False, reset=False):
+    def disconnect(cls, on_start=None, on_resume=None, on_pause=None,
+                   on_stop=None, on_save=None, on_reset=None):
         """Disconnect functions from the time control events.
-        Pass True to any of the keyword arguments to clear the associated
-        callback.
+        Pass the function to remove from the callback.
 
         Keyword arguments:
-        start -- called when a new timer is started
-        resume -- called when a timer is un-paused
-        pause -- called when a timer is paused or tentatively-stopped
-        stop -- called when a timer is stopped
-        save -- called when a stopped timer is saved to log
-        reset -- called when a stopped timer is cleared
+        on_start -- called when a new timer is started
+        on_resume -- called when a timer is un-paused
+        on_pause -- called when a timer is paused or tentatively-stopped
+        on_stop -- called when a timer is stopped
+        on_save -- called when a stopped timer is saved to log
+        on_reset -- called when a stopped timer is cleared
         """
-        if start:
-            cls.start_callback = None
+        try:
+            cls.start_callback.remove(on_start)
+        except ValueError:
+            pass
 
-        if resume:
-            cls.resume_callback = None
+        try:
+            cls.resume_callback.remove(on_resume)
+        except ValueError:
+            pass
 
-        if pause:
-            cls.pause_callback = None
+        try:
+            cls.pause_callback.remove(on_pause)
+        except ValueError:
+            pass
 
-        if stop:
-            cls.stop_callback = None
+        try:
+            cls.stop_callback.remove(on_stop)
+        except ValueError:
+            pass
 
-        if save:
-            cls.save_callback = None
+        try:
+            cls.save_callback.remove(on_save)
+        except ValueError:
+            pass
 
-        if reset:
-            cls.reset_callback = None
+        try:
+            cls.reset_callback.remove(on_reset)
+        except ValueError:
+            pass
 
     @classmethod
     def _disconnect_buttons(cls):
@@ -227,8 +238,8 @@ class TimeControls:
 
         cls._set_mode_running()
         TimeDisplay.start_time()
-        if cls.start_callback:
-            cls.start_callback()
+        for callback in cls.start_callback:
+            callback()
 
     @classmethod
     def resume(cls):
@@ -236,8 +247,8 @@ class TimeControls:
 
         cls._set_mode_running()
         TimeDisplay.start_time()
-        if cls.resume_callback:
-            cls.resume_callback()
+        for callback in cls.resume_callback:
+            callback()
 
     @classmethod
     def pause(cls):
@@ -245,8 +256,8 @@ class TimeControls:
 
         cls._set_mode_paused()
         TimeDisplay.stop_time()
-        if cls.pause_callback:
-            cls.pause_callback()
+        for callback in cls.pause_callback:
+            callback()
 
     @classmethod
     def prompt_stop(cls):
@@ -254,8 +265,8 @@ class TimeControls:
 
         cls._set_mode_prompt_stop()
         TimeDisplay.stop_time()
-        if cls.pause_callback:
-            cls.pause_callback()
+        for callback in cls.pause_callback:
+            callback()
 
     @classmethod
     def cancel_stop(cls):
@@ -268,8 +279,8 @@ class TimeControls:
         # stop_time() already called from prompt_stop()
         cls._set_mode_save()
         TimeDisplay.reset_time()
-        if cls.stop_callback:
-            cls.stop_callback()
+        for callback in cls.stop_callback:
+            callback()
 
     @classmethod
     def save(cls):
@@ -283,8 +294,8 @@ class TimeControls:
         Notes.clear()
         TimeDisplay.stop_time()
         TimeDisplay.reset_time(erase=True)
-        if cls.save_callback:
-            cls.save_callback()
+        for callback in cls.save_callback:
+            callback()
 
     @classmethod
     def reset(cls):
@@ -294,8 +305,8 @@ class TimeControls:
         TimeDisplay.reset_time(erase=True)
         TimeDisplay.show_default()
         Notes.clear()
-        if cls.reset_callback:
-            cls.reset_callback()
+        for callback in cls.reset_callback:
+            callback()
 
     @classmethod
     def prompt_reset(cls):

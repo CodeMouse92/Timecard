@@ -40,7 +40,7 @@ class LogView:
     btn_edit = QPushButton()
     btn_delete = QPushButton()
 
-    edit_callback = None
+    edit_callback = []
 
     @classmethod
     def build(cls):
@@ -72,9 +72,9 @@ class LogView:
             cls.tree_log.addTopLevelItem(item)
 
     @classmethod
-    def connect(cls, edit=None):
-        if edit:
-            cls.edit_callback = edit
+    def connect(cls, on_edit=None):
+        if on_edit:
+            cls.edit_callback.append(on_edit)
 
     @classmethod
     def _disconnect_buttons(cls):
@@ -156,5 +156,5 @@ class LogView:
     @classmethod
     def edit(cls):
         timestamp = cls._selected_entry()
-        if cls.edit_callback:
-            cls.edit_callback(timestamp)
+        for callback in cls.edit_callback:
+            callback(timestamp)

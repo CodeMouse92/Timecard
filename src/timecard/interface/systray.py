@@ -22,6 +22,9 @@ class SysTray:
     act_toggle = QAction()
     act_quit = QAction()
 
+    toggle_callback = []
+    quit_callback = []
+
     @classmethod
     def build(cls):
         """Construct the system tray"""
@@ -50,16 +53,16 @@ class SysTray:
         cls.systray.setContextMenu(cls.menu)
         cls.systray.show()
 
-        TimeDisplay.subscribe_tick(cls.update_time)
+        TimeDisplay.connect(on_tick=cls.update_time)
         TimeControls.connect(
-            start=cls.set_mode_running,
-            resume=cls.set_mode_running,
-            pause=cls.set_mode_paused,
-            stop=cls.set_mode_save,
-            save=cls.set_mode_stopped,
-            reset=cls.set_mode_stopped
+            on_start=cls.set_mode_running,
+            on_resume=cls.set_mode_running,
+            on_pause=cls.set_mode_paused,
+            on_stop=cls.set_mode_save,
+            on_save=cls.set_mode_stopped,
+            on_reset=cls.set_mode_stopped
         )
-        App.connect(notify=cls.popup)
+        App.connect(on_hide=cls.popup)
 
         return cls.systray
 
@@ -122,6 +125,9 @@ class SysTray:
         App.quit()
 
     @classmethod
-    def connect(cls, toggle=None, quit=None):
-        cls.toggle_callback = toggle
-        cls.quit_callback = quit
+    def connect(cls, on_toggle=None, on_quit=None):
+        if on_toggle:
+            cls.toggle_callback.append(on_toggle)
+
+        if on_quit:
+            cls.quit_callback = on_quit

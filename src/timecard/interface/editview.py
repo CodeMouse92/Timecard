@@ -42,7 +42,7 @@ class EditView:
     index = None
     entry = None
 
-    done_callback = None
+    done_callback = []
 
     @classmethod
     def build(cls):
@@ -104,14 +104,14 @@ class EditView:
         return cls.widget
 
     @classmethod
-    def connect(cls, done=None):
-        if done:
-            cls.done_callback = done
+    def connect(cls, on_done=None):
+        if on_done:
+            cls.done_callback.append(on_done)
 
     @classmethod
     def done(cls):
-        if cls.done_callback:
-            cls.done_callback()
+        for callback in cls.done_callback:
+            callback()
 
     @classmethod
     def load_item(cls, timestamp):

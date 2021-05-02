@@ -100,6 +100,6 @@ If you're on a Linux or FreeBSD system, you can use the copy the files in `share
 
 # Contribute
 
-Timecard 2.0 is **free and open source software**, licensed under the
+Timecard 2 is **free and open source software**, licensed under the
 BSD-3-Clause license. You can access the source code, submit issue reports,
 and create pull requests via [GitHub](https://github.com/codemouse92/timecard).

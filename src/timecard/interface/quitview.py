@@ -17,7 +17,7 @@ class QuitView:
     lbl_prompt = QLabel()
     btn_yes = QPushButton()
     btn_no = QPushButton()
-    callback = None
+    callback = []
 
     @classmethod
     def build(cls):
@@ -44,14 +44,15 @@ class QuitView:
         return cls.widget
 
     @classmethod
-    def connect(cls, callback):
-        cls.callback = callback
+    def connect(cls, on_notquit=None):
+        if on_notquit:
+            cls.callback.append(on_notquit)
 
     @classmethod
     def no(cls):
         """Do NOT quit the program."""
-        if cls.callback:
-            cls.callback()
+        for callback in cls.callback:
+            callback()
 
     @classmethod
     def yes(cls):

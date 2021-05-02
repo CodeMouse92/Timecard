@@ -70,7 +70,7 @@ the then newly founded MousePaw Games.
 
 This is a resurrection of that project. It offers the same core functionality
 as the original, but in an improved interface. Unlike its predecessor,
-Timecard 2.0 is portable and completely open source.
+Timecard 2 is portable and completely open source.
 
 ## Donate
 
@@ -83,4 +83,4 @@ Bug reports and pull requests are welcome via
 
 ## License
 
-Timecard 2.0 is licensed under the BSD-3-Clause license (see `LICENSE`).
+Timecard 2 is licensed under the BSD-3-Clause license (see `LICENSE`).

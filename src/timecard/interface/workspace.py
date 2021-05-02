@@ -28,8 +28,8 @@ class Workspace:
         cls.layout.addWidget(QuitView.build())
         cls.layout.addWidget(EditView.build())
 
-        LogView.connect(edit=cls.set_mode_edit)
-        EditView.connect(done=cls.edit_done)
+        LogView.connect(on_edit=cls.set_mode_edit)
+        EditView.connect(on_done=cls.edit_done)
 
         return cls.widget
 

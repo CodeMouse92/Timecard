@@ -29,7 +29,7 @@ class AppControls:
         cls.layout.addWidget(cls.btn_help)
         cls.layout.addWidget(cls.btn_quit)
 
-        QuitView.connect(cls.default)
+        QuitView.connect(on_notquit=cls.default)
 
         cls._set_mode_default()
 
