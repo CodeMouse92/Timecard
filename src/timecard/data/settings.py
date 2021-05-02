@@ -114,7 +114,6 @@ class Settings:
 
     @classmethod
     def cleanup_alts(cls):
-        print("ALT!")
         """Rewrite alternative files to discourage their continued use."""
         message = [
             "# Your settings have automatically been migrated!\n",

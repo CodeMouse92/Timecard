@@ -8,6 +8,8 @@
 
   - Does not load a running instance's backups, so you can still have multiple running instances.
 
+- Focus Reminders: Show a notification to check if you're still on task, so you never forget Timecard is running.
+
 ### Changed
 
 - Significant performance improvement! Now uses less then 5% CPU after startup, often less than 1%.

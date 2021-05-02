@@ -59,7 +59,6 @@ class Focus:
         else:
             interval = cls.interval
         cls.next_at = cls.last_at + interval
-        print(cls.last_at, interval, cls.randomize, cls.next_at)
 
     @classmethod
     def check(cls):
