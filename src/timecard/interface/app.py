@@ -58,7 +58,7 @@ class App:
         cls.app.setWindowIcon(cls.icon)
 
         logging.debug("Building main window.")
-        cls.window.resize(400, 400)
+        cls.window.resize(500, 400)
         cls.window.setLayout(cls.layout)
 
     @classmethod

@@ -227,3 +227,26 @@ class Settings:
     def set_decdur(cls, decdur):
         """Sets whether duration should be displayed as decimal."""
         cls._settings['decdur'] = str(decdur)
+
+    @classmethod
+    @settings_getter
+    def get_focus(cls):
+        """Returns focus reminder interval and randomization."""
+        try:
+            return (
+                int(cls._settings['focus']),
+                (cls._settings['focus_randomize'] != 'False')
+            )
+        except KeyError:
+            # Use default
+            return (0, False)
+        except ValueError:
+            # The integer couldn't be read, but the boolean is good.
+            return (0, (cls._settings['focus_randomize'] != 'False'))
+
+    @classmethod
+    @settings_setter
+    def set_focus(cls, interval, randomize):
+        """Sets focus reminder settings."""
+        cls._settings['focus'] = str(interval)
+        cls._settings['focus_randomize'] = str(randomize)

@@ -7,7 +7,7 @@ Allows viewing and editing application settings.
 from datetime import datetime
 
 from PySide2.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout
-from PySide2.QtWidgets import QLabel, QCheckBox, QLineEdit, QPushButton
+from PySide2.QtWidgets import QLabel, QCheckBox, QLineEdit, QPushButton, QSpinBox
 from PySide2.QtGui import QIcon
 
 from timecard.data.timelog import TimeLog
@@ -21,6 +21,10 @@ class SettingsView:
     grid_layout = QGridLayout()
     buttons_widget = QWidget()
     buttons_layout = QHBoxLayout()
+
+    lbl_focus = QLabel("Focus Reminders Every...")
+    spn_focus = QSpinBox()
+    chk_focus_random = QCheckBox("Randomize Focus Reminders")
 
     lbl_logdir = QLabel("Log Directory")
     txt_logdir = QLineEdit()
@@ -40,6 +44,15 @@ class SettingsView:
     @classmethod
     def build(cls):
         """Build the interface."""
+        cls.lbl_focus.setWhatsThis("Periodic popup notifications to ensure you're focused.")
+        cls.spn_focus.setWhatsThis("How many minutes between focus reminders (0 to disable).")
+        cls.spn_focus.setSuffix(" min")
+        cls.spn_focus.setRange(0, 60)
+        cls.spn_focus.setSingleStep(5)
+        cls.spn_focus.valueChanged.connect(cls.edited)
+        cls.chk_focus_random.setWhatsThis("Randomize reminders within 5 minutes of selected time.")
+        cls.chk_focus_random.stateChanged.connect(cls.edited)
+
         cls.txt_logdir.textEdited.connect(cls.edited)
         cls.txt_logdir.textEdited.connect(cls.logpath_edited)
         cls.lbl_logdir.setWhatsThis("The directory where the logs are saved.")
@@ -69,15 +82,26 @@ class SettingsView:
         cls.chk_decdur.setWhatsThis("Display duration in log as decimal "
                                     "instead of HH:MM:SS. (Ignores seconds.)")
 
-        cls.grid_layout.addWidget(cls.lbl_logdir, 0, 0)
-        cls.grid_layout.addWidget(cls.txt_logdir, 0, 1)
-        cls.grid_layout.addWidget(cls.lbl_logname, 1, 0)
-        cls.grid_layout.addWidget(cls.txt_logname, 1, 1)
-        cls.grid_layout.addWidget(cls.chk_persist, 2, 1)
-        cls.grid_layout.addWidget(cls.lbl_datefmt, 3, 0)
-        cls.grid_layout.addWidget(cls.txt_datefmt, 3, 1)
-        cls.grid_layout.addWidget(cls.lbl_datefmt_test, 4, 1)
-        cls.grid_layout.addWidget(cls.chk_decdur, 5, 1)
+        cls.grid_layout.addWidget(cls.lbl_focus, 0, 0)
+        cls.grid_layout.addWidget(cls.spn_focus, 0, 1)
+
+        cls.grid_layout.addWidget(cls.chk_focus_random, 1, 1)
+
+        cls.grid_layout.addWidget(cls.lbl_logdir, 2, 0)
+        cls.grid_layout.addWidget(cls.txt_logdir, 2, 1)
+
+        cls.grid_layout.addWidget(cls.lbl_logname, 3, 0)
+        cls.grid_layout.addWidget(cls.txt_logname, 3, 1)
+
+        cls.grid_layout.addWidget(cls.chk_persist, 4, 1)
+
+        cls.grid_layout.addWidget(cls.lbl_datefmt, 5, 0)
+        cls.grid_layout.addWidget(cls.txt_datefmt, 5, 1)
+
+        cls.grid_layout.addWidget(cls.lbl_datefmt_test, 6, 1)
+
+        cls.grid_layout.addWidget(cls.chk_decdur, 7, 1)
+
         cls.grid_widget.setLayout(cls.grid_layout)
 
         cls.buttons_layout.addWidget(cls.btn_revert)
@@ -125,6 +149,9 @@ class SettingsView:
         cls.reload_log = False
 
         # Load settings into interface.
+        focus, randomize = Settings.get_focus()
+        cls.spn_focus.setValue(focus)
+        cls.chk_focus_random.setChecked(randomize)
         cls.txt_logdir.setText(Settings.get_logdir_str())
         cls.txt_logname.setText(Settings.get_logname())
         cls.chk_persist.setChecked(Settings.get_persist())
@@ -138,6 +165,7 @@ class SettingsView:
     @classmethod
     def save(cls):
         """Save the new settings."""
+        Settings.set_focus(cls.spn_focus.value(), cls.chk_focus_random.isChecked())
         Settings.set_logdir(cls.txt_logdir.text())
         Settings.set_logname(cls.txt_logname.text())
         Settings.set_persist(cls.chk_persist.isChecked())
