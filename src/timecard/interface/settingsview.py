@@ -12,6 +12,7 @@ from PySide2.QtGui import QIcon
 
 from timecard.data.timelog import TimeLog
 from timecard.data.settings import Settings
+from timecard.interface.focus import Focus
 
 
 class SettingsView:
@@ -40,6 +41,7 @@ class SettingsView:
     btn_save = QPushButton(QIcon.fromTheme('document-save'), "Save")
 
     reload_log = False
+    reload_focus = False
 
     @classmethod
     def build(cls):
@@ -50,8 +52,10 @@ class SettingsView:
         cls.spn_focus.setRange(0, 60)
         cls.spn_focus.setSingleStep(5)
         cls.spn_focus.valueChanged.connect(cls.edited)
-        cls.chk_focus_random.setWhatsThis("Randomize reminders within 5 minutes of selected time.")
+        cls.spn_focus.valueChanged.connect(cls.focus_edited)
+        cls.chk_focus_random.setWhatsThis("Randomize reminders within 20% of selected time.")
         cls.chk_focus_random.stateChanged.connect(cls.edited)
+        cls.chk_focus_random.stateChanged.connect(cls.focus_edited)
 
         cls.txt_logdir.textEdited.connect(cls.edited)
         cls.txt_logdir.textEdited.connect(cls.logpath_edited)
@@ -131,6 +135,11 @@ class SettingsView:
         cls.lbl_datefmt_test.setText(test.strftime(cls.txt_datefmt.text()))
 
     @classmethod
+    def focus_edited(cls):
+        """Reload settings for focus."""
+        cls.reload_focus = True
+
+    @classmethod
     def edited(cls):
         """Enable the buttons for saving or reverting edits."""
         cls.btn_revert.setEnabled(True)
@@ -145,8 +154,9 @@ class SettingsView:
     @classmethod
     def refresh(cls):
         """Load and display current settings."""
-        # Cancel any scheduled log reloads.
+        # Cancel any scheduled reloads.
         cls.reload_log = False
+        cls.reload_focus = False
 
         # Load settings into interface.
         focus, randomize = Settings.get_focus()
@@ -178,3 +188,5 @@ class SettingsView:
             # We must do so AFTER updating the path (earlier)
             TimeLog.load(force=True)
             cls.reload_log = False
+        if cls.reload_focus:
+            Focus.reload_settings()

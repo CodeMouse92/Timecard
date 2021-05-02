@@ -7,6 +7,7 @@ initially called to build and run the interface.
 
 from timecard.interface.app import App
 from timecard.interface.appcontrols import AppControls
+from timecard.interface.focus import Focus
 from timecard.interface.notes import Notes
 from timecard.interface.timecontrols import TimeControls
 from timecard.interface.timedisplay import TimeDisplay
@@ -20,6 +21,7 @@ from timecard.logic.clock import Clock
 
 def build():
     """Construct the interface."""
+    # Build the actual interface.
     App.build()
     App.add_widget(TimeDisplay.build())
     App.add_widget(Notes.build())
@@ -33,6 +35,10 @@ def build():
     # Start monitoring new timers.
     Backup.start_monitoring()
 
+    # Initialize systems
+    Focus.initialize()
+
+    # Start the clock!
     Clock.start()
 
 

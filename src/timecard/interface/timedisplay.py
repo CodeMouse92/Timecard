@@ -56,7 +56,7 @@ class TimeDisplay:
         # Force the user to either save or reset. Resuming makes no sense.
         cls.paused = False
         # Show the time.
-        cls.show_time(*cls.get_time(), silent=True)
+        cls.show_time(*cls.get_time())
 
     @classmethod
     def show_default(cls):
@@ -70,8 +70,6 @@ class TimeDisplay:
         hours -- the number of hours
         minutes -- the number of minutes
         seconds -- the number of seconds
-
-        silent -- don't fire callbacks
         """
         cls.lcd.display(f"{hours:02}:{minutes:02}:{seconds:02}")
 
@@ -143,6 +141,11 @@ class TimeDisplay:
     @classmethod
     def get_time_ms_string(cls):
         return str(cls.get_time_ms())
+
+    @classmethod
+    def get_time_min(cls):
+        """Returns the current elapsed time in truncated minutes."""
+        return (cls.get_time_ms() // 1000 // 60)
 
     @classmethod
     def get_time(cls):
