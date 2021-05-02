@@ -25,6 +25,7 @@ class TimeDisplay:
     from_backup = False
 
     callback_tick = []
+    callback_minute = []
     callback_stop = []
 
     @classmethod
@@ -63,7 +64,7 @@ class TimeDisplay:
         cls.show_time()
 
     @classmethod
-    def show_time(cls, hours=0, minutes=0, seconds=0, silent=False):
+    def show_time(cls, hours=0, minutes=0, seconds=0):
         """Show the indicated time on the GUI.
 
         hours -- the number of hours
@@ -73,14 +74,21 @@ class TimeDisplay:
         silent -- don't fire callbacks
         """
         cls.lcd.display(f"{hours:02}:{minutes:02}:{seconds:02}")
-        if not silent:
-            for callback in cls.callback_tick:
+
+    @classmethod
+    def tick(cls, hours, minutes, seconds):
+        for callback in cls.callback_tick:
+            callback(hours, minutes, seconds)
+        if minutes and not seconds:
+            for callback in cls.callback_minute:
                 callback(hours, minutes, seconds)
 
     @classmethod
     def update_time(cls):
         """Show the current elapsed time on the GUI."""
-        cls.show_time(*cls.get_time())
+        time = cls.get_time()
+        cls.show_time(*time)
+        cls.tick(*time)
 
     @classmethod
     def start_time(cls):
@@ -177,11 +185,16 @@ class TimeDisplay:
                 )
 
     @classmethod
-    def connect(cls, on_tick=None, on_stop=None):
-        """Subscribe to every clock tick
-        Callback callable must accept the arguments: (hours, minutes, seconds)
+    def connect(cls, on_tick=None, on_minute=None, on_stop=None):
+        """Subscribe to timer events.
+
+        on_tick= fires every second. Callback must accept (hours, minutes, seconds)
+        on_minute= fires every minute. Callback must accept (hours, minutes, seconds)
+        on_stop= fires when the clock is stopped (not paused)
         """
         if on_tick and on_tick not in cls.callback_tick:
             cls.callback_tick.append(on_tick)
+        if on_minute and on_minute not in cls.callback_minute:
+            cls.callback_minute.append(on_minute)
         if on_stop and on_stop not in cls.callback_stop:
             cls.callback_stop.append(on_stop)

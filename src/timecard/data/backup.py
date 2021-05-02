@@ -110,11 +110,10 @@ class Backup:
         def tick(hours, minutes, seconds):
             # Prevent any other instances of Timecard from claiming recoveries
             cls._query.unlink(missing_ok=True)
-            if not seconds % 2:
-                cls.remember(hours, minutes, seconds)
+            cls.remember(hours, minutes, seconds)
 
         def stop(erase):
             if erase:
                 cls.forget()
 
-        TimeDisplay.connect(on_tick=tick, on_stop=stop)
+        TimeDisplay.connect(on_minute=tick, on_stop=stop)
