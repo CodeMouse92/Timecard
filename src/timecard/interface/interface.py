@@ -15,6 +15,8 @@ from timecard.interface.workspace import Workspace
 
 from timecard.data.backup import Backup
 
+from timecard.logic.clock import Clock
+
 
 def build():
     """Construct the interface."""
@@ -30,6 +32,8 @@ def build():
     Backup.check_for_recall()
     # Start monitoring new timers.
     Backup.start_monitoring()
+
+    Clock.start()
 
 
 def run():

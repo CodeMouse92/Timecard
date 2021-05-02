@@ -105,7 +105,7 @@ class EditView:
 
     @classmethod
     def connect(cls, on_done=None):
-        if on_done:
+        if on_done and on_done not in cls.done_callback:
             cls.done_callback.append(on_done)
 
     @classmethod

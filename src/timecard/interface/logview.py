@@ -73,7 +73,7 @@ class LogView:
 
     @classmethod
     def connect(cls, on_edit=None):
-        if on_edit:
+        if on_edit and on_edit not in cls.edit_callback:
             cls.edit_callback.append(on_edit)
 
     @classmethod

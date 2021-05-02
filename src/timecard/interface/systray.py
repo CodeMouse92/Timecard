@@ -126,7 +126,7 @@ class SysTray:
 
     @classmethod
     def connect(cls, on_toggle=None, on_quit=None):
-        if on_toggle:
+        if on_toggle and on_toggle not in cls.toggle_callback:
             cls.toggle_callback.append(on_toggle)
 
         if on_quit:

@@ -7,14 +7,15 @@ and state.
 
 from datetime import datetime
 
-from PySide2.QtCore import QDateTime, QDate, QTime, QElapsedTimer, QTimer
+from PySide2.QtCore import QDateTime, QDate, QTime, QElapsedTimer
 from PySide2.QtWidgets import QLCDNumber
+
+from timecard.logic.clock import Clock
 
 
 class TimeDisplay:
 
     lcd = QLCDNumber(8)
-    timer = None
     time = None
     timestamp = None
     # Stored time in ms from prior pause(s)
@@ -84,9 +85,7 @@ class TimeDisplay:
     @classmethod
     def start_time(cls):
         """Start or resume the timer."""
-        if cls.timer is None:
-            cls.timer = QTimer(cls.lcd)
-            cls.timer.timeout.connect(cls.update_time)
+        Clock.connect(on_tick=cls.update_time)
         if cls.time is None:
             cls.time = QElapsedTimer()
             cls.time.start()
@@ -101,7 +100,6 @@ class TimeDisplay:
         else:
             cls.time.restart()
 
-        cls.timer.start(1000)  # tick once every second (performance!)
         cls.paused = False
 
     @classmethod
@@ -113,8 +111,7 @@ class TimeDisplay:
         if cls.time is not None:
             cls.freeze += cls.time.elapsed()
 
-        if cls.timer is not None:
-            cls.timer.stop()
+        Clock.disconnect(on_tick=cls.update_time)
 
         cls.paused = True
 
@@ -122,7 +119,6 @@ class TimeDisplay:
     def reset_time(cls, erase=False):
         """Prepare timer for reset, optionally erasing the last session's time.
         """
-        cls.timer = None
         cls.time = None
         if erase:
             cls.freeze = 0
@@ -185,7 +181,7 @@ class TimeDisplay:
         """Subscribe to every clock tick
         Callback callable must accept the arguments: (hours, minutes, seconds)
         """
-        if on_tick:
+        if on_tick and on_tick not in cls.callback_tick:
             cls.callback_tick.append(on_tick)
-        if on_stop:
+        if on_stop and on_stop not in cls.callback_stop:
             cls.callback_stop.append(on_stop)

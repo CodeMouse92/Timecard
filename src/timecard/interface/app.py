@@ -91,7 +91,7 @@ class App:
 
     @classmethod
     def connect(cls, on_hide=None):
-        if on_hide:
+        if on_hide and on_hide not in cls.hide_callback:
             cls.hide_callback.append(on_hide)
 
     @classmethod

@@ -52,22 +52,22 @@ class TimeControls:
         on_save -- called when a stopped timer is saved to log
         on_reset -- called when a stopped timer is cleared
         """
-        if on_start:
+        if on_start and on_start not in cls.start_callback:
             cls.start_callback.append(on_start)
 
-        if on_resume:
+        if on_resume and on_resume not in cls.resume_callback:
             cls.resume_callback.append(on_resume)
 
-        if on_pause:
+        if on_pause and on_pause not in cls.pause_callback:
             cls.pause_callback.append(on_pause)
 
-        if on_stop:
+        if on_stop and on_stop not in cls.stop_callback:
             cls.stop_callback.append(on_stop)
 
-        if on_save:
+        if on_save and on_save not in cls.save_callback:
             cls.save_callback.append(on_save)
 
-        if on_reset:
+        if on_reset and on_reset not in cls.reset_callback:
             cls.reset_callback.append(on_reset)
 
     @classmethod
