@@ -72,22 +72,20 @@ class App:
     def show_window(cls):
         """Display the main window."""
         cls.window.show()
+        cls.window.activateWindow()
+        cls.window.raise_()
 
     @classmethod
     def hide_window(cls):
         """Hide the main window."""
         cls.window.hide()
-        cls.notify("Timecard is still running in the notification area.")
+        for callback in cls.hide_callback:
+            callback("Timecard is still running in the notification area.")
 
     @classmethod
     def add_widget(cls, widget):
         """Add a widget to the main window."""
         cls.layout.addWidget(widget)
-
-    @classmethod
-    def notify(cls, message):
-        for callback in cls.hide_callback:
-            callback(message)
 
     @classmethod
     def connect(cls, on_hide=None):

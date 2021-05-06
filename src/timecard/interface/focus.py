@@ -8,7 +8,7 @@ import random
 import string
 
 from timecard.data.settings import Settings
-from timecard.interface.app import App
+from timecard.interface.systray import SysTray
 from timecard.interface.timedisplay import TimeDisplay
 from timecard.interface.notes import Notes
 
@@ -82,6 +82,6 @@ class Focus:
             message = random.choice(cls.prompt_no_note)
 
         # Show the notification
-        App.notify(message)
+        SysTray.popup(message)
         # Determine when next notification should appear
         cls.calculate_next()

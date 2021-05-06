@@ -67,7 +67,7 @@ class SysTray:
         return cls.systray
 
     @classmethod
-    def popup(cls, message):
+    def popup(cls, message, callback=None):
         cls.systray.showMessage("Timecard", message, App.icon)
 
     @classmethod
