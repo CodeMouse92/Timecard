@@ -24,6 +24,11 @@
 
 - Default location for time logs is now the user data directory (e.g. `.local/share/timecard/`).
 
+
+### Fixed
+
+- Bring Timecard window to front when unhiding from tray.
+
 ## [2.0.7] - 2021-03-24
 
 ### Changed
