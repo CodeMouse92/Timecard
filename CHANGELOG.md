@@ -5,25 +5,21 @@
 ### Added
 
 - Lost Timer Recovery: Saves a backup of timer state every minute in case of crash or accidental shutdown.
-
   - Does not load a running instance's backups, so you can still have multiple running instances.
-
 - Focus Reminders: Show a notification to check if you're still on task, so you never forget Timecard is running.
 
 ### Changed
 
 - Significant performance improvement! Now uses less then 5% CPU after startup, often less than 1%.
-
 - Timecard settings file now supports line comments. Line must start with `#` to be a comment.
-
 - Deprecate `.timecardrc` in favor of user folders (e.g. `.config/timecard/settings.conf`).
-
   - If new default settings file doesn't exist, will check for `.timecardrc` before creating new default.
-
   - If loading from `.timecardrc`, will migrate settings to new location and add migration comments to old location.
-
 - Default location for time logs is now the user data directory (e.g. `.local/share/timecard/`).
 
+### Development
+
+- Updated packaging to use setup.cfg according to latest conventions.
 
 ### Fixed
 
