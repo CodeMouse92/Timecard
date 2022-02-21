@@ -119,7 +119,31 @@ class EditView:
         cls.refresh()
 
     @classmethod
+    def normalize(cls):
+        hour = cls.spn_hour.value()
+        min = cls.spn_min.value()
+        sec = cls.spn_sec.value()
+
+        print(hour, min, sec)
+
+        if sec > 60:
+            min += sec // 60
+            sec %= 60
+        if min > 60:
+            hour += min // 60
+            min %= 60
+
+        print(hour, min, sec)
+
+        cls.spn_hour.setValue(hour)
+        cls.spn_min.setValue(min)
+        cls.spn_sec.setValue(sec)
+
+    @classmethod
     def edited(cls):
+        # Normalize times
+        cls.normalize()
+        # Change interface to allow saving or reverting.
         cls.btn_done.setEnabled(False)
         cls.btn_revert.setEnabled(True)
         cls.btn_save.setEnabled(True)
