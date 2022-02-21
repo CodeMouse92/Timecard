@@ -26,12 +26,21 @@ class EditView:
     lbl_timestamp = QLabel("Timestamp")
     cal_timestamp = QDateTimeEdit()
     lbl_duration = QLabel("Duration")
+
     lbl_hour = QLabel("Hours")
     spn_hour = QSpinBox()
+    spn_hour.setMinimum(0)
+
     lbl_min = QLabel("Minutes")
     spn_min = QSpinBox()
+    spn_min.setMaximum(61)
+    spn_min.setMinimum(-1)  # this will get changed to 0 as needed in normalize
+
     lbl_sec = QLabel("Seconds")
     spn_sec = QSpinBox()
+    spn_sec.setMaximum(61)
+    spn_sec.setMinimum(-1)  # this will get changed to 0 as needed in normalize
+
     lbl_activity = QLabel("Activity")
     txt_activity = QLineEdit()
 
@@ -119,7 +128,52 @@ class EditView:
         cls.refresh()
 
     @classmethod
+    def normalize(cls):
+        # Changes made by normalize should never trigger another event.
+        cls.spn_hour.valueChanged.disconnect()
+        cls.spn_min.valueChanged.disconnect()
+        cls.spn_sec.valueChanged.disconnect()
+
+        hour = cls.spn_hour.value()
+        min = cls.spn_min.value()
+        sec = cls.spn_sec.value()
+
+        # Handle incrementing rollover of seconds and minutes
+        if sec > 59:
+            min += sec // 60
+            sec %= 60
+        if min > 59:
+            hour += min // 60
+            min %= 60
+
+        # Handle decrementing rollover of seconds and minutes
+        if sec < 0 and (hour > 0 or min > 0):
+            min -= 1
+            sec = 59
+        if min < 0 and hour > 0:
+            hour -= 1
+            min = 59
+
+        # Set the revised values (even if they are the same)
+        cls.spn_hour.setValue(hour)
+        cls.spn_min.setValue(min)
+        cls.spn_sec.setValue(sec)
+
+        # Update the minimums so we never SEE a number lower than 0.
+        cls.spn_min.setMinimum(-1 if hour else 0)
+        cls.spn_sec.setMinimum(-1 if (min or hour) else 0)
+
+        # Reconnect the signals
+        cls.spn_hour.valueChanged.connect(cls.edited)
+        cls.spn_min.valueChanged.connect(cls.edited)
+        cls.spn_sec.valueChanged.connect(cls.edited)
+
+
+    @classmethod
     def edited(cls):
+        # Normalize times
+        cls.normalize()
+        # Change interface to allow saving or reverting.
         cls.btn_done.setEnabled(False)
         cls.btn_revert.setEnabled(True)
         cls.btn_save.setEnabled(True)
