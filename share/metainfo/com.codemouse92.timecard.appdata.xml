@@ -57,6 +57,16 @@
     </provides>
 
     <releases>
+        <release version="2.1.0" date="2022-02-24">
+            <description>
+                <ul>
+                    <li>Reminds you when Timecard is running.</li>
+                    <li>Uses much less CPU. Yay!</li>
+                    <li>Recover your timers if you quit while one is running.</li>
+                    <li>Improved storage of user settings.</li>
+                </ul>
+            </description>
+        </release>
         <release version="2.0.7" date="2021-03-19">
             <description>
             <p>Fixes erroneous duration when stopping after pause.</p>
