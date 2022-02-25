@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [2.1.0] - 2022-02-24
 
 ### Added
 
@@ -11,6 +11,7 @@
 ### Changed
 
 - Significant performance improvement! Now uses less then 5% CPU after startup, often less than 1%.
+- Editing time entries automatically adjusts hours, minutes, and seconds appropriately.
 - Timecard settings file now supports line comments. Line must start with `#` to be a comment.
 - Deprecate `.timecardrc` in favor of user folders (e.g. `.config/timecard/settings.conf`).
   - If new default settings file doesn't exist, will check for `.timecardrc` before creating new default.
