@@ -1,10 +1,10 @@
 app-id: com.codemouse92.timecard
 default-branch: stable
-base: io.qt.qtwebkit.BaseApp
-base-version: "5.15"
 runtime: org.kde.Platform
-runtime-version: "5.15"
+runtime-version: "6.4"
 sdk: org.kde.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.llvm15
 command: Timecard-App
 cleanup:
     - /include
@@ -30,33 +30,40 @@ finish-args:
     - --env=PYTHONPATH=/app/packages/python
 modules:
     # pyside2 module borrowed from https://github.com/flathub/com.github.unrud.djpdf
-    - name: pyside2
-      buildsystem: simple
-      build-commands:
-        - mkdir -p /app/qt5include && cp -R /usr/include/Qt* /app/qt5include # https://bugreports.qt.io/browse/PYSIDE-787
-        - mkdir _build && cd _build &&
-          cmake -GNinja -j"$FLATPAK_BUILDER_N_JOBS"
-          -DCMAKE_INSTALL_PREFIX:PATH="$FLATPAK_DEST"
-          -DCMAKE_BUILD_TYPE=RelWithDebInfo
-          -DUSE_PYTHON_VERSION=3
-          -DBUILD_TESTS=OFF .. &&
-          ninja install
+    - name: pyside6
+      buildsystem: cmake-ninja
+      builddir: true
+      build-options:
+        append-path: /usr/lib/sdk/llvm15/bin
+        append-ld-library-path: /usr/lib/sdk/llvm15/lib
+      config-opts:
+        - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+        - -DBUILD_TESTS=OFF
       post-install:
+        # Make packages discoverable by pip
         - |
-          # Make package discoverable by setuptools
-          printf "Metadata-Version: 1.0\nName: PySide2\nVersion: %s\n" \
-            "$(python3 -c "import PySide2; print(PySide2.__version__)")" \
-            > "$(dirname "$(python3 -c "import PySide2; print(PySide2.__file__)")")/../pyside2.egg-info"
+          libpath=$(ls -d /app/lib/python*/site-packages) || exit 1
+          for pkg in PySide6 shiboken6; do
+            version=$(python3 -c "import ${pkg}; print(${pkg}.__version__)") || exit 1
+            printf 'Metadata-Version: 1.0\nName: %s\nVersion: %s\n' "${pkg}" "${version}" > "${libpath}/${pkg}.egg-info" || exit 1
+          done
       cleanup:
-        - /qt5include
         - /bin
       sources:
         - type: archive
-          url: https://download.qt.io/official_releases/QtForPython/pyside2/PySide2-5.15.2-src/pyside-setup-opensource-src-5.15.2.tar.xz
-          sha256: b306504b0b8037079a8eab772ee774b9e877a2d84bab2dbefbe4fa6f83941418
+          url: https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.4.3-src/pyside-setup-everywhere-src-6.4.3.tar.xz
+          sha256: ab344f369eb949354f1069ce24962be5a5f03b93b27da081e3a01e5bc3581d4e
+          x-checker-data:
+            type: html
+            url: https://download.qt.io/official_releases/QtForPython/pyside6/
+            version-pattern: '>PySide6-(6\.4(?:\.[\d.]+)?)-src/<'
+            url-template: https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-$version-src/pyside-setup-everywhere-src-$version.tar.xz
         - type: shell
           commands:
-          - sed -i 's|\(--include-paths=\)|\1/app/qt5include:|' sources/pyside2/cmake/Macros/PySideModules.cmake
+            # use qt-include
+            - sed -i 's|\(--include-paths=\)|\1/app/include/qt:|' sources/pyside6/cmake/Macros/PySideModules.cmake
+            # fix python module search path
+            - sed -i '/--sys-path\b/ a "${pysidebindings_BINARY_DIR}/.."' sources/pyside6/cmake/Macros/PySideModules.cmake
 
     - name: Timecard-App
       buildsystem: simple

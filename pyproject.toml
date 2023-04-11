@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Timecard-App"
-version = "3.0.0"
+version = "2.1.0"
 description = "Track time beautifully."
 readme = {file = "README.md", content-type = "text/markdown"}
-license = {file = "LICENSE.txt"}
+license = {file = "LICENSE"}
 authors = [
     {name = "Jason C. McDonald", email = "codemouse92@outlook.com"}
 ]
@@ -53,10 +53,27 @@ Funding = "https://github.com/sponsors/CodeMouse92"
 [project.gui-scripts]
 Timecard-App = "timecard.__main__:main"
 
+[tool.bandit]
+targets = ["src/"]
+skips = ["B311"]
+
 [tool.black]
 line-length = 80
+include = '^/(src|tests)/.+\.pyi?$'
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "2.1.0"
+version_files = [
+    "pyproject.toml:version",
+    "src/timecard/interface/app.py:VERSION",
+    "src/timecard/resources/about.txt:TIMECARD v"
+]
+tag_format = "v$major.$minor.$patch$prerelease"
+bump_message = "bump: update version and changelog (automatic commit)"
 
 [tool.isort]
 profile = "black"
-src_paths = ["src"]
+line_length = "79"
+src_paths = ["src", "tests"]
 extend_skip_glob = ["*venv*/*", "docs/*", "share/*"]

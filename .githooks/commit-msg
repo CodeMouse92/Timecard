@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+GITVENV=.gitvenv/bin
+
+if [[ ! -f $GITVENV/pip ]]; then
+    python3.10 -m venv .gitvenv
+fi
+
+$GITVENV/pip install -q --upgrade pip commitizen
+
+# Check commit message for commitizen compliance.
+$GITVENV/cz check --commit-msg-file "$1"

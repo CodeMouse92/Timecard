@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+GITVENV=.gitvenv/bin
+
+if [[ ! -f $GITVENV/pip ]]; then
+    python3.10 -m venv .gitvenv
+fi
+
+$GITVENV/pip install -q --upgrade pip -r requirements.dev.txt
+$GITVENV/tox -e lint

@@ -1,2 +1,5 @@
+exclude .githooks/** .idea/** .vscode/** docs/** share/** tests/**
+exclude setup.py.old tox.ini requirements*.txt *.md INSTALL.sh Makefile *.yaml *.spec
+recursive-include src *.py
 include README.md LICENSE
 include src/timecard/resources/*

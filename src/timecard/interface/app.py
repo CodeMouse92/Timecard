@@ -13,6 +13,7 @@ from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
 
 from timecard.data.settings import Settings
 
+VERSION = "2.1.0"
 
 class MainWindow(QWidget):
     def closeEvent(self, event):
@@ -51,7 +52,7 @@ class App:
         """Construct the application."""
         logging.debug("Building application.")
         cls.app.setApplicationName("Timecard")
-        cls.app.setApplicationVersion("2.1.0")
+        cls.app.setApplicationVersion(VERSION)
         cls.app.setDesktopFileName("com.codemouse92.timecard")
         cls.app.setWindowIcon(cls.icon)
 
