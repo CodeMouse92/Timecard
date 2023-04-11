@@ -2,6 +2,57 @@
 requires = ["setuptools>=40.8.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "Timecard-App"
+version = "3.0.0"
+description = "Track time beautifully."
+readme = {file = "README.md", content-type = "text/markdown"}
+license = {file = "LICENSE.txt"}
+authors = [
+    {name = "Jason C. McDonald", email = "codemouse92@outlook.com"}
+]
+maintainers = [
+    {name = "Jason C. McDonald", email = "codemouse92@outlook.com"}
+]
+keywords = ["time", "tracking", "office", "clock", "tool", "utility"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: X11 Applications :: Qt",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: Office/Business",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython"
+]
+
+dependencies = [
+    "appdirs >= 1.4.4",
+    "PySide6 >= 6.5.0",
+]
+
+requires-python = ">=3.6, <4"
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.urls]
+Homepage = "https://codemouse92.github.io/Timecard/"
+Repository = "https://github.com/codemouse92/timecard"
+Issues = "https://github.com/codemouse92/timecard/issues"
+Funding = "https://github.com/sponsors/CodeMouse92"
+
+[project.gui-scripts]
+Timecard-App = "timecard.__main__:main"
+
 [tool.black]
 line-length = 80
 

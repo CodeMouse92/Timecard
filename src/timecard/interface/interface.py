@@ -5,8 +5,8 @@ Top-level functions for the interface sub-package. These are the functions
 initially called to build and run the interface.
 """
 
+from timecard.interface.app import App  # isort: skip <- this must come first!
 from timecard.data.backup import Backup
-from timecard.interface.app import App
 from timecard.interface.appcontrols import AppControls
 from timecard.interface.focus import Focus
 from timecard.interface.notes import Notes
