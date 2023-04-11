@@ -4,9 +4,8 @@ Author(s): Jason C. McDonald
 The application system tray and its menu.
 """
 
-from PySide2.QtWidgets import QMenu, QSystemTrayIcon
-from PySide2.QtWidgets import QAction  # will import from QtGui in PySide6
-from PySide2.QtGui import QIcon
+from PySide6.QtWidgets import QMenu, QSystemTrayIcon
+from PySide6.QtGui import QAction, QIcon
 
 from timecard.interface.app import App
 from timecard.interface.timecontrols import TimeControls

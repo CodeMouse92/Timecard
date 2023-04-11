@@ -6,9 +6,9 @@ Allows viewing and editing application settings.
 
 from datetime import datetime
 
-from PySide2.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout
-from PySide2.QtWidgets import QLabel, QCheckBox, QLineEdit, QPushButton, QSpinBox
-from PySide2.QtGui import QIcon
+from PySide6.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout
+from PySide6.QtWidgets import QLabel, QCheckBox, QLineEdit, QPushButton, QSpinBox
+from PySide6.QtGui import QIcon
 
 from timecard.data.timelog import TimeLog
 from timecard.data.settings import Settings

@@ -4,7 +4,7 @@ Author(s): Jason C. McDonald
 Switches between Views in the application.
 """
 
-from PySide2.QtWidgets import QWidget, QStackedLayout
+from PySide6.QtWidgets import QWidget, QStackedLayout
 
 from timecard.interface.aboutview import AboutView
 from timecard.interface.editview import EditView

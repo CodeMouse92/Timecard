@@ -4,9 +4,9 @@ Author(s): Jason C. McDonald
 Prompts the user whether they want to quit or not.
 """
 
-from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QWidget, QGridLayout, QLabel, QPushButton
-from PySide2.QtGui import QIcon
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QPushButton
+from PySide6.QtGui import QIcon
 
 from timecard.interface.app import App
 

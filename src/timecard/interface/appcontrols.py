@@ -4,9 +4,9 @@ Author(s): Jason C. McDonald
 Allows switching between major application views.
 """
 
-from PySide2.QtWidgets import QPushButton, QHBoxLayout, QWidget
-from PySide2.QtWidgets import QWhatsThis
-from PySide2.QtGui import QIcon
+from PySide6.QtWidgets import QPushButton, QHBoxLayout, QWidget
+from PySide6.QtWidgets import QWhatsThis
+from PySide6.QtGui import QIcon
 
 from timecard.interface.workspace import Workspace
 from timecard.interface.quitview import QuitView

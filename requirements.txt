@@ -1,2 +1,2 @@
-PySide2 >= 5.15.0
+PySide6 >= 6.5.0
 appdirs >= 1.4.4

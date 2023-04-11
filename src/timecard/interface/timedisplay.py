@@ -7,8 +7,8 @@ and state.
 
 from datetime import datetime
 
-from PySide2.QtCore import QDateTime, QDate, QTime, QElapsedTimer
-from PySide2.QtWidgets import QLCDNumber
+from PySide6.QtCore import QDateTime, QDate, QTime, QElapsedTimer
+from PySide6.QtWidgets import QLCDNumber
 
 from timecard.logic.clock import Clock
 

@@ -127,3 +127,6 @@ debian/debhelper-build-stamp
 # Flatpak
 flatpak/
 .flatpak-builder/
+
+# IDE
+.idea/

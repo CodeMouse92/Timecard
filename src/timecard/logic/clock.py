@@ -4,7 +4,7 @@ Author(s): Jason C. McDonald
 The core clock/timer functionality, to which pretty much everything else connects.
 """
 
-from PySide2.QtCore import QTimer
+from PySide6.QtCore import QTimer
 
 
 class Clock:
