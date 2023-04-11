@@ -6,11 +6,19 @@ Allows editing a single time log entry.
 
 from datetime import datetime
 
-from PySide6.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout
-from PySide6.QtWidgets import QPushButton
-from PySide6.QtWidgets import QLabel, QLineEdit, QDateTimeEdit, QSpinBox
+from PySide6.QtCore import QDate, QDateTime, QTime
 from PySide6.QtGui import QIcon
-from PySide6.QtCore import QDateTime, QDate, QTime
+from PySide6.QtWidgets import (
+    QDateTimeEdit,
+    QGridLayout,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QPushButton,
+    QSpinBox,
+    QVBoxLayout,
+    QWidget,
+)
 
 from timecard.data.timelog import TimeLog
 
@@ -44,9 +52,9 @@ class EditView:
     lbl_activity = QLabel("Activity")
     txt_activity = QLineEdit()
 
-    btn_done = QPushButton(QIcon.fromTheme('cancel'), "Done")
-    btn_revert = QPushButton(QIcon.fromTheme('edit-undo'), "Revert")
-    btn_save = QPushButton(QIcon.fromTheme('document-save'), "Save")
+    btn_done = QPushButton(QIcon.fromTheme("cancel"), "Done")
+    btn_revert = QPushButton(QIcon.fromTheme("edit-undo"), "Revert")
+    btn_save = QPushButton(QIcon.fromTheme("document-save"), "Save")
 
     index = None
     entry = None
@@ -168,7 +176,6 @@ class EditView:
         cls.spn_min.valueChanged.connect(cls.edited)
         cls.spn_sec.valueChanged.connect(cls.edited)
 
-
     @classmethod
     def edited(cls):
         # Normalize times
@@ -190,12 +197,10 @@ class EditView:
             return
         timestamp = cls.entry.timestamp
         datetime = QDateTime()
-        datetime.setDate(QDate(timestamp.year,
-                               timestamp.month,
-                               timestamp.day))
-        datetime.setTime(QTime(timestamp.hour,
-                               timestamp.minute,
-                               timestamp.second))
+        datetime.setDate(QDate(timestamp.year, timestamp.month, timestamp.day))
+        datetime.setTime(
+            QTime(timestamp.hour, timestamp.minute, timestamp.second)
+        )
         cls.cal_timestamp.setDateTime(datetime)
 
         hours, minutes, seconds = cls.entry.duration
@@ -210,19 +215,21 @@ class EditView:
     @classmethod
     def save(cls):
         TimeLog.remove_from_log(cls.entry.timestamp)
-        timestamp = datetime(cls.cal_timestamp.date().year(),
-                             cls.cal_timestamp.date().month(),
-                             cls.cal_timestamp.date().day(),
-                             cls.cal_timestamp.time().hour(),
-                             cls.cal_timestamp.time().minute(),
-                             cls.cal_timestamp.time().second()
-                             )
-        new_timestamp = TimeLog.add_to_log(timestamp,
-                                           cls.spn_hour.value(),
-                                           cls.spn_min.value(),
-                                           cls.spn_sec.value(),
-                                           cls.txt_activity.text()
-                                           )
+        timestamp = datetime(
+            cls.cal_timestamp.date().year(),
+            cls.cal_timestamp.date().month(),
+            cls.cal_timestamp.date().day(),
+            cls.cal_timestamp.time().hour(),
+            cls.cal_timestamp.time().minute(),
+            cls.cal_timestamp.time().second(),
+        )
+        new_timestamp = TimeLog.add_to_log(
+            timestamp,
+            cls.spn_hour.value(),
+            cls.spn_min.value(),
+            cls.spn_sec.value(),
+            cls.txt_activity.text(),
+        )
         cls.not_edited()
 
         cls.entry = TimeLog.retrieve_from_log(new_timestamp)

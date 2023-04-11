@@ -5,8 +5,8 @@ Prompts the user whether they want to quit or not.
 """
 
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QWidget, QGridLayout, QLabel, QPushButton
 from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QGridLayout, QLabel, QPushButton, QWidget
 
 from timecard.interface.app import App
 
@@ -26,16 +26,17 @@ class QuitView:
         cls.layout.addWidget(cls.btn_no, 1, 0)
         cls.layout.addWidget(cls.btn_yes, 1, 1)
 
-        cls.lbl_prompt.setText("Are you SURE you want to quit?\n"
-                               "Any unsaved time will be lost.")
+        cls.lbl_prompt.setText(
+            "Are you SURE you want to quit?\n" "Any unsaved time will be lost."
+        )
         cls.lbl_prompt.setAlignment(Qt.AlignCenter)
 
-        cls.btn_no.setIcon(QIcon.fromTheme('go-previous'))
+        cls.btn_no.setIcon(QIcon.fromTheme("go-previous"))
         cls.btn_no.setText("Keep Going")
         cls.btn_no.setWhatsThis("Return to time log view.")
         cls.btn_no.clicked.connect(cls.no)
 
-        cls.btn_yes.setIcon(QIcon.fromTheme('application-exit'))
+        cls.btn_yes.setIcon(QIcon.fromTheme("application-exit"))
         cls.btn_yes.setText("Quit")
         cls.btn_yes.setWhatsThis("Quit Timecard.")
         cls.btn_yes.clicked.connect(cls.yes)

@@ -5,26 +5,29 @@ Manages access, storage, and file read/write for the time log.
 Also contains the class representing a single time log entry.
 """
 
-from datetime import datetime
 import functools
 import logging
 import os
+from datetime import datetime
 
 from timecard.data.settings import Settings
 
 
 def timelog_getter(func):
     """Ensure settings are loaded appropriately."""
+
     @functools.wraps(func)
     def wrapper(*args, **vargs):
         # Ensure log is loaded from file
         TimeLog.load()
         return func(*args, **vargs)
+
     return wrapper
 
 
 def timelog_setter(func):
     """Ensure settings are loaded from and saved to file appropriately."""
+
     @functools.wraps(func)
     def wrapper(*args, **vargs):
         # Ensure log is loaded from file
@@ -33,11 +36,11 @@ def timelog_setter(func):
         # Immediately write the log to file
         TimeLog.save()
         return r
+
     return wrapper
 
 
 class LogEntry:
-
     def __init__(self, timestamp=None, duration=(0, 0, 0), notes=""):
         self.timestamp = timestamp
         self.duration = duration
@@ -52,13 +55,14 @@ class LogEntry:
 
         Returns the normalized timestamp.
         """
-        return datetime(timestamp.year,
-                        timestamp.month,
-                        timestamp.day,
-                        timestamp.hour,
-                        timestamp.minute,
-                        timestamp.second
-                        )
+        return datetime(
+            timestamp.year,
+            timestamp.month,
+            timestamp.day,
+            timestamp.hour,
+            timestamp.minute,
+            timestamp.second,
+        )
 
     def set_timestamp(self, timestamp):
         """Normalize and set the timestamp."""
@@ -67,7 +71,7 @@ class LogEntry:
     def set_timestamp_from_string(self, timestamp_str):
         """Set the timestamp from dash-delimited string."""
         try:
-            ts = [int(n) for n in timestamp_str.split('-')]
+            ts = [int(n) for n in timestamp_str.split("-")]
             self.timestamp = datetime(*ts)
         except (TypeError, ValueError):
             return False
@@ -85,7 +89,7 @@ class LogEntry:
     def set_duration_from_string(self, duration_str):
         """Set duration from colon-delimited string."""
         try:
-            duration = [int(n) for n in duration_str.split(':')]
+            duration = [int(n) for n in duration_str.split(":")]
             self.set_duration(*duration)
         except (TypeError, ValueError):
             return False
@@ -93,9 +97,11 @@ class LogEntry:
 
     def timestamp_as_string(self):
         """Retrieve timestamp as dash-delimited string."""
-        return (f"{self.timestamp.year}-{self.timestamp.month}-"
-                f"{self.timestamp.day}-{self.timestamp.hour}-"
-                f"{self.timestamp.minute}-{self.timestamp.second}")
+        return (
+            f"{self.timestamp.year}-{self.timestamp.month}-"
+            f"{self.timestamp.day}-{self.timestamp.hour}-"
+            f"{self.timestamp.minute}-{self.timestamp.second}"
+        )
 
     def timestamp_as_format(self, format):
         """Retrieve timestamp according to given format string."""
@@ -107,9 +113,11 @@ class LogEntry:
             decdur = self.duration[0] + (self.duration[1] / 60)
             return f"{decdur:.2f}"
         else:
-            return (f"{self.duration[0]:02}:"
-                    f"{self.duration[1]:02}:"
-                    f"{self.duration[2]:02}")
+            return (
+                f"{self.duration[0]:02}:"
+                f"{self.duration[1]:02}:"
+                f"{self.duration[2]:02}"
+            )
 
     def set_notes(self, notes):
         """Retrive note string."""
@@ -121,13 +129,14 @@ class TimeLog:
 
     @staticmethod
     def increment_timestamp(timestamp):
-        return datetime(timestamp.year,
-                        timestamp.month,
-                        timestamp.day,
-                        timestamp.hour,
-                        timestamp.minute,
-                        timestamp.second + 1
-                        )
+        return datetime(
+            timestamp.year,
+            timestamp.month,
+            timestamp.day,
+            timestamp.hour,
+            timestamp.minute,
+            timestamp.second + 1,
+        )
 
     @classmethod
     def load(cls, force=False):
@@ -146,17 +155,18 @@ class TimeLog:
         cls._log = dict()
         # Attempt to open and parse the file.
         try:
-            with path.open('r', encoding='utf-8') as file:
+            with path.open("r", encoding="utf-8") as file:
                 # Process each line in the log file
                 for lineno, line in enumerate(file, start=1):
                     # Each entry consists of three fields, separated by pipes
-                    entry_raw = line.strip().split('|', 3)
+                    entry_raw = line.strip().split("|", 3)
 
                     # If we don't get three fields,
                     # log a warning and skip the entry.
                     if len(entry_raw) != 3:
-                        logging.warning(f"Invalid entry in {path}:{lineno}\n"
-                                        f"  {line}")
+                        logging.warning(
+                            f"Invalid entry in {path}:{lineno}\n" f"  {line}"
+                        )
                         continue
 
                     # Create a log entry from the data line.
@@ -185,11 +195,15 @@ class TimeLog:
         # Retrieve the full save path from settings
         logpath = Settings.get_logpath()
         # Write the log out to the file.
-        with logpath.open('w', encoding='utf-8') as file:
+        with logpath.open("w", encoding="utf-8") as file:
             for entry in cls._log.values():
-                file.write((f"{entry.timestamp_as_string()}|"
-                            f"{entry.duration_as_string()}|"
-                            f"{entry.notes}\n"))
+                file.write(
+                    (
+                        f"{entry.timestamp_as_string()}|"
+                        f"{entry.duration_as_string()}|"
+                        f"{entry.notes}\n"
+                    )
+                )
 
     @classmethod
     @timelog_getter

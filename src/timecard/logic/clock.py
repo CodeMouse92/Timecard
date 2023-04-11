@@ -8,7 +8,6 @@ from PySide6.QtCore import QTimer
 
 
 class Clock:
-
     clock = None
     callback_tick = []
 

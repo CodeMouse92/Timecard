@@ -5,18 +5,22 @@ Displays the current log entries and allows deleting or triggering edits
 on them.
 """
 
-from PySide6.QtWidgets import QWidget, QTreeWidget, QGridLayout, QPushButton
-from PySide6.QtWidgets import QTreeWidgetItem
 from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import (
+    QGridLayout,
+    QPushButton,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QWidget,
+)
 
-from timecard.data.timelog import TimeLog
 from timecard.data.settings import Settings
+from timecard.data.timelog import TimeLog
 
 # Datestamp | Duration | Description
 
 
 class LogViewEntry(QTreeWidgetItem):
-
     def __init__(self, entry, *args, **kwargs):
         self.entry = entry
         super().__init__(*args, **kwargs)
@@ -46,9 +50,7 @@ class LogView:
     def build(cls):
         """Build the interface"""
         cls.tree_log.setWhatsThis("The time log.")
-        cls.tree_log.setHeaderLabels(
-            ["Date", "Duration", "Activity"]
-        )
+        cls.tree_log.setHeaderLabels(["Date", "Duration", "Activity"])
         cls.tree_log.setSortingEnabled(True)
         cls.layout.addWidget(cls.tree_log, 0, 0, 3, 3)
         cls.refresh()
@@ -96,12 +98,12 @@ class LogView:
         cls._disconnect_buttons()
 
         cls.btn_delete.setText("Delete")
-        cls.btn_delete.setIcon(QIcon.fromTheme('edit-delete'))
+        cls.btn_delete.setIcon(QIcon.fromTheme("edit-delete"))
         cls.btn_delete.setWhatsThis("Delete the selected log entry.")
         cls.btn_delete.clicked.connect(cls.prompt_delete)
 
         cls.btn_edit.setText("Edit")
-        cls.btn_edit.setIcon(QIcon.fromTheme('document-properties'))
+        cls.btn_edit.setIcon(QIcon.fromTheme("document-properties"))
         cls.btn_edit.setWhatsThis("Edit the selected log entry.")
         cls.btn_edit.clicked.connect(cls.edit)
 
@@ -110,12 +112,12 @@ class LogView:
         cls._disconnect_buttons()
 
         cls.btn_delete.setText("Confirm Delete")
-        cls.btn_delete.setIcon(QIcon.fromTheme('edit-delete'))
+        cls.btn_delete.setIcon(QIcon.fromTheme("edit-delete"))
         cls.btn_delete.setWhatsThis("Delete the selected log entry.")
         cls.btn_delete.clicked.connect(cls.delete)
 
         cls.btn_edit.setText("Keep")
-        cls.btn_edit.setIcon(QIcon.fromTheme('edit-undo'))
+        cls.btn_edit.setIcon(QIcon.fromTheme("edit-undo"))
         cls.btn_edit.setWhatsThis("Keep the selected log entry.")
         cls.btn_edit.clicked.connect(cls.cancel)
 

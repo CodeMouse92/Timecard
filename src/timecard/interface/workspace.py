@@ -4,17 +4,16 @@ Author(s): Jason C. McDonald
 Switches between Views in the application.
 """
 
-from PySide6.QtWidgets import QWidget, QStackedLayout
+from PySide6.QtWidgets import QStackedLayout, QWidget
 
 from timecard.interface.aboutview import AboutView
 from timecard.interface.editview import EditView
 from timecard.interface.logview import LogView
-from timecard.interface.settingsview import SettingsView
 from timecard.interface.quitview import QuitView
+from timecard.interface.settingsview import SettingsView
 
 
 class Workspace:
-
     widget = QWidget()
     layout = QStackedLayout()
     previous = None

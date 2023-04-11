@@ -7,14 +7,13 @@ and state.
 
 from datetime import datetime
 
-from PySide6.QtCore import QDateTime, QDate, QTime, QElapsedTimer
+from PySide6.QtCore import QDate, QDateTime, QElapsedTimer, QTime
 from PySide6.QtWidgets import QLCDNumber
 
 from timecard.logic.clock import Clock
 
 
 class TimeDisplay:
-
     lcd = QLCDNumber(8)
     time = None
     timestamp = None
@@ -31,8 +30,9 @@ class TimeDisplay:
     @classmethod
     def build(cls):
         """Build the time display GUI."""
-        cls.lcd.setWhatsThis("The time elapsed on the current timer. "
-                             "(Hours:Minutes:Seconds)")
+        cls.lcd.setWhatsThis(
+            "The time elapsed on the current timer. " "(Hours:Minutes:Seconds)"
+        )
         cls.show_default()
         cls.lcd.setMinimumSize(0, 100)
         return cls.lcd
@@ -49,7 +49,7 @@ class TimeDisplay:
         # Restore the timestamp.
         cls.timestamp = QDateTime(
             QDate(timestamp.year, timestamp.month, timestamp.day),
-            QTime(timestamp.hour, timestamp.minute, timestamp.second)
+            QTime(timestamp.hour, timestamp.minute, timestamp.second),
         )
         # Restore the duration
         cls.freeze = elapsed
@@ -123,8 +123,7 @@ class TimeDisplay:
 
     @classmethod
     def reset_time(cls, erase=False):
-        """Prepare timer for reset, optionally erasing the last session's time.
-        """
+        """Prepare timer for reset, optionally erasing the last session's time."""
         cls.time = None
         if erase:
             cls.freeze = 0
@@ -145,7 +144,7 @@ class TimeDisplay:
     @classmethod
     def get_time_min(cls):
         """Returns the current elapsed time in truncated minutes."""
-        return (cls.get_time_ms() // 1000 // 60)
+        return cls.get_time_ms() // 1000 // 60
 
     @classmethod
     def get_time(cls):
@@ -167,25 +166,27 @@ class TimeDisplay:
     @classmethod
     def get_timestamp(cls):
         """Returns the timestamp of the last timer as a datetime object."""
-        timestamp = datetime(cls.timestamp.date().year(),
-                             cls.timestamp.date().month(),
-                             cls.timestamp.date().day(),
-                             cls.timestamp.time().hour(),
-                             cls.timestamp.time().minute(),
-                             cls.timestamp.time().second()
-                             )
+        timestamp = datetime(
+            cls.timestamp.date().year(),
+            cls.timestamp.date().month(),
+            cls.timestamp.date().day(),
+            cls.timestamp.time().hour(),
+            cls.timestamp.time().minute(),
+            cls.timestamp.time().second(),
+        )
         return timestamp
 
     @classmethod
     def get_timestamp_string(cls):
         """Returns the timestamp as a storable string."""
-        return (f"{cls.timestamp.date().year()}:"
-                f"{cls.timestamp.date().month()}:"
-                f"{cls.timestamp.date().day()}:"
-                f"{cls.timestamp.time().hour()}:"
-                f"{cls.timestamp.time().minute()}:"
-                f"{cls.timestamp.time().second()}"
-                )
+        return (
+            f"{cls.timestamp.date().year()}:"
+            f"{cls.timestamp.date().month()}:"
+            f"{cls.timestamp.date().day()}:"
+            f"{cls.timestamp.time().hour()}:"
+            f"{cls.timestamp.time().minute()}:"
+            f"{cls.timestamp.time().second()}"
+        )
 
     @classmethod
     def connect(cls, on_tick=None, on_minute=None, on_stop=None):

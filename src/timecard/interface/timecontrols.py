@@ -4,13 +4,13 @@ Author(s): Jason C. McDonald
 Controls the timer and saves the time entries to the log.
 """
 
-from PySide6.QtWidgets import QPushButton, QHBoxLayout, QWidget
 from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QHBoxLayout, QPushButton, QWidget
 
-from timecard.interface.notes import Notes
-from timecard.interface.timedisplay import TimeDisplay
 from timecard.data.timelog import TimeLog
 from timecard.interface.logview import LogView
+from timecard.interface.notes import Notes
+from timecard.interface.timedisplay import TimeDisplay
 
 
 class TimeControls:
@@ -38,8 +38,15 @@ class TimeControls:
         return cls.widget
 
     @classmethod
-    def connect(cls, on_start=None, on_resume=None, on_pause=None,
-                on_stop=None, on_save=None, on_reset=None):
+    def connect(
+        cls,
+        on_start=None,
+        on_resume=None,
+        on_pause=None,
+        on_stop=None,
+        on_save=None,
+        on_reset=None,
+    ):
         """Connect callbacks to the time control events.
         Any callbacks not specified will not be overridden.
         (See disconnect() for removing callbacks.)
@@ -71,8 +78,15 @@ class TimeControls:
             cls.reset_callback.append(on_reset)
 
     @classmethod
-    def disconnect(cls, on_start=None, on_resume=None, on_pause=None,
-                   on_stop=None, on_save=None, on_reset=None):
+    def disconnect(
+        cls,
+        on_start=None,
+        on_resume=None,
+        on_pause=None,
+        on_stop=None,
+        on_save=None,
+        on_reset=None,
+    ):
         """Disconnect functions from the time control events.
         Pass the function to remove from the callback.
 
@@ -135,7 +149,7 @@ class TimeControls:
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Start")
-        cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-start'))
+        cls.btn_startpause.setIcon(QIcon.fromTheme("media-playback-start"))
         cls.btn_startpause.setWhatsThis("Start a new timer.")
         cls.btn_startpause.clicked.connect(cls.start)
 
@@ -151,11 +165,11 @@ class TimeControls:
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Reset")
-        cls.btn_startpause.setIcon(QIcon.fromTheme('edit-undo'))
+        cls.btn_startpause.setIcon(QIcon.fromTheme("edit-undo"))
         cls.btn_startpause.setWhatsThis("Discard time and reset timer.")
         cls.btn_startpause.clicked.connect(cls.prompt_reset)
 
-        cls.btn_stopsave.setIcon(QIcon.fromTheme('document-save'))
+        cls.btn_stopsave.setIcon(QIcon.fromTheme("document-save"))
         cls.btn_stopsave.setWhatsThis("Save time and notes to log.")
         cls.btn_stopsave.setText("Save")
         cls.btn_stopsave.setEnabled(True)
@@ -168,11 +182,11 @@ class TimeControls:
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Confirm Reset")
-        cls.btn_startpause.setIcon(QIcon.fromTheme('edit-undo'))
+        cls.btn_startpause.setIcon(QIcon.fromTheme("edit-undo"))
         cls.btn_startpause.setWhatsThis("Discard time and reset timer.")
         cls.btn_startpause.clicked.connect(cls.reset)
 
-        cls.btn_stopsave.setIcon(QIcon.fromTheme('document-save'))
+        cls.btn_stopsave.setIcon(QIcon.fromTheme("document-save"))
         cls.btn_stopsave.setWhatsThis("Save time and notes to log.")
         cls.btn_stopsave.setText("Save")
         cls.btn_stopsave.setEnabled(True)
@@ -185,14 +199,15 @@ class TimeControls:
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Resume")
-        cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-start'))
+        cls.btn_startpause.setIcon(QIcon.fromTheme("media-playback-start"))
         cls.btn_startpause.setWhatsThis("Resume timer from current time.")
         cls.btn_startpause.clicked.connect(cls.resume)
 
         cls.btn_stopsave.setText("Confirm Stop")
-        cls.btn_stopsave.setIcon(QIcon.fromTheme('media-playback-stop'))
-        cls.btn_stopsave.setWhatsThis("Stop timer. Timer must be stopped "
-                                      "before you can save.")
+        cls.btn_stopsave.setIcon(QIcon.fromTheme("media-playback-stop"))
+        cls.btn_stopsave.setWhatsThis(
+            "Stop timer. Timer must be stopped " "before you can save."
+        )
         cls.btn_stopsave.clicked.connect(cls.stop)
         cls.btn_stopsave.setEnabled(True)
 
@@ -203,14 +218,15 @@ class TimeControls:
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Pause")
-        cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-pause'))
+        cls.btn_startpause.setIcon(QIcon.fromTheme("media-playback-pause"))
         cls.btn_startpause.setWhatsThis("Pause timer.")
         cls.btn_startpause.clicked.connect(cls.pause)
 
         cls.btn_stopsave.setText("Stop")
-        cls.btn_stopsave.setIcon(QIcon.fromTheme('media-playback-stop'))
-        cls.btn_stopsave.setWhatsThis("Stop timer. Timer must be stopped "
-                                      "before you can save.")
+        cls.btn_stopsave.setIcon(QIcon.fromTheme("media-playback-stop"))
+        cls.btn_stopsave.setWhatsThis(
+            "Stop timer. Timer must be stopped " "before you can save."
+        )
         cls.btn_stopsave.clicked.connect(cls.prompt_stop)
         cls.btn_stopsave.setEnabled(True)
 
@@ -221,14 +237,15 @@ class TimeControls:
         cls._disconnect_buttons()
 
         cls.btn_startpause.setText("Resume")
-        cls.btn_startpause.setIcon(QIcon.fromTheme('media-playback-start'))
+        cls.btn_startpause.setIcon(QIcon.fromTheme("media-playback-start"))
         cls.btn_startpause.setWhatsThis("Resume timer from current time.")
         cls.btn_startpause.clicked.connect(cls.resume)
         cls.btn_stopsave.setText("Stop")
 
-        cls.btn_stopsave.setIcon(QIcon.fromTheme('media-playback-stop'))
-        cls.btn_stopsave.setWhatsThis("Stop timer. Timer must be stopped "
-                                      "before you can save.")
+        cls.btn_stopsave.setIcon(QIcon.fromTheme("media-playback-stop"))
+        cls.btn_stopsave.setWhatsThis(
+            "Stop timer. Timer must be stopped " "before you can save."
+        )
         cls.btn_stopsave.clicked.connect(cls.prompt_stop)
         cls.btn_stopsave.setEnabled(True)
 

@@ -6,12 +6,21 @@ Allows viewing and editing application settings.
 
 from datetime import datetime
 
-from PySide6.QtWidgets import QWidget, QGridLayout, QHBoxLayout, QVBoxLayout
-from PySide6.QtWidgets import QLabel, QCheckBox, QLineEdit, QPushButton, QSpinBox
 from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import (
+    QCheckBox,
+    QGridLayout,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QPushButton,
+    QSpinBox,
+    QVBoxLayout,
+    QWidget,
+)
 
-from timecard.data.timelog import TimeLog
 from timecard.data.settings import Settings
+from timecard.data.timelog import TimeLog
 from timecard.interface.focus import Focus
 
 
@@ -37,8 +46,8 @@ class SettingsView:
     lbl_datefmt_test = QLabel()
     chk_decdur = QCheckBox("Show Duration as Decimal")
 
-    btn_revert = QPushButton(QIcon.fromTheme('edit-undo'), "Revert")
-    btn_save = QPushButton(QIcon.fromTheme('document-save'), "Save")
+    btn_revert = QPushButton(QIcon.fromTheme("edit-undo"), "Revert")
+    btn_save = QPushButton(QIcon.fromTheme("document-save"), "Save")
 
     reload_log = False
     reload_focus = False
@@ -46,14 +55,20 @@ class SettingsView:
     @classmethod
     def build(cls):
         """Build the interface."""
-        cls.lbl_focus.setWhatsThis("Periodic popup notifications to ensure you're focused.")
-        cls.spn_focus.setWhatsThis("How many minutes between focus reminders (0 to disable).")
+        cls.lbl_focus.setWhatsThis(
+            "Periodic popup notifications to ensure you're focused."
+        )
+        cls.spn_focus.setWhatsThis(
+            "How many minutes between focus reminders (0 to disable)."
+        )
         cls.spn_focus.setSuffix(" min")
         cls.spn_focus.setRange(0, 60)
         cls.spn_focus.setSingleStep(5)
         cls.spn_focus.valueChanged.connect(cls.edited)
         cls.spn_focus.valueChanged.connect(cls.focus_edited)
-        cls.chk_focus_random.setWhatsThis("Randomize reminders within 20% of selected time.")
+        cls.chk_focus_random.setWhatsThis(
+            "Randomize reminders within 20% of selected time."
+        )
         cls.chk_focus_random.stateChanged.connect(cls.edited)
         cls.chk_focus_random.stateChanged.connect(cls.focus_edited)
 
@@ -67,24 +82,31 @@ class SettingsView:
         cls.txt_logname.setWhatsThis("The filename for the log.")
 
         cls.chk_persist.stateChanged.connect(cls.edited)
-        cls.chk_persist.setWhatsThis("When window is closed, keep application "
-                                     "running in notification area. WARNING: "
-                                     "If unchecked, closing the window will "
-                                     "immediately quit, discarding any "
-                                     "unsaved time.")
+        cls.chk_persist.setWhatsThis(
+            "When window is closed, keep application "
+            "running in notification area. WARNING: "
+            "If unchecked, closing the window will "
+            "immediately quit, discarding any "
+            "unsaved time."
+        )
 
         cls.txt_datefmt.textEdited.connect(cls.edited)
         cls.txt_datefmt.textEdited.connect(cls.datefmt_edited)
-        cls.lbl_datefmt.setWhatsThis("The format for the timestamp. "
-                                     "Uses 1989 C standard.")
-        cls.txt_datefmt.setWhatsThis("The format for the timestamp. "
-                                     "Uses 1989 C standard.")
-        cls.lbl_datefmt_test.setWhatsThis("Preview of the timestamp format. "
-                                          "Displays: 02 Jan 1998 14:30:25")
+        cls.lbl_datefmt.setWhatsThis(
+            "The format for the timestamp. " "Uses 1989 C standard."
+        )
+        cls.txt_datefmt.setWhatsThis(
+            "The format for the timestamp. " "Uses 1989 C standard."
+        )
+        cls.lbl_datefmt_test.setWhatsThis(
+            "Preview of the timestamp format. " "Displays: 02 Jan 1998 14:30:25"
+        )
 
         cls.chk_decdur.stateChanged.connect(cls.edited)
-        cls.chk_decdur.setWhatsThis("Display duration in log as decimal "
-                                    "instead of HH:MM:SS. (Ignores seconds.)")
+        cls.chk_decdur.setWhatsThis(
+            "Display duration in log as decimal "
+            "instead of HH:MM:SS. (Ignores seconds.)"
+        )
 
         cls.grid_layout.addWidget(cls.lbl_focus, 0, 0)
         cls.grid_layout.addWidget(cls.spn_focus, 0, 1)
@@ -175,7 +197,9 @@ class SettingsView:
     @classmethod
     def save(cls):
         """Save the new settings."""
-        Settings.set_focus(cls.spn_focus.value(), cls.chk_focus_random.isChecked())
+        Settings.set_focus(
+            cls.spn_focus.value(), cls.chk_focus_random.isChecked()
+        )
         Settings.set_logdir(cls.txt_logdir.text())
         Settings.set_logname(cls.txt_logname.text())
         Settings.set_persist(cls.chk_persist.isChecked())

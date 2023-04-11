@@ -1,3 +1,11 @@
 [build-system]
 requires = ["setuptools>=40.8.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.black]
+line-length = 80
+
+[tool.isort]
+profile = "black"
+src_paths = ["src"]
+extend_skip_glob = ["*venv*/*", "docs/*", "share/*"]

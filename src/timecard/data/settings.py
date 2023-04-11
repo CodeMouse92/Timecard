@@ -8,32 +8,37 @@ import functools
 import logging
 import os
 from pathlib import Path
+
 from appdirs import user_config_dir, user_data_dir
 
 
 def settings_getter(func):
     """Ensure settings are loaded appropriately."""
+
     @functools.wraps(func)
     def wrapper(*args, **vargs):
         Settings.load()
         return func(*args, **vargs)
+
     return wrapper
 
 
 def settings_setter(func):
     """Ensure settings are loaded from and saved to file appropriately."""
+
     @functools.wraps(func)
     def wrapper(*args, **vargs):
         Settings.load()
         r = func(*args, **vargs)
         Settings.save()
         return r
+
     return wrapper
 
 
 class Settings:
     _settings = None
-    _settings_path = Path(user_config_dir('timecard'), "settings.conf")
+    _settings_path = Path(user_config_dir("timecard"), "settings.conf")
     # Other places to read the settings from (will not save to)
     _settings_path_alts = (Path(Path.home(), ".timecardrc"),)
     # Whether we loaded from an alt location
@@ -74,17 +79,19 @@ class Settings:
 
         logging.debug(f"Loading settings from {str(settings_path)}")
 
-        with settings_path.open('r', encoding='utf-8') as file:
+        with settings_path.open("r", encoding="utf-8") as file:
             for lineno, line in enumerate(file, start=1):
                 try:
-                    if line[0] == '#':
+                    if line[0] == "#":
                         # Line is a comment, ignore.
                         continue
                     # Split line around the = operator
-                    k, v = (s.strip() for s in line.split(sep='=', maxsplit=2))
+                    k, v = (s.strip() for s in line.split(sep="=", maxsplit=2))
                 except ValueError:
-                    logging.warning(f"Invalid entry in {settings_path}:{lineno}\n"
-                                    f"  {line}")
+                    logging.warning(
+                        f"Invalid entry in {settings_path}:{lineno}\n"
+                        f"  {line}"
+                    )
                 else:
                     cls._settings[k] = v
 
@@ -95,17 +102,17 @@ class Settings:
         """
         cls._settings = dict()
 
-        cls._settings['datefmt'] = cls.get_datefmt()
-        cls._settings['decdur'] = str(cls.get_decdur())
-        cls._settings['logdir'] = cls.get_logdir_str()
-        cls._settings['logname'] = cls.get_logname()
-        cls._settings['persist'] = str(cls.get_persist())
+        cls._settings["datefmt"] = cls.get_datefmt()
+        cls._settings["decdur"] = str(cls.get_decdur())
+        cls._settings["logdir"] = cls.get_logdir_str()
+        cls._settings["logname"] = cls.get_logname()
+        cls._settings["persist"] = str(cls.get_persist())
 
     @classmethod
     def save(cls):
         """Save the log to file."""
         cls._settings_path.parent.mkdir(parents=True, exist_ok=True)
-        with cls._settings_path.open('w', encoding='utf-8') as file:
+        with cls._settings_path.open("w", encoding="utf-8") as file:
             for key, value in cls._settings.items():
                 file.write(f"{key}={value}\n")
         # Clean up alternatives
@@ -117,12 +124,12 @@ class Settings:
         """Rewrite alternative files to discourage their continued use."""
         message = [
             "# Your settings have automatically been migrated!\n",
-            f"# See {cls._settings_path}\n"
+            f"# See {cls._settings_path}\n",
         ]
         for settings_path in cls._settings_path_alts:
             if not settings_path.exists():
                 continue
-            with settings_path.open('r') as file:
+            with settings_path.open("r") as file:
                 original = file.readlines()
 
             # If file was already processed by this instance...
@@ -133,7 +140,7 @@ class Settings:
                 original = original[2:]
 
             # Prepend processing comments
-            with settings_path.open('w', encoding='utf-8') as file:
+            with settings_path.open("w", encoding="utf-8") as file:
                 file.writelines(message)
                 file.writelines(original)
 
@@ -142,10 +149,10 @@ class Settings:
     def get_logdir_str(cls):
         """Get the log directory path as a string."""
         try:
-            logdir = cls._settings['logdir']
+            logdir = cls._settings["logdir"]
             return os.path.normpath(logdir)
         except KeyError:
-            return str(Path(user_data_dir('timecard')))
+            return str(Path(user_data_dir("timecard")))
 
     @classmethod
     @settings_getter
@@ -158,14 +165,14 @@ class Settings:
     @settings_setter
     def set_logdir(cls, logdir):
         """Set the log path."""
-        cls._settings['logdir'] = logdir
+        cls._settings["logdir"] = logdir
 
     @classmethod
     @settings_getter
     def get_logname(cls):
         """Get the log filename."""
         try:
-            return cls._settings['logname']
+            return cls._settings["logname"]
         except KeyError:
             return "time.log"
 
@@ -173,7 +180,7 @@ class Settings:
     @settings_setter
     def set_logname(cls, logname):
         """Set the log path."""
-        cls._settings['logname'] = logname
+        cls._settings["logname"] = logname
 
     @classmethod
     @settings_getter
@@ -186,7 +193,7 @@ class Settings:
     def get_persist(cls):
         """Returns whether closing the window should hide it or quit."""
         try:
-            return cls._settings['persist'] != 'False'
+            return cls._settings["persist"] != "False"
         except KeyError:
             return True
 
@@ -194,21 +201,21 @@ class Settings:
     @settings_setter
     def set_persist(cls, persist):
         """Sets persistence."""
-        cls._settings['persist'] = str(persist)
+        cls._settings["persist"] = str(persist)
 
     @classmethod
     @settings_getter
     def get_datefmt(cls):
         """Returns timestamp format (should be in 1989 C standard)."""
         try:
-            return cls._settings['datefmt']
+            return cls._settings["datefmt"]
         except KeyError:
             return "%Y-%m-%d %H:%M:%S"
 
     @classmethod
     @settings_setter
     def set_datefmt(cls, datefmt):
-        cls._settings['datefmt'] = datefmt
+        cls._settings["datefmt"] = datefmt
 
     @classmethod
     @settings_getter
@@ -217,7 +224,7 @@ class Settings:
         or HH:MM;SS.
         """
         try:
-            return cls._settings['decdur'] != 'False'
+            return cls._settings["decdur"] != "False"
         except KeyError:
             return False
 
@@ -225,7 +232,7 @@ class Settings:
     @settings_setter
     def set_decdur(cls, decdur):
         """Sets whether duration should be displayed as decimal."""
-        cls._settings['decdur'] = str(decdur)
+        cls._settings["decdur"] = str(decdur)
 
     @classmethod
     @settings_getter
@@ -233,19 +240,19 @@ class Settings:
         """Returns focus reminder interval and randomization."""
         try:
             return (
-                int(cls._settings['focus']),
-                (cls._settings['focus_randomize'] != 'False')
+                int(cls._settings["focus"]),
+                (cls._settings["focus_randomize"] != "False"),
             )
         except KeyError:
             # Use default
             return (0, False)
         except ValueError:
             # The integer couldn't be read, but the boolean is good.
-            return (0, (cls._settings['focus_randomize'] != 'False'))
+            return (0, (cls._settings["focus_randomize"] != "False"))
 
     @classmethod
     @settings_setter
     def set_focus(cls, interval, randomize):
         """Sets focus reminder settings."""
-        cls._settings['focus'] = str(interval)
-        cls._settings['focus_randomize'] = str(randomize)
+        cls._settings["focus"] = str(interval)
+        cls._settings["focus_randomize"] = str(randomize)

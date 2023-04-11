@@ -4,12 +4,11 @@ Author(s): Jason C. McDonald
 Allows switching between major application views.
 """
 
-from PySide6.QtWidgets import QPushButton, QHBoxLayout, QWidget
-from PySide6.QtWidgets import QWhatsThis
 from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QHBoxLayout, QPushButton, QWhatsThis, QWidget
 
-from timecard.interface.workspace import Workspace
 from timecard.interface.quitview import QuitView
+from timecard.interface.workspace import Workspace
 
 
 class AppControls:
@@ -66,22 +65,22 @@ class AppControls:
         cls._disconnect_buttons()
 
         cls.btn_settings.setText("Settings")
-        cls.btn_settings.setIcon(QIcon.fromTheme('preferences-system'))
+        cls.btn_settings.setIcon(QIcon.fromTheme("preferences-system"))
         cls.btn_settings.setWhatsThis("View and edit settings.")
         cls.btn_settings.clicked.connect(cls.settings)
 
         cls.btn_about.setText("About")
-        cls.btn_about.setIcon(QIcon.fromTheme('help-about'))
+        cls.btn_about.setIcon(QIcon.fromTheme("help-about"))
         cls.btn_about.setWhatsThis("View Timecard credits and license.")
         cls.btn_about.clicked.connect(cls.about)
 
         cls.btn_help.setText("Help")
-        cls.btn_help.setIcon(QIcon.fromTheme('help-contents'))
+        cls.btn_help.setIcon(QIcon.fromTheme("help-contents"))
         cls.btn_help.setWhatsThis("Display help for a clicked item.")
         cls.btn_help.clicked.connect(cls.help)
 
         cls.btn_quit.setText("Quit")
-        cls.btn_quit.setIcon(QIcon.fromTheme('application-exit'))
+        cls.btn_quit.setIcon(QIcon.fromTheme("application-exit"))
         cls.btn_quit.setWhatsThis("Quit Timecard.")
         cls.btn_quit.clicked.connect(cls.quit)
 
@@ -91,22 +90,22 @@ class AppControls:
         cls._disconnect_buttons()
 
         cls.btn_settings.setText("Log")
-        cls.btn_settings.setIcon(QIcon.fromTheme('go-home'))
+        cls.btn_settings.setIcon(QIcon.fromTheme("go-home"))
         cls.btn_settings.setWhatsThis("Return to time log.")
         cls.btn_settings.clicked.connect(cls.default)
 
         cls.btn_about.setText("About")
-        cls.btn_about.setIcon(QIcon.fromTheme('help-about'))
+        cls.btn_about.setIcon(QIcon.fromTheme("help-about"))
         cls.btn_about.setWhatsThis("View Timecard credits and license.")
         cls.btn_about.clicked.connect(cls.about)
 
         cls.btn_help.setText("Help")
-        cls.btn_help.setIcon(QIcon.fromTheme('help-contents'))
+        cls.btn_help.setIcon(QIcon.fromTheme("help-contents"))
         cls.btn_help.setWhatsThis("Display help for a clicked item.")
         cls.btn_help.clicked.connect(cls.help)
 
         cls.btn_quit.setText("Quit")
-        cls.btn_quit.setIcon(QIcon.fromTheme('application-exit'))
+        cls.btn_quit.setIcon(QIcon.fromTheme("application-exit"))
         cls.btn_quit.setWhatsThis("Quit Timecard.")
         cls.btn_quit.clicked.connect(cls.quit)
 
@@ -116,22 +115,22 @@ class AppControls:
         cls._disconnect_buttons()
 
         cls.btn_settings.setText("Settings")
-        cls.btn_settings.setIcon(QIcon.fromTheme('preferences-system'))
+        cls.btn_settings.setIcon(QIcon.fromTheme("preferences-system"))
         cls.btn_settings.setWhatsThis("View and edit settings.")
         cls.btn_settings.clicked.connect(cls.settings)
 
         cls.btn_about.setText("Log")
-        cls.btn_about.setIcon(QIcon.fromTheme('go-home'))
+        cls.btn_about.setIcon(QIcon.fromTheme("go-home"))
         cls.btn_about.setWhatsThis("Return to time log.")
         cls.btn_about.clicked.connect(cls.default)
 
         cls.btn_help.setText("Help")
-        cls.btn_help.setIcon(QIcon.fromTheme('help-contents'))
+        cls.btn_help.setIcon(QIcon.fromTheme("help-contents"))
         cls.btn_help.setWhatsThis("Display help for a clicked item.")
         cls.btn_help.clicked.connect(cls.help)
 
         cls.btn_quit.setText("Quit")
-        cls.btn_quit.setIcon(QIcon.fromTheme('application-exit'))
+        cls.btn_quit.setIcon(QIcon.fromTheme("application-exit"))
         cls.btn_quit.setWhatsThis("Quit Timecard.")
         cls.btn_quit.clicked.connect(cls.quit)
 
@@ -141,22 +140,22 @@ class AppControls:
         cls._disconnect_buttons()
 
         cls.btn_settings.setText("Settings")
-        cls.btn_settings.setIcon(QIcon.fromTheme('preferences-system'))
+        cls.btn_settings.setIcon(QIcon.fromTheme("preferences-system"))
         cls.btn_settings.setWhatsThis("View and edit settings.")
         cls.btn_settings.clicked.connect(cls.settings)
 
         cls.btn_about.setText("About")
-        cls.btn_about.setIcon(QIcon.fromTheme('help-about'))
+        cls.btn_about.setIcon(QIcon.fromTheme("help-about"))
         cls.btn_about.setWhatsThis("View Timecard credits and license.")
         cls.btn_about.clicked.connect(cls.about)
 
         cls.btn_help.setText("Help")
-        cls.btn_help.setIcon(QIcon.fromTheme('help-contents'))
+        cls.btn_help.setIcon(QIcon.fromTheme("help-contents"))
         cls.btn_help.setWhatsThis("Display help for a clicked item.")
         cls.btn_help.clicked.connect(cls.help)
 
         cls.btn_quit.setText("Log")
-        cls.btn_quit.setIcon(QIcon.fromTheme('go-home'))
+        cls.btn_quit.setIcon(QIcon.fromTheme("go-home"))
         cls.btn_quit.setWhatsThis("Return to time log.")
         cls.btn_quit.clicked.connect(cls.default)
 

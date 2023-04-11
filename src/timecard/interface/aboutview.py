@@ -6,10 +6,10 @@ Displays "about" data for Timecard.
 
 import os
 from pathlib import Path
-from pkg_resources import resource_filename
 
+from pkg_resources import resource_filename
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QTextEdit
+from PySide6.QtWidgets import QTextEdit, QVBoxLayout, QWidget
 
 
 class AboutView:
@@ -23,17 +23,18 @@ class AboutView:
         cls.lbl_info = QTextEdit()
 
         about_path = resource_filename(
-            'timecard',
-            os.path.join('resources', 'about.txt')
+            "timecard", os.path.join("resources", "about.txt")
         )
         about_file = Path(about_path)
         try:
-            with about_file.open('r', encoding='utf-8') as file:
+            with about_file.open("r", encoding="utf-8") as file:
                 cls.lbl_info.setPlainText(file.read())
         except FileNotFoundError:
-            cls.lbl_info.setPlainText("TIMECARD\n"
-                                      "Created by Jason C. McDonald\n\n"
-                                      "ERROR: `resources/about.txt` missing")
+            cls.lbl_info.setPlainText(
+                "TIMECARD\n"
+                "Created by Jason C. McDonald\n\n"
+                "ERROR: `resources/about.txt` missing"
+            )
         cls.lbl_info.setWhatsThis("Credits and license for Timecard.")
         cls.lbl_info.setReadOnly(True)
         cls.lbl_info.setAlignment(Qt.AlignCenter)

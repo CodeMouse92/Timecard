@@ -7,33 +7,33 @@ crash or accidental quit.
 
 import logging
 from datetime import datetime
-from time import time, sleep
-from appdirs import user_cache_dir
 from pathlib import Path
+from time import sleep, time
 
-from timecard.interface.timedisplay import TimeDisplay
+from appdirs import user_cache_dir
+
 from timecard.interface.notes import Notes
 from timecard.interface.timecontrols import TimeControls
+from timecard.interface.timedisplay import TimeDisplay
 
 
 class Backup:
-
     _active = False
     # use the system epoch as a unique instance identifier
-    _backup_dir = Path(user_cache_dir('timecard'))
+    _backup_dir = Path(user_cache_dir("timecard"))
     _instance_id = str(int(time()))
-    _storage = _backup_dir / f'{_instance_id}.backup'
-    _staging = _backup_dir / f'{_instance_id}.backup~'
-    _query = _backup_dir / f'{_instance_id}.query'
+    _storage = _backup_dir / f"{_instance_id}.backup"
+    _staging = _backup_dir / f"{_instance_id}.backup~"
+    _query = _backup_dir / f"{_instance_id}.query"
 
     @classmethod
     def check_for_recall(cls):
         """Check if there is a backup that needs to be grabbed.
         If there are multiple backups, grab one (doesn't matter which)."""
         try:
-            for backup in cls._backup_dir.glob('*.backup'):
+            for backup in cls._backup_dir.glob("*.backup"):
                 # Check for signs of life
-                query = cls._backup_dir / f'{backup.stem}.query'
+                query = cls._backup_dir / f"{backup.stem}.query"
                 # Create a query file to see if this instance ID is alive.
                 query.touch(exist_ok=True)
                 # Wait a literal second to let any other instances "respond"
@@ -43,11 +43,13 @@ class Backup:
                     # In that case, this one is occupied. Next!
                     continue
 
-                with backup.open('r') as file:
+                with backup.open("r") as file:
                     recovered = [s.strip() for s in file.readlines()]
 
                     # Attempt to restore the recovered data.
-                    timestamp = datetime(*(int(v) for v in recovered[0].split(':')))
+                    timestamp = datetime(
+                        *(int(v) for v in recovered[0].split(":"))
+                    )
                     duration = int(recovered[1])
                     TimeDisplay.restore_from_backup(timestamp, duration)
                     notes = recovered[2]
@@ -81,11 +83,11 @@ class Backup:
             data = [
                 TimeDisplay.get_timestamp_string() + "\n",
                 TimeDisplay.get_time_ms_string() + "\n",
-                Notes.get_text() + "\n"
+                Notes.get_text() + "\n",
             ]
 
             # Write data to staging file
-            with cls._staging.open('w') as file:
+            with cls._staging.open("w") as file:
                 file.writelines(data)
             cls._staging.replace(cls._storage)  # Move into place
 

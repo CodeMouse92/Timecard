@@ -7,10 +7,10 @@ so it should not rely on any other module in the interface subpackage.
 
 import logging
 import os
-from pkg_resources import resource_filename
 
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
+from pkg_resources import resource_filename
 from PySide6.QtGui import QIcon
+from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
 
 from timecard.data.settings import Settings
 
@@ -31,8 +31,7 @@ class App:
     layout = QVBoxLayout()
 
     icon_path = resource_filename(
-        'timecard',
-        os.path.join('resources', 'timecard.svg')
+        "timecard", os.path.join("resources", "timecard.svg")
     )
     icon = QIcon(icon_path)
 
@@ -53,8 +52,8 @@ class App:
         """Construct the application."""
         logging.debug("Building application.")
         cls.app.setApplicationName("Timecard")
-        cls.app.setApplicationVersion('2.1.0')
-        cls.app.setDesktopFileName('com.codemouse92.timecard')
+        cls.app.setApplicationVersion("2.1.0")
+        cls.app.setDesktopFileName("com.codemouse92.timecard")
         cls.app.setWindowIcon(cls.icon)
 
         logging.debug("Building main window.")

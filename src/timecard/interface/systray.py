@@ -4,8 +4,8 @@ Author(s): Jason C. McDonald
 The application system tray and its menu.
 """
 
-from PySide6.QtWidgets import QMenu, QSystemTrayIcon
 from PySide6.QtGui import QAction, QIcon
+from PySide6.QtWidgets import QMenu, QSystemTrayIcon
 
 from timecard.interface.app import App
 from timecard.interface.timecontrols import TimeControls
@@ -37,14 +37,14 @@ class SysTray:
 
         cls.menu.addSeparator()
 
-        cls.act_toggle.setIcon(QIcon.fromTheme('view-restore'))
+        cls.act_toggle.setIcon(QIcon.fromTheme("view-restore"))
         cls.act_toggle.setText("Show/Hide Window")
         cls.act_toggle.triggered.connect(cls.toggle_window)
         cls.menu.addAction(cls.act_toggle)
 
         cls.menu.addSeparator()
 
-        cls.act_quit.setIcon(QIcon.fromTheme('application-exit'))
+        cls.act_quit.setIcon(QIcon.fromTheme("application-exit"))
         cls.act_quit.setText("Quit Timecard")
         cls.act_quit.triggered.connect(cls.quit_app)
         cls.menu.addAction(cls.act_quit)
@@ -59,7 +59,7 @@ class SysTray:
             on_pause=cls.set_mode_paused,
             on_stop=cls.set_mode_save,
             on_save=cls.set_mode_stopped,
-            on_reset=cls.set_mode_stopped
+            on_reset=cls.set_mode_stopped,
         )
         App.connect(on_hide=cls.popup)
 
@@ -87,7 +87,7 @@ class SysTray:
         cls.act_quit.setEnabled(True)
         cls.act_time.setEnabled(True)
         cls.act_time.setText("Start")
-        cls.act_time.setIcon(QIcon.fromTheme('media-playback-start'))
+        cls.act_time.setIcon(QIcon.fromTheme("media-playback-start"))
         cls.act_time.triggered.connect(TimeControls.start)
 
     @classmethod
@@ -96,7 +96,7 @@ class SysTray:
         cls.act_quit.setEnabled(False)
         cls.act_time.setEnabled(True)
         cls.act_time.setText("Pause")
-        cls.act_time.setIcon(QIcon.fromTheme('media-playback-pause'))
+        cls.act_time.setIcon(QIcon.fromTheme("media-playback-pause"))
         cls.act_time.triggered.connect(TimeControls.pause)
 
     @classmethod
@@ -105,7 +105,7 @@ class SysTray:
         cls.act_quit.setEnabled(False)
         cls.act_time.setEnabled(True)
         cls.act_time.setText("Resume")
-        cls.act_time.setIcon(QIcon.fromTheme('media-playback-start'))
+        cls.act_time.setIcon(QIcon.fromTheme("media-playback-start"))
         cls.act_time.triggered.connect(TimeControls.resume)
 
     @classmethod

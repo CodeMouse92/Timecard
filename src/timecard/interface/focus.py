@@ -8,26 +8,25 @@ import random
 import string
 
 from timecard.data.settings import Settings
+from timecard.interface.notes import Notes
 from timecard.interface.systray import SysTray
 from timecard.interface.timedisplay import TimeDisplay
-from timecard.interface.notes import Notes
 
 
 class Focus:
-
     prompt_with_note = [
         string.Template("Are you still focusing on $task?"),
         string.Template("Are you focused on $task?"),
         string.Template("You are tracking time on $task."),
         string.Template("Is $task still your focus?"),
-        string.Template("Hey there! How is $task going?")
+        string.Template("Hey there! How is $task going?"),
     ]
 
     prompt_no_note = [
         "Are you still focusing?",
         "How's your focus right now?",
         "You are still tracking time.",
-        "Hi there! Still focusing okay?"
+        "Hi there! Still focusing okay?",
     ]
 
     interval = 0
@@ -77,7 +76,9 @@ class Focus:
         cls.last_at = TimeDisplay.get_time_min()
         activity = Notes.get_text()
         if activity:
-            message = random.choice(cls.prompt_with_note).substitute(task=activity)
+            message = random.choice(cls.prompt_with_note).substitute(
+                task=activity
+            )
         else:
             message = random.choice(cls.prompt_no_note)
 
