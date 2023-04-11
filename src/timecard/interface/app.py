@@ -13,7 +13,7 @@ from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
 
 from timecard.data.settings import Settings
 
-VERSION = "2.1.0"
+VERSION = "3.0.0"
 
 class MainWindow(QWidget):
     def closeEvent(self, event):

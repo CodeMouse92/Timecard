@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "Timecard-App"
-version = "2.1.0"
+version = "3.0.0"
 description = "Track time beautifully."
 readme = {file = "README.md", content-type = "text/markdown"}
 license = {file = "LICENSE"}
@@ -63,7 +63,7 @@ include = '^/(src|tests)/.+\.pyi?$'
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "2.1.0"
+version = "3.0.0"
 version_files = [
     "pyproject.toml:version",
     "src/timecard/interface/app.py:VERSION",
