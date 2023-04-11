@@ -4,10 +4,9 @@ Author(s): Jason C. McDonald
 Displays "about" data for Timecard.
 """
 
-import os
+from importlib import resources
 from pathlib import Path
 
-from pkg_resources import resource_filename
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QTextEdit, QVBoxLayout, QWidget
 
@@ -22,10 +21,9 @@ class AboutView:
         """Build the interface."""
         cls.lbl_info = QTextEdit()
 
-        about_path = resource_filename(
-            "timecard", os.path.join("resources", "about.txt")
+        about_file = Path(
+            resources.files("timecard.resources").joinpath("about.txt")
         )
-        about_file = Path(about_path)
         try:
             with about_file.open("r", encoding="utf-8") as file:
                 cls.lbl_info.setPlainText(file.read())

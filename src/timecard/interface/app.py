@@ -6,9 +6,8 @@ so it should not rely on any other module in the interface subpackage.
 """
 
 import logging
-import os
+from importlib import resources
 
-from pkg_resources import resource_filename
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget
 
@@ -30,8 +29,8 @@ class App:
     window = MainWindow()
     layout = QVBoxLayout()
 
-    icon_path = resource_filename(
-        "timecard", os.path.join("resources", "timecard.svg")
+    icon_path = str(
+        resources.files("timecard.resources").joinpath("timecard.svg")
     )
     icon = QIcon(icon_path)
 
