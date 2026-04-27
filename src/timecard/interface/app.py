@@ -15,6 +15,7 @@ from timecard.data.settings import Settings
 
 VERSION = "3.0.0"
 
+
 class MainWindow(QWidget):
     def closeEvent(self, event):
         """Hide the window on close."""
