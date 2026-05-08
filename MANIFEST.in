@@ -1,5 +1,5 @@
 exclude .githooks/** .idea/** .vscode/** docs/** share/** tests/**
-exclude tox.ini requirements*.txt *.md INSTALL.sh Makefile *.json *.yaml *.spec .flake8
+exclude tox.ini requirements*.txt *.md INSTALL.sh Makefile *.yaml *.spec .flake8
 exclude setup.cfg.old.1 setup.py.old
 recursive-include src *.py
 include README.md LICENSE

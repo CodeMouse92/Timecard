@@ -1,8 +1,0 @@
-{
-  "com.codemouse92.timecard": {
-        "*": {
-          "finish-args-home-filesystem-access": "Needed to access and modify config files stored in home directory",
-          "finish-args-wildcard-kde-talk-name": "Needed to display notifications in some versions of KDE etc."
-        }
-    }
-}
