@@ -68,20 +68,6 @@ Long live Timecard!
 Timecard is built with PySide6 (Qt 6), so it should run on all modern operating
 systems: Linux, Windows, and macOS.
 
-## Flatpak (Linux)
-
-You can install Timecard from [Flathub](https://flathub.org/apps/details/com.codemouse92.timecard), or any software center which integrates with Flathub.
-
-If you already have Flatpak set up on your system, run this to install:
-
-```
-flatpak install flathub com.codemouse92.timecard
-```
-
-## Windows (Installer)
-
-Coming soon. Stay tuned!
-
 ## Install from Pip
 
 If none of the packages work for you, it's fairly straightforward to install Timecard is through PyPI:
@@ -97,6 +83,9 @@ timecard-app
 ```
 
 If you're on a Linux or FreeBSD system, you can use the copy the files in `share/` into the correct locations to install the program's icon, menu entry, and metadata.
+
+> NOTE: We have dropped the Flatpak format, since recent changes to packaging expectations require significant changes
+> to program implementation. We may look into alternative installation formats later.
 
 # Contribute
 
